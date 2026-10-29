@@ -32,6 +32,7 @@
 </script>
 </head>
 <body>
+<div class="progress" aria-hidden="true"></div>
 
 <header class="nav" id="top">
   <div class="wrap nav-inner">
@@ -95,130 +96,70 @@
     </section>
   </div>
 
-  <!-- PROBLEM -->
-  <section class="section problem">
-    <div class="wrap">
-      <p class="eyebrow" data-i18n="problem.eyebrow">The problem</p>
-      <h2 data-i18n="problem.title">Your business is growing.<br>But every task is still waiting on <span class="accent">you</span>.</h2>
-      <div class="grid-4 problem-grid">
-        <div class="card"><span class="num">01</span><p data-i18n="problem.p1">No time to post every day. One post goes up — the next one comes a week later.</p></div>
-        <div class="card"><span class="num">02</span><p data-i18n="problem.p2">50 messages come in on Messenger. 20 go unanswered — and those 20 go to your competitor.</p></div>
-        <div class="card"><span class="num">03</span><p data-i18n="problem.p3">Orders and customer lists are still typed into Excel by hand.</p></div>
-        <div class="card"><span class="num">04</span><p data-i18n="problem.p4">Hiring a content staff costs a full monthly salary — and the quality still isn't guaranteed.</p></div>
-      </div>
-      <p class="callout" data-i18n="problem.callout"><span class="my">AI က ဒီအလုပ်တွေကို လုပ်နိုင်ပါပြီ။</span> AI can do this work now — but buying a tool isn't enough. You need someone to build it properly for your business.</p>
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Content</span><i></i><span>Chatbots</span><i></i><span>Automation</span><i></i><span>Websites</span><i></i><span>Branding</span><i></i><span>AI Training</span><i></i><span>Software</span><i></i>
+      <span>Content</span><i></i><span>Chatbots</span><i></i><span>Automation</span><i></i><span>Websites</span><i></i><span>Branding</span><i></i><span>AI Training</span><i></i><span>Software</span><i></i>
     </div>
-  </section>
+  </div>
 
-  <!-- WAYS -->
+  <!-- PROBLEM -->
   <section class="section">
     <div class="wrap">
-      <p class="eyebrow" data-i18n="ways.eyebrow">Who we are</p>
-      <h2 data-i18n="ways.title">Three ways we work with you</h2>
-      <div class="grid-3">
-        <div class="card way">
-          <span class="num">01</span>
-          <h3 data-i18n="ways.h1">Done for you</h3>
-          <p data-i18n="ways.p1">Monthly content, ads and chatbot care — like having your own in-house team.</p>
-        </div>
-        <div class="card way">
-          <span class="num">02</span>
-          <h3 data-i18n="ways.h2">Done with you</h3>
-          <p data-i18n="ways.p2">Websites, branding and automation systems — built project by project.</p>
-        </div>
-        <div class="card way">
-          <span class="num">03</span>
-          <h3 data-i18n="ways.h3">Training</h3>
-          <p data-i18n="ways.p3">AI Diploma and corporate workshops — building AI skills inside your team.</p>
-        </div>
+      <p class="eyebrow" data-i18n="problem.eyebrow">Sound familiar?</p>
+      <h2 data-i18n="problem.title">Growing fast, but <span class="accent">everything</span> still waits on you.</h2>
+      <div class="pain-grid">
+        <div class="pain"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><p data-i18n="problem.p1">No time to post</p></div>
+        <div class="pain"><span class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></svg></span><p data-i18n="problem.p2">Unanswered Messenger chats</p></div>
+        <div class="pain"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></span><p data-i18n="problem.p3">Orders typed by hand</p></div>
+        <div class="pain"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 15h2"/></svg></span><p data-i18n="problem.p4">Costly content staff</p></div>
       </div>
+      <p class="callout" data-i18n="problem.callout">AI can do all of this — <b>we build it for you.</b></p>
     </div>
   </section>
 
   <!-- SERVICES -->
   <section class="section services" id="services">
     <div class="wrap">
-      <p class="eyebrow" data-i18n="svc.eyebrow">Our services</p>
-      <h2 data-i18n="svc.title">Everything your business needs to grow with AI</h2>
-      <div class="svc-list">
-
-        <article class="svc">
-          <span class="num">01</span>
-          <div>
-            <h3>AI Content &amp; Social Media Marketing</h3>
-            <p data-i18n="svc.p1">Stay visible and consistent online — we create and manage your content with AI, in your brand's voice.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c1">
-            <li>Monthly content packages</li><li>Facebook ad campaigns</li><li>Video &amp; reels</li><li>Content strategy</li><li>AI clone videos in Burmese</li>
-          </ul>
+      <p class="eyebrow" data-i18n="svc.eyebrow">What we do</p>
+      <h2 data-i18n="svc.title">Seven ways to grow with AI</h2>
+      <div class="bento">
+        <article class="tile tile-wide">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
+          <h3>AI Content &amp; Social Media</h3>
+          <p data-i18n="svc.p1">Posts, reels and ads in your brand voice — even AI clone videos in Burmese.</p>
         </article>
-
-        <article class="svc">
-          <span class="num">02</span>
-          <div>
-            <h3>AI Chatbots &amp; Customer Service</h3>
-            <p data-i18n="svc.p2">Never miss a customer inquiry — your business answers, takes orders and follows up 24/7, automatically.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c2">
-            <li>Messenger chatbots</li><li>Viber &amp; Telegram bots</li><li>Website chat widgets</li><li>Automated orders &amp; follow-up</li>
-          </ul>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg></span>
+          <h3>AI Chatbots</h3>
+          <p data-i18n="svc.p2">Reply, take orders and follow up 24/7 on Messenger, Viber &amp; Telegram.</p>
         </article>
-
-        <article class="svc">
-          <span class="num">03</span>
-          <div>
-            <h3>AI Workflows &amp; Agentic Automation</h3>
-            <p data-i18n="svc.p3">Put your business on autopilot — AI agents and automated workflows that handle repetitive work for you.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c3">
-            <li>n8n, Make, Zapier</li><li>Sales, support &amp; ops AI agents</li><li>Workflow design &amp; consulting</li><li>CRM, Sheets, ERP integration</li>
-          </ul>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 6h7M18 8.5v7M7.8 7.8l8.4 8.4"/></svg></span>
+          <h3>Automation &amp; AI Agents</h3>
+          <p data-i18n="svc.p3">n8n, Make &amp; Zapier workflows that do the repetitive work.</p>
         </article>
-
-        <article class="svc">
-          <span class="num">04</span>
-          <div>
-            <h3>Website Development</h3>
-            <p data-i18n="svc.p4">Your professional home online — websites built to win trust and turn visitors into customers.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c4">
-            <li>Business websites</li><li>Portfolios</li><li>E-commerce stores</li><li>Campaign landing pages</li><li>Maintenance &amp; hosting</li>
-          </ul>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M3 8h18"/></svg></span>
+          <h3>Websites</h3>
+          <p data-i18n="svc.p4">Sites and online stores that turn visitors into customers.</p>
         </article>
-
-        <article class="svc">
-          <span class="num">05</span>
-          <div>
-            <h3>Branding &amp; Design</h3>
-            <p data-i18n="svc.p5">Look professional and memorable everywhere your customers see you.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c5">
-            <li>Logo &amp; brand identity</li><li>Social media templates</li><li>Company profiles &amp; brochures</li><li>Packaging design</li>
-          </ul>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.4.4-2.5 1.8-2.5H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg></span>
+          <h3>Branding &amp; Design</h3>
+          <p data-i18n="svc.p5">Logos, templates and packaging people remember.</p>
         </article>
-
-        <article class="svc">
-          <span class="num">06</span>
-          <div>
-            <h3>AI Training &amp; Workshops</h3>
-            <p data-i18n="svc.p6">Build real AI skills inside your business — practical, hands-on, made for Myanmar business owners.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c6">
-            <li>AI Diploma for business owners</li><li>Corporate team workshops</li><li>1-on-1 coaching</li><li>Online courses</li>
-          </ul>
+        <article class="tile">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6"/></svg></span>
+          <h3>AI Training</h3>
+          <p data-i18n="svc.p6">AI Diploma, team workshops and 1-on-1 coaching.</p>
         </article>
-
-        <article class="svc">
-          <span class="num">07</span>
-          <div>
-            <h3>SaaS &amp; Digital Solutions</h3>
-            <p data-i18n="svc.p7">The right software for your business — international AI tools and custom-built systems, with full setup support.</p>
-          </div>
-          <ul class="chips" data-i18n="svc.c7">
-            <li>ChatGPT, Claude &amp; AI tool subscriptions</li><li>Canva Pro &amp; design tools</li><li>Our own SaaS products</li><li>ERP &amp; Odoo implementation</li>
-          </ul>
+        <article class="tile tile-wide">
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+          <h3>Software &amp; ERP</h3>
+          <p data-i18n="svc.p7">ChatGPT, Claude &amp; Canva subscriptions, our own SaaS, and Odoo / ERP setup.</p>
         </article>
-
       </div>
     </div>
   </section>
@@ -227,28 +168,12 @@
   <section class="section" id="why">
     <div class="wrap">
       <p class="eyebrow" data-i18n="why.eyebrow">Why Desyners</p>
-      <h2 data-i18n="why.title">Built for how Myanmar does business</h2>
-      <div class="grid-2">
-        <div class="card why">
-          <span class="num">01</span>
-          <h3 data-i18n="why.h1">AI content that reads naturally in Burmese</h3>
-          <p data-i18n="why.p1">No translated tone. Written in your brand's voice — customers will think a person wrote it.</p>
-        </div>
-        <div class="card why">
-          <span class="num">02</span>
-          <h3 data-i18n="why.h2">AI clone videos</h3>
-          <p data-i18n="why.p2">Burmese videos with your face and your voice — a month of video without sitting in front of a camera once.</p>
-        </div>
-        <div class="card why">
-          <span class="num">03</span>
-          <h3 data-i18n="why.h3">Facebook-first</h3>
-          <p data-i18n="why.p3">The Myanmar market lives on Facebook. Our systems are built specifically for it.</p>
-        </div>
-        <div class="card why">
-          <span class="num">04</span>
-          <h3 data-i18n="why.h4">We don't just sell tools</h3>
-          <p data-i18n="why.p4">We build it, make it work in practice, and measure the results with you every month.</p>
-        </div>
+      <h2 data-i18n="why.title">Built for Myanmar business</h2>
+      <div class="why-grid">
+        <div class="why"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c-.5 3-3 6-6 7"/><path d="M13 21l4-9 4 9M14.5 18h5"/></svg></span><h3 data-i18n="why.h1">Natural Burmese</h3><p data-i18n="why.p1">AI content that reads like a person wrote it.</p></div>
+        <div class="why"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg></span><h3 data-i18n="why.h2">AI clone video</h3><p data-i18n="why.p2">A month of videos without filming.</p></div>
+        <div class="why"><span class="ico"><svg viewBox="0 0 24 24"><path d="M15 3h-2a4 4 0 0 0-4 4v3H6v4h3v7h4v-7h3l1-4h-4V7.5c0-.5.4-1 1-1h2z"/></svg></span><h3 data-i18n="why.h3">Facebook-first</h3><p data-i18n="why.p3">Built for where Myanmar customers are.</p></div>
+        <div class="why"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M5 16l4-5 4 3 6-8"/><path d="M15 6h4v4"/></svg></span><h3 data-i18n="why.h4">Results, not tools</h3><p data-i18n="why.p4">We build it, run it and report every month.</p></div>
       </div>
     </div>
   </section>
@@ -259,26 +184,9 @@
       <p class="eyebrow" data-i18n="res.eyebrow">Proof</p>
       <h2 data-i18n="res.title">Real results</h2>
       <div class="stats">
-        <div><strong>5</strong><span data-i18n="res.s1">companies running our AI Designer Agent</span></div>
-        <div><strong>1</strong><span data-i18n="res.s2">school trained in AI basics (CLC)</span></div>
+        <div><strong class="count" data-to="5">5</strong><span data-i18n="res.s1">companies run our AI Designer Agent</span></div>
+        <div><strong>CLC</strong><span data-i18n="res.s2">school trained in AI basics</span></div>
         <div><strong>1:1</strong><span data-i18n="res.s3">coaching for business owners</span></div>
-      </div>
-      <div class="grid-3">
-        <article class="card case">
-          <p class="case-tag" data-i18n="res.t1">AI Graphic Designer Agent · 5 companies</p>
-          <p data-i18n="res.a1"><b>Problem:</b> Every design had to be ordered from outside — slow and expensive.</p>
-          <p data-i18n="res.b1"><b>What we did:</b> Built an AI designer agent that produces on-brand graphics, and trained their teams to use it.</p>
-        </article>
-        <article class="card case">
-          <p class="case-tag">CLC School · AI Basic Training</p>
-          <p data-i18n="res.a2"><b>Problem:</b> Teachers and students had never used AI.</p>
-          <p data-i18n="res.b2"><b>What we did:</b> A hands-on AI fundamentals course with practical demos and learning materials.</p>
-        </article>
-        <article class="card case">
-          <p class="case-tag" data-i18n="res.t3">Business owners · 1-on-1 coaching</p>
-          <p data-i18n="res.a3"><b>Problem:</b> Owners didn't know where to start with AI.</p>
-          <p data-i18n="res.b3"><b>What we did:</b> Personal coaching tailored to each business — until they could use it themselves.</p>
-        </article>
       </div>
     </div>
   </section>
@@ -287,32 +195,12 @@
   <section class="section" id="process">
     <div class="wrap">
       <p class="eyebrow" data-i18n="proc.eyebrow">How we work</p>
-      <h2 data-i18n="proc.title">From first call to measurable results</h2>
-      <ol class="steps">
-        <li>
-          <span class="step-no" data-i18n="proc.n1">Step 01</span>
-          <h3 data-i18n="proc.h1">Understand</h3>
-          <p class="step-time" data-i18n="proc.t1">30-min AI Audit · Free</p>
-          <p data-i18n="proc.p1">We find the work that eats the most time in your business.</p>
-        </li>
-        <li>
-          <span class="step-no" data-i18n="proc.n2">Step 02</span>
-          <h3 data-i18n="proc.h2">Plan</h3>
-          <p class="step-time" data-i18n="proc.t2">3 days</p>
-          <p data-i18n="proc.p2">A clear plan: what to prioritise and exactly what it will cost.</p>
-        </li>
-        <li>
-          <span class="step-no" data-i18n="proc.n3">Step 03</span>
-          <h3 data-i18n="proc.h3">Build</h3>
-          <p class="step-time" data-i18n="proc.t3">2–4 weeks</p>
-          <p data-i18n="proc.p3">We build the system and train your team to use it.</p>
-        </li>
-        <li>
-          <span class="step-no" data-i18n="proc.n4">Step 04</span>
-          <h3 data-i18n="proc.h4">Measure &amp; improve</h3>
-          <p class="step-time" data-i18n="proc.t4">Monthly</p>
-          <p data-i18n="proc.p4">Monthly reports on the numbers, and continuous tuning.</p>
-        </li>
+      <h2 data-i18n="proc.title">Four simple steps</h2>
+      <ol class="timeline">
+        <li><span class="dot">1</span><h3 data-i18n="proc.h1">Free AI Audit</h3><p data-i18n="proc.t1">30 minutes</p></li>
+        <li><span class="dot">2</span><h3 data-i18n="proc.h2">Clear plan &amp; price</h3><p data-i18n="proc.t2">3 days</p></li>
+        <li><span class="dot">3</span><h3 data-i18n="proc.h3">Build &amp; train your team</h3><p data-i18n="proc.t3">2–4 weeks</p></li>
+        <li><span class="dot">4</span><h3 data-i18n="proc.h4">Measure &amp; improve</h3><p data-i18n="proc.t4">Every month</p></li>
       </ol>
     </div>
   </section>
@@ -320,27 +208,24 @@
   <!-- PRICING -->
   <section class="section pricing" id="pricing">
     <div class="wrap">
-      <p class="eyebrow" data-i18n="price.eyebrow">Engagement &amp; pricing</p>
-      <h2 data-i18n="price.title">How to get started</h2>
-      <div class="grid-3">
-        <div class="card plan">
-          <h3 data-i18n="price.h1">Monthly retainer</h3>
-          <p data-i18n="price.p1">Content, chatbot, ads and hosting — billed monthly.</p>
+      <p class="eyebrow" data-i18n="price.eyebrow">Pricing</p>
+      <h2 data-i18n="price.title">Simple pricing</h2>
+      <div class="price-grid">
+        <div class="price">
+          <span class="badge" data-i18n="price.b1">Monthly</span>
+          <h3 data-i18n="price.r1">Content package</h3>
+          <p class="amount"><small data-i18n="price.from">from</small> 300,000 <small>MMK</small></p>
         </div>
-        <div class="card plan">
-          <h3 data-i18n="price.h2">Projects</h3>
-          <p data-i18n="price.p2">Website, branding, automation and ERP — one-time fee.</p>
+        <div class="price price-hot">
+          <span class="badge" data-i18n="price.b2">One-time setup</span>
+          <h3 data-i18n="price.r2">Messenger chatbot</h3>
+          <p class="amount"><small data-i18n="price.from">from</small> 350,000 <small>MMK</small></p>
         </div>
-        <div class="card plan">
-          <h3 data-i18n="price.h3">Training</h3>
-          <p data-i18n="price.p3">AI Diploma and corporate workshops — per programme.</p>
+        <div class="price">
+          <span class="badge" data-i18n="price.b3">Project</span>
+          <h3 data-i18n="price.r3">Websites, branding, automation &amp; training</h3>
+          <p class="amount" data-i18n="price.custom">Custom quote</p>
         </div>
-      </div>
-      <div class="price-table">
-        <p class="eyebrow" data-i18n="price.from">Starting from</p>
-        <div class="price-row"><span data-i18n="price.r1">Monthly content package</span><strong>300,000 <small data-i18n="price.mmk">MMK</small></strong></div>
-        <div class="price-row"><span data-i18n="price.r2">Messenger chatbot setup</span><strong>350,000 <small data-i18n="price.mmk">MMK</small></strong></div>
-        <p class="muted" data-i18n="price.note">Other services are quoted based on the size of your business.</p>
       </div>
     </div>
   </section>
@@ -355,21 +240,19 @@
           <img src="assets/zwe-htet-zaw.jpg" alt="Zwe Htet Zaw" width="155" height="155" loading="lazy">
           <h3>Zwe Htet Zaw</h3>
           <p class="role" data-i18n="team.r1">Founder · Desyners</p>
-          <p data-i18n="team.b1">Founder of Desyners who also runs an engineering company himself — 6 years of hands-on experience since 2020.</p>
-          <blockquote data-i18n="team.q1">“Everything I teach, I've already used in my own companies first.”</blockquote>
+          <p data-i18n="team.b1">Also runs an engineering company — 6 years hands-on.</p>
         </article>
         <article class="person">
           <img src="assets/min-khant-soe.jpg" alt="Min Khant Soe" width="200" height="200" loading="lazy">
           <h3>Min Khant Soe</h3>
           <p class="role" data-i18n="team.r2">Senior AI Developer · Founder, SoeMindAI</p>
-          <p data-i18n="team.b2">Master's in Data Science &amp; AI from the Asian Institute of Technology (AIT). Technical lead for AI systems at Brooker Group PLC, building agentic AI and automation.</p>
-          <blockquote data-i18n="team.q2">“I only build AI systems that actually work for business.”</blockquote>
+          <p data-i18n="team.b2">AIT Master's in Data Science &amp; AI · AI lead at Brooker Group PLC.</p>
         </article>
         <article class="person">
           <img src="assets/ye-htet-zaw.jpg" alt="Ye Htet Zaw" width="152" height="152" loading="lazy">
           <h3>Ye Htet Zaw</h3>
           <p class="role" data-i18n="team.r3">Co-founder · Desyners</p>
-          <p data-i18n="team.b3">Co-founder with an IT background, responsible for systems building and technical implementation.</p>
+          <p data-i18n="team.b3">IT background · leads systems and implementation.</p>
         </article>
       </div>
     </div>
@@ -383,7 +266,7 @@
           <p class="eyebrow eyebrow-dark" data-i18n="cta.eyebrow">Free · 30 minutes · No sales pitch</p>
           <h2 data-i18n="cta.title">Get your free AI Audit</h2>
           <p class="my en-only">၃၀ မိနစ် အခမဲ့ AI Audit ရယူပါ</p>
-          <p data-i18n="cta.lead">We'll show you which work in your business AI can take off your plate first. Serving SMEs, growing brands and larger organisations across Myanmar.</p>
+          <p data-i18n="cta.lead">We'll show you what AI can take off your plate first.</p>
         </div>
         <div class="contact-box">
           <a class="contact-line" href="tel:+959795757666"><span data-i18n="cta.call">Call</span>09 795 757 666</a>
