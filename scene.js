@@ -70,10 +70,17 @@ function start() {
     const s = 3.1 / 1458;            // logo is 1458 SVG units wide -> 3.1 world units
     geo.scale(s, -s, s);             // SVG y points down
     geo.computeVertexNormals();
-    const mat = new THREE.MeshPhysicalMaterial({
-      color: 0x565e70, metalness: .7, roughness: .27, clearcoat: .8, clearcoatRoughness: .12, envMapIntensity: 2.2,
-      side: THREE.DoubleSide
-    });
+    // Logo finishes; ?logo=<name> previews one, otherwise FINISH is used.
+    const FINISHES = {
+      graphite: { color: 0x565e70, metalness: .7, roughness: .27, clearcoat: .8, clearcoatRoughness: .12, envMapIntensity: 2.2 },
+      blue:     { color: 0x1d5cff, metalness: .25, roughness: .18, clearcoat: 1, clearcoatRoughness: .05, envMapIntensity: 1.6 },
+      pearl:    { color: 0xf4f7ff, metalness: 0, roughness: .22, clearcoat: 1, clearcoatRoughness: .06, envMapIntensity: 1.2, sheen: 1, sheenColor: 0x9cc4ff },
+      chrome:   { color: 0xdfe7f5, metalness: 1, roughness: .1, envMapIntensity: 1.8 },
+      iris:     { color: 0x7fa8ff, metalness: .55, roughness: .16, clearcoat: 1, clearcoatRoughness: .05, iridescence: 1, iridescenceIOR: 1.6, iridescenceThicknessRange: [250, 800], envMapIntensity: 1.8 }
+    };
+    const FINISH = 'graphite';
+    const pick = new URLSearchParams(location.search).get('logo');
+    const mat = new THREE.MeshPhysicalMaterial({ ...(FINISHES[pick] || FINISHES[FINISH]), side: THREE.DoubleSide });
     const mesh = new THREE.Mesh(geo, mat);
     spin.add(mesh);
     intro = 0;
