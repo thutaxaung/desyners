@@ -30,11 +30,11 @@ function start() {
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
-  // Warm rim light from behind so the edges glow in brand orange.
-  const rim = new THREE.PointLight(0xf26522, 60, 30);
+  // Sky-blue rim light from behind so the edges glow in the brand blues.
+  const rim = new THREE.PointLight(0x6aaef5, 70, 30);
   rim.position.set(-3, 2, -3);
   scene.add(rim);
-  const rim2 = new THREE.PointLight(0xff8a50, 35, 30);
+  const rim2 = new THREE.PointLight(0x2f7bff, 45, 30);
   rim2.position.set(4, -2, -2);
   scene.add(rim2);
   const key = new THREE.DirectionalLight(0xffffff, 1.2);
@@ -46,7 +46,7 @@ function start() {
   group.add(spin);
   scene.add(group);
 
-  // Floating orange particles around the logo.
+  // Floating blue particles around the logo.
   const COUNT = innerWidth < 860 ? 140 : 320;
   const pos = new Float32Array(COUNT * 3);
   for (let i = 0; i < COUNT; i++) {
@@ -56,7 +56,7 @@ function start() {
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({
-    color: 0xf26522, size: 0.035, transparent: true, opacity: .85, depthWrite: false
+    color: 0x2f7bff, size: 0.035, transparent: true, opacity: .85, depthWrite: false
   }));
   group.add(particles);
 
@@ -71,7 +71,7 @@ function start() {
     geo.scale(s, -s, s);             // SVG y points down
     geo.computeVertexNormals();
     const mat = new THREE.MeshPhysicalMaterial({
-      color: 0xf4f1ec, metalness: .35, roughness: .22, clearcoat: 1, clearcoatRoughness: .15,
+      color: 0x0a4fd6, metalness: .45, roughness: .2, clearcoat: 1, clearcoatRoughness: .08,
       side: THREE.DoubleSide
     });
     const mesh = new THREE.Mesh(geo, mat);
@@ -152,7 +152,7 @@ function start() {
 
     particles.rotation.y = idle * .05 + pSmooth * 1.5;
     particles.material.opacity = .85 * k;
-    rim.intensity = 60 + pSmooth * 80;
+    rim.intensity = 70 + pSmooth * 80;
 
     renderer.render(scene, camera);
   }
