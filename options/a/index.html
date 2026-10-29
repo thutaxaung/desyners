@@ -41,15 +41,15 @@
   .hscroll { overflow: hidden; }
   .hscroll-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
   .track { display: flex; gap: 22px; padding: 0 max(16px, (100vw - 1200px) / 2); will-change: transform; }
-  .scard { position: relative; flex: none; width: min(440px, 78vw); height: min(500px, 56vh); border-radius: 30px; overflow: hidden; color: #fff; box-shadow: 0 30px 60px rgba(11,27,70,.18); }
-  .scard img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
-  .scard::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,22,56,0) 35%, rgba(6,22,56,.88)); }
-  .scard .in { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 28px; }
-  .scard .n { font-size: 13px; font-weight: 800; letter-spacing: .14em; opacity: .8; }
-  .scard h3 { font-size: clamp(24px, 2.4vw, 32px); margin: 8px 0 8px; }
-  .scard p { opacity: .85; font-size: 16px; }
-  .scard.blue { background: linear-gradient(150deg, var(--blue-2), #0638b8); display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px; }
-  .scard.blue::after { display: none; }
+  .scard { position: relative; flex: none; width: min(430px, 80vw); border-radius: 30px; overflow: hidden; background: #fff; box-shadow: 0 24px 50px rgba(11,27,70,.14); display: flex; flex-direction: column; }
+  .scard .sph { aspect-ratio: 16 / 10; overflow: hidden; }
+  .scard img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); }
+  .scard .in { padding: 24px 26px 28px; }
+  .scard .n { font-size: 13px; font-weight: 800; letter-spacing: .14em; color: var(--blue); }
+  .scard h3 { font-size: clamp(22px, 2.2vw, 28px); margin: 6px 0 6px; }
+  .scard p { color: var(--muted); font-size: 16px; }
+  .scard.blue { background: linear-gradient(150deg, var(--blue-2), #0638b8); color: #fff; justify-content: center; text-align: center; padding: 40px; }
+  .scard.blue p { color: rgba(255,255,255,.85); }
   .scard.blue h3 { font-size: clamp(30px, 3vw, 42px); }
 
   /* Yangon reveal */
@@ -92,7 +92,7 @@
     .stats { grid-template-columns: repeat(2, 1fr); }
     .steps { grid-template-columns: repeat(2, 1fr); row-gap: 34px; }
     .hscroll .track { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; }
-    .scard { scroll-snap-align: center; height: 62vh; }
+    .scard { scroll-snap-align: center; }
     .hero-badge { display: none; }
   }
   @media (max-width: 560px) {
@@ -134,19 +134,19 @@
   <section class="section hscroll" id="services">
     <div class="wrap hscroll-head"><div><p class="eyebrow">What we do</p><h2 class="h2 reveal-text">Seven ways to <span class="grad">grow</span></h2></div></div>
     <div class="track">
-      <article class="scard"><img src="../../assets/hq/creator-tripod.jpg" alt="" loading="lazy"><div class="in"><span class="n">01</span><h3>AI Content &amp; Social</h3><p>Posts, reels and ads in your brand voice — even AI clone videos in Burmese.</p></div></article>
-      <article class="scard"><img src="../../assets/hq/chat-phone.jpg" alt="" loading="lazy"><div class="in"><span class="n">02</span><h3>AI Chatbots</h3><p>Reply, take orders and follow up 24/7 on Messenger, Viber &amp; Telegram.</p></div></article>
-      <article class="scard"><img src="../../assets/hq/automation-desk.jpg" alt="" loading="lazy"><div class="in"><span class="n">03</span><h3>Automation &amp; AI Agents</h3><p>n8n, Make &amp; Zapier workflows that do the repetitive work.</p></div></article>
-      <article class="scard"><img src="../../assets/hq/website-laptop.jpg" alt="" loading="lazy"><div class="in"><span class="n">04</span><h3>Websites</h3><p>Sites and online stores that turn visitors into customers.</p></div></article>
-      <article class="scard"><img src="../../assets/hq/branding-cards.jpg" alt="" loading="lazy"><div class="in"><span class="n">05</span><h3>Branding &amp; Design</h3><p>Logos, templates and packaging people remember.</p></div></article>
-      <article class="scard"><img src="../../assets/hq/training.jpg" alt="" loading="lazy"><div class="in"><span class="n">06</span><h3>AI Training</h3><p>AI Diploma, team workshops and 1-on-1 coaching.</p></div></article>
-      <article class="scard"><img src="../../assets/hq/dashboard.jpg" alt="" loading="lazy"><div class="in"><span class="n">07</span><h3>Software &amp; ERP</h3><p>AI tool subscriptions, our own SaaS, and Odoo / ERP setup.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-content.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">01</span><h3>AI Content &amp; Social</h3><p>Posts, reels and ads in your brand voice — even AI clone videos in Burmese.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-chatbot.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">02</span><h3>AI Chatbots</h3><p>Reply, take orders and follow up 24/7 on Messenger, Viber &amp; Telegram.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-automation.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">03</span><h3>Automation &amp; AI Agents</h3><p>n8n, Make &amp; Zapier workflows that do the repetitive work.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-website.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">04</span><h3>Websites</h3><p>Sites and online stores that turn visitors into customers.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-branding.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">05</span><h3>Branding &amp; Design</h3><p>Logos, templates and packaging people remember.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-training.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">06</span><h3>AI Training</h3><p>AI Diploma, team workshops and 1-on-1 coaching.</p></div></article>
+      <article class="scard"><div class="sph"><img src="../../assets/pdf-hq/svc-software.jpg" alt="" loading="lazy"></div><div class="in"><span class="n">07</span><h3>Software &amp; ERP</h3><p>AI tool subscriptions, our own SaaS, and Odoo / ERP setup.</p></div></article>
       <article class="scard blue"><div><h3>All in one place.</h3><p style="opacity:.85;margin:10px 0 22px">One team, one plan.</p><a href="#contact" class="btn" style="background:#fff;color:#0a5cf0">Start free →</a></div></article>
     </div>
   </section>
 
   <section class="reveal-img" aria-label="Made in Yangon">
-    <div class="frame"><img src="../../assets/hq/yangon-day.jpg" alt="Sule Pagoda, downtown Yangon" loading="lazy"></div>
+    <div class="frame"><img src="../../assets/pdf-hq/team-meeting.jpg" alt="Desyners team at work in Yangon" loading="lazy"></div>
     <h2>Built in Yangon.<br>For Myanmar.</h2>
   </section>
 
@@ -155,10 +155,10 @@
       <p class="eyebrow">Why Desyners</p>
       <h2 class="h2 reveal-text">Made for how Myanmar <span class="grad">does business</span></h2>
       <div class="why stagger">
-        <div class="wcard"><div class="ph"><img src="../../assets/hq/social-cafe.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Natural Burmese</h3><p>AI content that reads like a person wrote it.</p></div></div>
-        <div class="wcard"><div class="ph"><img src="../../assets/hq/social-woman.jpg" alt="" loading="lazy" style="object-position:50% 25%"></div><div class="tx"><h3>AI clone video</h3><p>A month of videos without filming.</p></div></div>
-        <div class="wcard"><div class="ph"><img src="../../assets/hq/happy-laptop.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Facebook-first</h3><p>Built for where Myanmar customers are.</p></div></div>
-        <div class="wcard"><div class="ph"><img src="../../assets/hq/team-lead.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Results, not tools</h3><p>We build it, run it and report monthly.</p></div></div>
+        <div class="wcard"><div class="ph"><img src="../../assets/pdf-hq/why-burmese.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Natural Burmese</h3><p>AI content that reads like a person wrote it.</p></div></div>
+        <div class="wcard"><div class="ph"><img src="../../assets/pdf-hq/why-clone.jpg" alt="" loading="lazy"></div><div class="tx"><h3>AI clone video</h3><p>A month of videos without filming.</p></div></div>
+        <div class="wcard"><div class="ph"><img src="../../assets/pdf-hq/why-facebook.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Facebook-first</h3><p>Built for where Myanmar customers are.</p></div></div>
+        <div class="wcard"><div class="ph"><img src="../../assets/pdf-hq/why-results.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Results, not tools</h3><p>We build it, run it and report monthly.</p></div></div>
       </div>
     </div>
   </section>
