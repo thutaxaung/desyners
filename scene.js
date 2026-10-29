@@ -78,7 +78,7 @@ function start() {
       chrome:   { color: 0xdfe7f5, metalness: 1, roughness: .1, envMapIntensity: 1.8 },
       iris:     { color: 0x7fa8ff, metalness: .55, roughness: .16, clearcoat: 1, clearcoatRoughness: .05, iridescence: 1, iridescenceIOR: 1.6, iridescenceThicknessRange: [250, 800], envMapIntensity: 1.8 }
     };
-    const FINISH = 'graphite';
+    const FINISH = 'chrome';
     const pick = new URLSearchParams(location.search).get('logo');
     const mat = new THREE.MeshPhysicalMaterial({ ...(FINISHES[pick] || FINISHES[FINISH]), side: THREE.DoubleSide });
     const mesh = new THREE.Mesh(geo, mat);
