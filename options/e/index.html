@@ -24,7 +24,7 @@
   /* Hero WebGL slideshow */
   .hero { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; background: #000; }
   .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .hero .fallback { position: absolute; inset: 0; background: url(../../assets/mm/shwedagon-night.jpg) center / cover; }
+  .hero .fallback { position: absolute; inset: 0; background: url(../../assets/mm/yangon-sunset.jpg) center / cover; }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,11,28,.55), rgba(6,11,28,.1) 40%, rgba(6,11,28,.85)); pointer-events: none; }
   .hero-copy { position: absolute; z-index: 2; left: 0; right: 0; bottom: 12vh; }
   .hero h1 { font-family: "Syne", var(--font); font-size: clamp(48px, 9.5vw, 150px); line-height: .9; letter-spacing: -0.045em; color: #fff; }
@@ -112,7 +112,7 @@
   <section class="hero">
     <div class="fallback"></div>
     <canvas id="stage" aria-hidden="true"></canvas>
-    <div class="slide-ui" aria-hidden="true"><b id="place">Shwedagon Pagoda</b><span class="my" id="place-my">ရွှေတိဂုံဘုရား</span><div class="bars"><i></i><i></i><i></i><i></i></div></div>
+    <div class="slide-ui" aria-hidden="true"><b id="place">Yangon skyline</b><span class="my" id="place-my">ရန်ကုန်မြို့</span><div class="bars"><i></i><i></i><i></i><i></i></div></div>
     <div class="wrap hero-copy">
       <p class="my my-tag">မြန်မာလုပ်ငန်းများအတွက် AI Marketing</p>
       <h1><span class="ln"><span>AI for</span></span><span class="ln"><span>Myanmar</span></span><span class="ln"><span>business.</span></span></h1>
@@ -297,9 +297,7 @@
   </div>
 </footer>
 
-<nav class="switcher" aria-label="Design options">
-  <a href="../a/" data-opt="a">A · Chrome</a><a href="../b/" data-opt="b">B · Neural</a><a href="../c/" data-opt="c">C · Glass</a><a href="../d/" data-opt="d">D · Golden</a><a href="../e/" data-opt="e">E · Nights</a>
-</nav>
+<nav class="switcher" aria-label="Design options"><a href="../a/" data-opt="a"><b>A</b><span> · Chrome</span></a><a href="../b/" data-opt="b"><b>B</b><span> · Neural</span></a><a href="../c/" data-opt="c"><b>C</b><span> · Glass</span></a><a href="../e/" data-opt="e"><b>E</b><span> · Nights</span></a><a href="../f/" data-opt="f"><b>F</b><span> · Assembly</span></a><a href="../g/" data-opt="g"><b>G</b><span> · Stickers</span></a></nav>
 <script>document.querySelector('.switcher [data-opt="' + document.body.dataset.opt + '"]').classList.add('on');</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -320,7 +318,7 @@
 
   // Image trail: photos follow the cursor (and appear on their own on touch screens)
   var trail = document.querySelector('.trail');
-  var srcs = ['shwedagon-day','market-seller','thanaka-woman','teashop','bagan-sunrise','flower-stall','young-woman','sule-dusk','boat-woman','shop-kiosk','inle-fishermen','yangon-downtown','traditional-dress','thanaka-craft']
+  var srcs = ['morning-market','market-seller','thanaka-woman','teashop','teashop-phone','flower-stall','young-woman','ubein','boat-woman','shop-kiosk','inle-fishermen','yangon-downtown','traditional-dress','thanaka-craft']
     .map(function (n) { return '../../assets/mm/' + n + '.jpg'; });
   srcs.forEach(function (s) { var i = new Image(); i.src = s; });
   var idx = 0, last = { x: -999, y: -999 };
@@ -379,10 +377,10 @@
 import * as THREE from 'three';
 const canvas = document.getElementById('stage'), hero = document.querySelector('.hero');
 const slides = [
-  ['shwedagon-night', 'Shwedagon Pagoda', 'ရွှေတိဂုံဘုရား'],
-  ['sule-dusk', 'Sule Pagoda, Yangon', 'ဆူးလေဘုရား'],
   ['yangon-sunset', 'Yangon skyline', 'ရန်ကုန်မြို့'],
-  ['bagan-sunrise', 'Bagan at sunrise', 'ပုဂံ'],
+  ['yangon-downtown', 'Downtown Yangon', 'မြို့လယ်'],
+  ['market-seller', 'Local markets', 'ဈေး'],
+  ['trishaw-street', 'Yangon streets', 'လမ်းမ'],
 ];
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false }); } catch (e) { canvas.remove(); }
