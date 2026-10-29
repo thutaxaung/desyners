@@ -110,5 +110,5 @@ p { margin: 0; }
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .form { grid-template-columns: 1fr; }
-  .switcher { font-size: 12px; } .switcher a { padding: 7px 10px; }
+  .switcher { font-size: 11px; max-width: calc(100vw - 16px); } .switcher a { padding: 7px 8px; }
 }

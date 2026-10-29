@@ -18,6 +18,8 @@
   h1 { font-size: clamp(38px, 6vw, 72px); letter-spacing: -0.04em; line-height: 1; margin: 14px 0 16px; }
   .lead { color: var(--muted); font-size: 18px; max-width: 60ch; margin: 0 0 44px; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .new { font-style: normal; font-size: 12px; vertical-align: middle; margin-left: 6px; padding: 3px 8px; border-radius: 99px; background: #c8962a; color: #fff; letter-spacing: .04em; }
+  .d .shot, .e .shot { background: #10224f; }
   .opt { display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: #fff; color: inherit; text-decoration: none; box-shadow: 0 1px 2px rgba(11,27,70,.05), 0 18px 44px rgba(11,27,70,.10); transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; }
   .opt:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(11,27,70,.16); }
   .shot { position: relative; aspect-ratio: 16 / 11; overflow: hidden; display: grid; place-items: center; }
@@ -40,7 +42,7 @@
   <div class="wrap">
     <p class="eyebrow">Desyners · Redesign</p>
     <h1>Pick a design direction</h1>
-    <p class="lead">Three complete versions of the site, each with its own 3D centrepiece and animation style. Services are shown as animated product mockups (always sharp), people and places use high-resolution photos, and the company-profile photos appear at their original size. Open each one and scroll all the way down — the switcher at the bottom of every page jumps between them.</p>
+    <p class="lead">Five complete versions of the site, each with its own 3D centrepiece and animation style. Services are shown as animated product mockups (always sharp), and every design now uses high-resolution Myanmar photos — pagodas, Bagan, Yangon streets, tea shops, markets and thanaka. Open each one and scroll all the way down — the switcher at the bottom of every page jumps between them.</p>
     <div class="grid">
       <a class="opt a" href="a/">
         <div class="shot"><span>A</span></div>
@@ -59,6 +61,18 @@
         <div class="body"><h2>Glass Float</h2><p>Light, playful, friendly.</p>
           <ul><li>Glass shapes and the logo float and follow the mouse</li><li>Photo columns drift at different speeds</li><li>Cards flip over in 3D</li><li>Spinning "Made in Yangon" sticker</li></ul>
           <span class="go">Open option C →</span></div>
+      </a>
+      <a class="opt d" href="d/">
+        <div class="shot"><img src="../assets/mm/bagan-balloons.jpg" alt=""><span>D</span></div>
+        <div class="body"><h2>Golden Hour <em class="new">New</em></h2><p>Warm, proud, Myanmar heritage meets AI.</p>
+          <ul><li>3D golden stupa with balloons drifting up a dawn sky</li><li>Burmese + English word ticker that speeds up as you scroll</li><li>Myanmar photo gallery that wipes open sideways</li><li>Pagoda-arch portrait and stats over U Bein Bridge</li></ul>
+          <span class="go">Open option D →</span></div>
+      </a>
+      <a class="opt e" href="e/">
+        <div class="shot"><img src="../assets/mm/shwedagon-night.jpg" alt=""><span>E</span></div>
+        <div class="body"><h2>Yangon Nights <em class="new">New</em></h2><p>Bold, editorial, cinematic.</p>
+          <ul><li>Full-screen Myanmar photos that melt into each other and ripple under the mouse</li><li>Tea-shop photo zooms to full screen as the words split</li><li>Service list swaps its 3D mockup as you scroll</li><li>Myanmar photos trail behind your cursor</li></ul>
+          <span class="go">Open option E →</span></div>
       </a>
     </div>
     <p class="note">The current live site stays at <a href="../">desyners.io</a> until you choose. Previews are English only — Burmese is added to the chosen design.</p>

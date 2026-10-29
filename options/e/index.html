@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desyners — Option E · Yangon Nights</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@700;800&family=Noto+Sans+Myanmar:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/mockups.css">
+<style>
+  :root { --bg: #060b1c; --card: rgba(255,255,255,.04); --line: rgba(160,190,255,.14); --text: #eef2ff; --muted: #9ba8c8; --blue: #3b7bff; --sky: #8cc8ff; --shadow: 0 20px 50px rgba(0,0,0,.4); }
+  body { background: var(--bg); }
+  .disp { font-family: "Syne", var(--font); letter-spacing: -0.03em; }
+  .h2 { font-family: "Syne", var(--font); letter-spacing: -0.03em; }
+  .eyebrow { color: var(--sky); }
+  .my { font-family: "Noto Sans Myanmar", sans-serif; }
+  .nav.scrolled { background: rgba(6,11,28,.72); }
+  .btn-ghost { color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.4); }
+
+  /* Hero WebGL slideshow */
+  .hero { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; background: #000; }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .fallback { position: absolute; inset: 0; background: url(../../assets/mm/shwedagon-night.jpg) center / cover; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,11,28,.55), rgba(6,11,28,.1) 40%, rgba(6,11,28,.85)); pointer-events: none; }
+  .hero-copy { position: absolute; z-index: 2; left: 0; right: 0; bottom: 12vh; }
+  .hero h1 { font-family: "Syne", var(--font); font-size: clamp(48px, 9.5vw, 150px); line-height: .9; letter-spacing: -0.045em; color: #fff; }
+  .hero h1 .ln { display: block; overflow: hidden; } .hero h1 .ln > span { display: inline-block; }
+  .hero-row { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-top: 28px; }
+  .hero .lead { color: rgba(255,255,255,.85); max-width: 38ch; font-size: clamp(16px, 1.5vw, 19px); }
+  .hero .my-tag { color: var(--sky); font-size: clamp(16px, 1.8vw, 20px); margin-bottom: 8px; }
+  .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .slide-ui { position: absolute; z-index: 2; right: max(16px, (100vw - 1200px) / 2); top: 110px; text-align: right; color: #fff; }
+  .slide-ui b { display: block; font-family: "Syne"; font-size: 20px; } .slide-ui .my { color: var(--sky); font-size: 15px; }
+  .bars { display: flex; gap: 6px; justify-content: flex-end; margin-top: 12px; }
+  .bars i { width: 34px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.25); overflow: hidden; position: relative; }
+  .bars i::after { content: ""; position: absolute; inset: 0; background: #fff; transform: scaleX(0); transform-origin: 0 50%; }
+  .bars i.done::after { transform: scaleX(1); } .bars i.on::after { animation: barfill 5.5s linear forwards; }
+  @keyframes barfill { to { transform: scaleX(1); } }
+
+  /* Zoom portal */
+  .portal { position: relative; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+  .portal .win { position: absolute; width: 26vw; height: 34vh; border-radius: 28px; overflow: hidden; will-change: width, height, border-radius; }
+  .portal .win img { width: 100%; height: 100%; object-fit: cover; }
+  .portal .win::after { content: ""; position: absolute; inset: 0; background: rgba(6,11,28,.25); }
+  .portal .t { position: absolute; z-index: 2; font-family: "Syne"; font-size: clamp(40px, 7.5vw, 120px); line-height: .95; letter-spacing: -0.04em; white-space: nowrap; color: #fff; mix-blend-mode: difference; }
+  .portal .t1 { top: 22%; } .portal .t2 { bottom: 22%; }
+  .portal .note { position: absolute; z-index: 2; bottom: 15%; color: #fff; opacity: 0; font-size: 18px; text-align: center; max-width: 30ch; }
+
+  /* Sticky services */
+  .sv { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 5vw, 70px); }
+  .sv-list { padding: 10vh 0 30vh; }
+  .sv-item { padding: 22px 0; border-top: 1px solid var(--line); opacity: .32; transition: opacity .4s; cursor: default; }
+  .sv-item.on { opacity: 1; }
+  .sv-item .n { font-family: "Syne"; color: var(--sky); font-size: 14px; }
+  .sv-item h3 { font-family: "Syne"; font-size: clamp(28px, 3.4vw, 48px); letter-spacing: -0.03em; margin: 4px 0 6px; }
+  .sv-item p { color: var(--muted); max-width: 36ch; }
+  .sv-item .mob { display: none; margin-top: 16px; border-radius: 20px; overflow: hidden; }
+  .sv-stage { position: sticky; top: 18vh; height: min(64vh, 520px); perspective: 1200px; }
+  .sv-stage .mock { position: absolute; inset: 0; height: 100%; border-radius: 28px; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5); opacity: 0; transform: rotateY(-18deg) translateZ(-80px) scale(.94); transition: opacity .6s, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .sv-stage .mock.on { opacity: 1; transform: none; }
+
+  /* Image trail */
+  .trail { position: relative; height: 90vh; min-height: 560px; overflow: hidden; display: grid; place-items: center; border-block: 1px solid var(--line); cursor: crosshair; }
+  .trail img { position: absolute; width: clamp(140px, 16vw, 240px); aspect-ratio: 4 / 5; object-fit: cover; border-radius: 16px; pointer-events: none; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+  .trail .center { position: relative; z-index: 5; text-align: center; pointer-events: none; }
+  .trail .center h2 { font-family: "Syne"; font-size: clamp(40px, 7vw, 110px); line-height: .95; letter-spacing: -0.04em; }
+  .trail .center p { color: var(--muted); margin-top: 16px; }
+
+  /* Stats odometer */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+  .stat { padding: 34px 20px 10px 0; }
+  .stat strong { display: block; font-family: "Syne"; font-size: clamp(54px, 7vw, 100px); line-height: 1; height: 1em; overflow: hidden; }
+  .stat strong .roll { display: inline-block; }
+  .stat span { color: var(--muted); }
+
+  /* Process cards */
+  .pcards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .pcard { position: relative; padding: 28px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); min-height: 240px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+  .pcard b { font-family: "Syne"; font-size: 64px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(140,200,255,.6); }
+  .pcard h3 { font-size: 21px; margin-top: 30px; } .pcard p { color: var(--muted); font-size: 15px; } .pcard small { color: var(--sky); font-weight: 800; letter-spacing: .1em; }
+  .pcard::before { content: ""; position: absolute; width: 240px; height: 240px; right: -120px; top: -120px; border-radius: 50%; background: radial-gradient(closest-side, rgba(59,123,255,.4), transparent); }
+
+  .contact { background: radial-gradient(900px 500px at 15% 0%, rgba(59,123,255,.35), transparent 60%), #0a1640; border-top: 1px solid var(--line); }
+  .contact-lines a { background: rgba(255,255,255,.05); border-color: var(--line); }
+  .member img { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--blue); }
+
+  @media (max-width: 900px) {
+    .sv { grid-template-columns: 1fr; } .sv-stage { display: none; } .sv-list { padding: 0; }
+    .sv-item { opacity: 1; } .sv-item .mob { display: block; } .sv-item .mob .mock { height: auto; }
+    .stats, .pcards { grid-template-columns: repeat(2, 1fr); }
+    .portal .win { width: 60vw; height: 30vh; }
+    .slide-ui { top: 90px; }
+  }
+  @media (max-width: 560px) { .pcards { grid-template-columns: 1fr; } .portal .t { white-space: normal; text-align: center; } }
+</style>
+</head>
+<body data-opt="e" id="top">
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
+    <nav class="nav-links"><a href="#services">Services</a><a href="#why">Why us</a><a href="#process">Process</a><a href="#pricing">Pricing</a><a href="#team">Team</a></nav>
+    <a href="#contact" class="btn">Free AI Audit</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="fallback"></div>
+    <canvas id="stage" aria-hidden="true"></canvas>
+    <div class="slide-ui" aria-hidden="true"><b id="place">Shwedagon Pagoda</b><span class="my" id="place-my">ရွှေတိဂုံဘုရား</span><div class="bars"><i></i><i></i><i></i><i></i></div></div>
+    <div class="wrap hero-copy">
+      <p class="my my-tag">မြန်မာလုပ်ငန်းများအတွက် AI Marketing</p>
+      <h1><span class="ln"><span>AI for</span></span><span class="ln"><span>Myanmar</span></span><span class="ln"><span>business.</span></span></h1>
+      <div class="hero-row">
+        <p class="lead">Content, chatbots, automation, websites and training — from a Yangon team that knows your customers.</p>
+        <div class="ctas"><a href="#contact" class="btn">Book a free AI Audit</a><a href="#services" class="btn btn-ghost">See services</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="portal" aria-label="Your customers are online">
+    <div class="win"><img src="../../assets/mm/teashop-phone.jpg" alt="Man checking his phone at a Yangon tea shop" loading="lazy"></div>
+    <div class="t t1">Your customers</div>
+    <div class="t t2">are online.</div>
+    <p class="note">From tea shops to boardrooms, Myanmar runs on Facebook and Messenger. We put AI to work there.</p>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2 class="h2 reveal-text">Seven ways to grow</h2>
+      <div class="sv">
+        <div class="sv-list">
+          <div class="sv-item" data-k="0"><span class="n">01</span><h3>AI Content &amp; Social</h3><p>Posts, reels and ads in your brand voice — even AI clone videos in Burmese.</p><div class="mob"><div class="mock m-content dark" aria-hidden="true">
+  <div class="card reel"><i></i></div>
+  <div class="card phone"><div class="screen"><div class="who"><span class="av"></span><div style="flex:1"><div class="sk" style="width:60%;margin-bottom:.8cqw"></div><div class="sk" style="width:35%;height:1cqw"></div></div></div><div class="post">New arrivals ✨</div><div class="acts"><span class="heart"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.2 4.4 2.6l1.2 1.8 1.2-1.8C14 6.2 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg></span>248 <span style="color:#8a97b5;font-weight:600">· 36 shares</span></div><div class="sk" style="width:90%;margin-bottom:.8cqw"></div><div class="sk" style="width:70%"></div></div></div>
+  <div class="bub b1">+1.2K reach</div><div class="bub b2">♥ 248</div>
+</div></div></div>
+          <div class="sv-item" data-k="1"><span class="n">02</span><h3>AI Chatbots</h3><p>Reply, take orders and follow up 24/7 on Messenger, Viber &amp; Telegram.</p><div class="mob"><div class="mock m-chat dark" aria-hidden="true">
+  <div class="card win"><div class="top"><span class="av"></span><div>Desyners Bot<small>● Online · replies instantly</small></div></div>
+  <div class="msgs"><div class="msg u">Do you deliver to Mandalay?</div><div class="msg b typing"><i></i><i></i><i></i></div><div class="msg b">Yes! 2–3 days. Shall I take your order?</div><div class="msg u">2 boxes please 🙏</div><div class="msg b typing"><i></i><i></i><i></i></div><div class="msg b"><span class="ok">✓ Order #1042 confirmed.</span> We'll message you when it ships.</div></div></div>
+</div></div></div>
+          <div class="sv-item" data-k="2"><span class="n">03</span><h3>Automation &amp; Agents</h3><p>n8n, Make &amp; Zapier workflows that do the repetitive work.</p><div class="mob"><div class="mock m-flow dark" aria-hidden="true">
+  <div class="wire"></div><div class="fpulse"></div>
+  <div class="frow"><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><b>New message</b><span>Messenger</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div><b>AI replies</b><span>in Burmese</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div><b>Order saved</b><span>Google Sheets</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div><b>Team notified</b><span>Viber</span></div></div>
+  <div class="card count">Tasks automated this month: <b data-to="1284" data-tick="1">0</b></div>
+</div></div></div>
+          <div class="sv-item" data-k="3"><span class="n">04</span><h3>Websites</h3><p>Sites and online stores that turn visitors into customers.</p><div class="mob"><div class="mock m-web dark" aria-hidden="true">
+  <div class="card br"><div class="wbar"><i></i><i></i><i></i><span class="url">yourshop.com</span><span class="cart"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><em>2</em></span></div>
+  <div class="whero"><b>Shop the new collection</b><span>Free delivery in Yangon</span></div>
+  <div class="wgrid"><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div></div></div>
+  <div class="wcursor"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#0b1b46" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+</div></div></div>
+          <div class="sv-item" data-k="4"><span class="n">05</span><h3>Branding &amp; Design</h3><p>Logos, templates and packaging people remember.</p><div class="mob"><div class="mock m-brand dark" aria-hidden="true">
+  <div class="card bc"><div class="flip"><div class="face front"><span class="mk"></span></div><div class="face back"><b>Your Brand</b><span>hello@yourbrand.com</span><span>09 000 000 000</span></div></div></div>
+  <div class="sw"><i></i><i></i><i></i><i></i></div>
+  <div class="card type"><b>Aa</b><div><div class="sk" style="margin-bottom:1cqw"></div><span>Primary typeface · Bold</span></div></div>
+</div></div></div>
+          <div class="sv-item" data-k="5"><span class="n">06</span><h3>AI Training</h3><p>AI Diploma, team workshops and 1-on-1 coaching.</p><div class="mob"><div class="mock m-train dark" aria-hidden="true">
+  <div class="card slide"><small>LESSON 3 OF 8</small><b>AI for your business</b><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="prog"><i></i></div></div>
+  <div class="people"><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span></div>
+  <div class="card cert"><span class="medal">★</span><b>AI Diploma</b><span>Certificate of completion</span></div>
+</div></div></div>
+          <div class="sv-item" data-k="6"><span class="n">07</span><h3>Software &amp; ERP</h3><p>AI tool subscriptions, our own SaaS, and Odoo / ERP setup.</p><div class="mob"><div class="mock m-dash dark" aria-hidden="true">
+  <div class="card app"><div class="side"><i></i><i></i><i></i><i></i></div><div class="main">
+    <div class="kpis"><div class="kpi"><span>Sales (MMK)</span><b data-to="18400000">0</b></div><div class="kpi"><span>Orders</span><b data-to="642">0</b><em>+18%</em></div><div class="kpi"><span>Stock items</span><b data-to="1290">0</b></div></div>
+    <div class="charts"><div class="bars"><i style="height:45%"></i><i style="height:62%"></i><i style="height:38%"></i><i style="height:74%"></i><i style="height:58%"></i><i style="height:86%"></i><i style="height:95%"></i></div>
+    <div class="lchart"><svg viewBox="0 0 120 70" preserveAspectRatio="none"><defs><linearGradient id="m-area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0a5cf0" stop-opacity=".25"/><stop offset="1" stop-color="#0a5cf0" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0,58 C15,52 22,40 36,44 S58,22 72,28 S98,10 120,6 L120,70 L0,70Z"/><path d="M0,58 C15,52 22,40 36,44 S58,22 72,28 S98,10 120,6"/></svg></div></div>
+  </div></div>
+</div></div></div>
+        </div>
+        <div class="sv-stage" aria-hidden="true"><div class="mock m-content dark" aria-hidden="true">
+  <div class="card reel"><i></i></div>
+  <div class="card phone"><div class="screen"><div class="who"><span class="av"></span><div style="flex:1"><div class="sk" style="width:60%;margin-bottom:.8cqw"></div><div class="sk" style="width:35%;height:1cqw"></div></div></div><div class="post">New arrivals ✨</div><div class="acts"><span class="heart"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.2 4.4 2.6l1.2 1.8 1.2-1.8C14 6.2 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg></span>248 <span style="color:#8a97b5;font-weight:600">· 36 shares</span></div><div class="sk" style="width:90%;margin-bottom:.8cqw"></div><div class="sk" style="width:70%"></div></div></div>
+  <div class="bub b1">+1.2K reach</div><div class="bub b2">♥ 248</div>
+</div><div class="mock m-chat dark" aria-hidden="true">
+  <div class="card win"><div class="top"><span class="av"></span><div>Desyners Bot<small>● Online · replies instantly</small></div></div>
+  <div class="msgs"><div class="msg u">Do you deliver to Mandalay?</div><div class="msg b typing"><i></i><i></i><i></i></div><div class="msg b">Yes! 2–3 days. Shall I take your order?</div><div class="msg u">2 boxes please 🙏</div><div class="msg b typing"><i></i><i></i><i></i></div><div class="msg b"><span class="ok">✓ Order #1042 confirmed.</span> We'll message you when it ships.</div></div></div>
+</div><div class="mock m-flow dark" aria-hidden="true">
+  <div class="wire"></div><div class="fpulse"></div>
+  <div class="frow"><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><b>New message</b><span>Messenger</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div><b>AI replies</b><span>in Burmese</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div><b>Order saved</b><span>Google Sheets</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div><b>Team notified</b><span>Viber</span></div></div>
+  <div class="card count">Tasks automated this month: <b data-to="1284" data-tick="1">0</b></div>
+</div><div class="mock m-web dark" aria-hidden="true">
+  <div class="card br"><div class="wbar"><i></i><i></i><i></i><span class="url">yourshop.com</span><span class="cart"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><em>2</em></span></div>
+  <div class="whero"><b>Shop the new collection</b><span>Free delivery in Yangon</span></div>
+  <div class="wgrid"><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div></div></div>
+  <div class="wcursor"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#0b1b46" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+</div><div class="mock m-brand dark" aria-hidden="true">
+  <div class="card bc"><div class="flip"><div class="face front"><span class="mk"></span></div><div class="face back"><b>Your Brand</b><span>hello@yourbrand.com</span><span>09 000 000 000</span></div></div></div>
+  <div class="sw"><i></i><i></i><i></i><i></i></div>
+  <div class="card type"><b>Aa</b><div><div class="sk" style="margin-bottom:1cqw"></div><span>Primary typeface · Bold</span></div></div>
+</div><div class="mock m-train dark" aria-hidden="true">
+  <div class="card slide"><small>LESSON 3 OF 8</small><b>AI for your business</b><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="prog"><i></i></div></div>
+  <div class="people"><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span></div>
+  <div class="card cert"><span class="medal">★</span><b>AI Diploma</b><span>Certificate of completion</span></div>
+</div><div class="mock m-dash dark" aria-hidden="true">
+  <div class="card app"><div class="side"><i></i><i></i><i></i><i></i></div><div class="main">
+    <div class="kpis"><div class="kpi"><span>Sales (MMK)</span><b data-to="18400000">0</b></div><div class="kpi"><span>Orders</span><b data-to="642">0</b><em>+18%</em></div><div class="kpi"><span>Stock items</span><b data-to="1290">0</b></div></div>
+    <div class="charts"><div class="bars"><i style="height:45%"></i><i style="height:62%"></i><i style="height:38%"></i><i style="height:74%"></i><i style="height:58%"></i><i style="height:86%"></i><i style="height:95%"></i></div>
+    <div class="lchart"><svg viewBox="0 0 120 70" preserveAspectRatio="none"><defs><linearGradient id="m-area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0a5cf0" stop-opacity=".25"/><stop offset="1" stop-color="#0a5cf0" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0,58 C15,52 22,40 36,44 S58,22 72,28 S98,10 120,6 L120,70 L0,70Z"/><path d="M0,58 C15,52 22,40 36,44 S58,22 72,28 S98,10 120,6"/></svg></div></div>
+  </div></div>
+</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trail" id="why" aria-label="Made for Myanmar">
+    <div class="center"><p class="eyebrow">Why Desyners</p><h2>Made for<br>Myanmar.</h2><p>Natural Burmese · Facebook-first · Results every month</p></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><strong><span class="roll" data-roll="5">0</span></strong><span>companies run our AI Designer Agent</span></div>
+        <div class="stat"><strong>CLC</strong><span>school trained in AI basics</span></div>
+        <div class="stat"><strong>1:1</strong><span>coaching for business owners</span></div>
+        <div class="stat"><strong><span class="roll" data-roll="24">0</span>/7</strong><span>chatbots that never sleep</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h2 class="h2 reveal-text">Four simple steps</h2>
+      <div class="pcards stagger">
+        <div class="pcard"><b>01</b><div><small>30 MIN</small><h3>Free AI Audit</h3><p>We find the work that eats your time.</p></div></div>
+        <div class="pcard"><b>02</b><div><small>3 DAYS</small><h3>Clear plan &amp; price</h3><p>What to do first, and what it costs.</p></div></div>
+        <div class="pcard"><b>03</b><div><small>2–4 WEEKS</small><h3>Build &amp; train</h3><p>We set it up and teach your team.</p></div></div>
+        <div class="pcard"><b>04</b><div><small>MONTHLY</small><h3>Measure &amp; improve</h3><p>Reports on the numbers, every month.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="h2 reveal-text">Simple, honest <span class="grad">pricing</span></h2>
+      <div class="prices stagger">
+        <div class="price"><span class="tag">Monthly</span><h3>Content package</h3><p class="amt"><small>from</small> 300,000 <small>MMK</small></p></div>
+        <div class="price hot"><span class="tag">One-time setup</span><h3>Messenger chatbot</h3><p class="amt"><small>from</small> 350,000 <small>MMK</small></p></div>
+        <div class="price"><span class="tag">Project</span><h3>Websites, branding, automation &amp; training</h3><p class="amt">Custom quote</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="team">
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h2 class="h2 reveal-text">The people behind <span class="grad">Desyners</span></h2>
+      <div class="team stagger">
+        <div class="member"><img src="../../assets/zwe-htet-zaw.jpg" alt="Zwe Htet Zaw" loading="lazy"><div><h3>Zwe Htet Zaw</h3><p class="role">Founder</p><p>Also runs an engineering company — 6 years hands-on.</p></div></div>
+        <div class="member"><img src="../../assets/min-khant-soe.jpg" alt="Min Khant Soe" loading="lazy"><div><h3>Min Khant Soe</h3><p class="role">Senior AI Developer · SoeMindAI</p><p>AIT Master's in Data Science &amp; AI · AI lead at Brooker Group PLC.</p></div></div>
+        <div class="member"><img src="../../assets/ye-htet-zaw.jpg" alt="Ye Htet Zaw" loading="lazy"><div><h3>Ye Htet Zaw</h3><p class="role">Co-founder</p><p>IT background · leads systems and implementation.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Free · 30 minutes · No sales pitch</p>
+        <h2 class="h2">Get your free <span class="grad">AI Audit</span></h2>
+        <p class="muted">We'll show you what AI can take off your plate first.</p>
+        <div class="contact-lines">
+          <a href="tel:+959795757666"><span>Call</span>09 795 757 666</a>
+          <a href="tel:+959782405066"><span>Call</span>09 782 405 066</a>
+          <a href="https://m.me/desynersdotcom" target="_blank" rel="noopener"><span>Messenger</span>Message us →</a>
+        </div>
+      </div>
+      <form class="form" action="https://formsubmit.co/ajax/desyners.mm@gmail.com" method="post" novalidate>
+        <input type="hidden" name="_subject" value="New AI Audit request from desyners.io">
+        <input type="hidden" name="_template" value="table">
+        <h3>Leave your details — we'll call you back</h3>
+        <label>Your name *<input name="name" required maxlength="100" autocomplete="name"></label>
+        <label>Phone / Viber *<input name="phone" type="tel" required maxlength="30" autocomplete="tel"></label>
+        <label>Business name<input name="business" maxlength="120" autocomplete="organization"></label>
+        <label>Interested in<select name="service"><option>Free 30-min AI Audit</option><option>AI Content &amp; Social Media</option><option>AI Chatbots</option><option>Automation &amp; AI Agents</option><option>Websites</option><option>Branding &amp; Design</option><option>AI Training</option><option>Software &amp; ERP</option></select></label>
+        <label class="full">What would you like help with?<textarea name="message" rows="3" maxlength="2000"></textarea></label>
+        <label class="hp" aria-hidden="true">Website<input name="_honey" tabindex="-1" autocomplete="off"></label>
+        <div class="form-foot"><button class="btn" type="submit">Send</button><p class="form-status" role="status" aria-live="polite"></p></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
+    <span>AI Marketing Agency · Yangon, Myanmar</span>
+    <div class="links"><a href="https://www.facebook.com/desynersdotcom" target="_blank" rel="noopener">Facebook</a><a href="tel:+959795757666">09 795 757 666</a></div>
+  </div>
+</footer>
+
+<nav class="switcher" aria-label="Design options">
+  <a href="../a/" data-opt="a">A · Chrome</a><a href="../b/" data-opt="b">B · Neural</a><a href="../c/" data-opt="c">C · Glass</a><a href="../d/" data-opt="d">D · Golden</a><a href="../e/" data-opt="e">E · Nights</a>
+</nav>
+<script>document.querySelector('.switcher [data-opt="' + document.body.dataset.opt + '"]').classList.add('on');</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>gsap.registerPlugin(ScrollTrigger);</script>
+<script src="../shared/common.js"></script>
+<script src="../shared/mockups.js"></script>
+<script>
+(function () {
+  var R = DESY.reduce, mm = gsap.matchMedia();
+
+  // Services: the stage shows the mockup of whichever item is centred
+  var items = document.querySelectorAll('.sv-item'), stage = document.querySelectorAll('.sv-stage .mock');
+  function setOn(k) { items.forEach(function (it, i) { it.classList.toggle('on', i === k); }); stage.forEach(function (m, i) { m.classList.toggle('on', i === k); }); }
+  setOn(0);
+  items.forEach(function (it, i) { ScrollTrigger.create({ trigger: it, start: 'top 55%', end: 'bottom 55%', refreshPriority: -1, onToggle: function (s) { if (s.isActive) setOn(i); } }); });
+
+  // Image trail: photos follow the cursor (and appear on their own on touch screens)
+  var trail = document.querySelector('.trail');
+  var srcs = ['shwedagon-day','market-seller','thanaka-woman','teashop','bagan-sunrise','flower-stall','young-woman','sule-dusk','boat-woman','shop-kiosk','inle-fishermen','yangon-downtown','traditional-dress','thanaka-craft']
+    .map(function (n) { return '../../assets/mm/' + n + '.jpg'; });
+  srcs.forEach(function (s) { var i = new Image(); i.src = s; });
+  var idx = 0, last = { x: -999, y: -999 };
+  function drop(x, y) {
+    var img = document.createElement('img'); img.src = srcs[idx++ % srcs.length]; img.alt = '';
+    trail.appendChild(img);
+    var w = img.getBoundingClientRect().width || 200;
+    gsap.set(img, { left: x - w / 2, top: y - w * .625, rotate: gsap.utils.random(-10, 10), scale: .4, opacity: 0 });
+    gsap.timeline({ onComplete: function () { img.remove(); } })
+      .to(img, { scale: 1, opacity: 1, duration: .35, ease: 'back.out(2)' })
+      .to(img, { y: 60, scale: .7, opacity: 0, duration: .9, ease: 'power2.in' }, 1);
+  }
+  trail.addEventListener('pointermove', function (e) {
+    var r = trail.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (Math.hypot(x - last.x, y - last.y) > 90) { drop(x, y); last = { x: x, y: y }; }
+  });
+  if (!DESY.fine && !R) {
+    var auto = setInterval(function () {
+      var r = trail.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+      drop(gsap.utils.random(r.width * .15, r.width * .85), gsap.utils.random(r.height * .2, r.height * .8));
+    }, 650);
+  }
+
+  if (R) return;
+  gsap.from('.hero h1 .ln > span', { yPercent: 115, duration: 1.2, ease: 'power4.out', stagger: .1, delay: .3 });
+  gsap.from('.hero .my-tag, .hero .lead, .hero .ctas, .slide-ui', { y: 24, opacity: 0, duration: 1, ease: 'power3.out', stagger: .1, delay: .8 });
+
+  // Portal: the small window grows to full screen while the words part
+  var ptl = gsap.timeline({ scrollTrigger: { trigger: '.portal', start: 'top top', end: '+=130%', pin: true, scrub: 1 } });
+  ptl.to('.portal .win', { width: '100vw', height: '100vh', borderRadius: 0, ease: 'power2.inOut' }, 0)
+     .to('.portal .t1', { xPercent: -60, opacity: 0, ease: 'power2.in' }, 0)
+     .to('.portal .t2', { xPercent: 60, opacity: 0, ease: 'power2.in' }, 0)
+     .to('.portal .note', { opacity: 1, y: -10, ease: 'none' }, .6);
+
+  document.querySelectorAll('.reveal-text').forEach(function (h) {
+    gsap.from(h, { y: 60, opacity: 0, skewY: 4, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 85%' } });
+  });
+  document.querySelectorAll('.stagger').forEach(function (g) {
+    gsap.from(g.children, { y: 60, opacity: 0, duration: 1, ease: 'power3.out', stagger: .1, scrollTrigger: { trigger: g, start: 'top 85%' } });
+  });
+  gsap.from('.trail .center h2', { scale: .8, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.trail', start: 'top 80%', end: 'center center', scrub: true } });
+
+  // Odometer-style roll for numbers
+  document.querySelectorAll('[data-roll]').forEach(function (el) {
+    var to = +el.dataset.roll, o = { v: 0 };
+    gsap.to(o, { v: to, duration: 1.6, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' }, onUpdate: function () { el.textContent = Math.round(o.v); } });
+  });
+})();
+</script>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+// Full-screen photo slideshow: liquid noise transition between Myanmar photos, plus a ripple that follows the mouse.
+import * as THREE from 'three';
+const canvas = document.getElementById('stage'), hero = document.querySelector('.hero');
+const slides = [
+  ['shwedagon-night', 'Shwedagon Pagoda', 'ရွှေတိဂုံဘုရား'],
+  ['sule-dusk', 'Sule Pagoda, Yangon', 'ဆူးလေဘုရား'],
+  ['yangon-sunset', 'Yangon skyline', 'ရန်ကုန်မြို့'],
+  ['bagan-sunrise', 'Bagan at sunrise', 'ပုဂံ'],
+];
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: false }); } catch (e) { canvas.remove(); }
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  const scene = new THREE.Scene(), camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const loader = new THREE.TextureLoader();
+  const tex = await Promise.all(slides.map(([n]) => new Promise((res) => loader.load(`../../assets/mm/${n}.jpg`, (t) => { t.colorSpace = THREE.SRGBColorSpace; res(t); }))));
+  const u = {
+    uA: { value: tex[0] }, uB: { value: tex[1] }, uP: { value: 0 }, uT: { value: 0 },
+    uMouse: { value: new THREE.Vector2(.5, .5) }, uHover: { value: 0 },
+    uRes: { value: new THREE.Vector2(1, 1) }, uImgA: { value: new THREE.Vector2(1, 1) }, uImgB: { value: new THREE.Vector2(1, 1) }
+  };
+  const mat = new THREE.ShaderMaterial({ uniforms: u,
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }`,
+    fragmentShader: `
+      varying vec2 vUv; uniform sampler2D uA, uB; uniform float uP, uT, uHover; uniform vec2 uMouse, uRes, uImgA, uImgB;
+      vec2 cover(vec2 uv, vec2 img){ float r = uRes.x/uRes.y, ir = img.x/img.y; vec2 s = r > ir ? vec2(1., ir/r) : vec2(r/ir, 1.); return (uv - .5) * s + .5; }
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+      float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+        return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }
+      void main(){
+        vec2 uv = vUv;
+        vec2 d = uv - uMouse; d.x *= uRes.x/uRes.y; float dist = length(d);
+        float ripple = sin(dist * 40. - uT * 4.) * .006 * smoothstep(.35, 0., dist) * uHover;
+        uv += normalize(d + 1e-5) * ripple;
+        float n = noise(uv * 4. + uT * .15) * .5 + noise(uv * 9.) * .25;
+        float m = smoothstep(uP - .15, uP + .15, n * .8 + uv.x * .2 + .0);
+        float k = uP * (1. - uP) * 4.;
+        vec2 dispA = vec2(n - .5) * k * .22, dispB = vec2(n - .5) * k * .22;
+        vec2 zoom = (uv - .5) * (1. - .04 * sin(uT * .2)) + .5;
+        vec4 a = texture2D(uA, cover(zoom + dispA, uImgA));
+        vec4 b = texture2D(uB, cover(zoom - dispB, uImgB));
+        gl_FragColor = mix(a, b, m);
+      }`
+  });
+  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
+  const size = (t) => new THREE.Vector2(t.image.width, t.image.height);
+  let cur = 0;
+  const bars = document.querySelectorAll('.bars i'), place = document.getElementById('place'), placeMy = document.getElementById('place-my');
+  const setUI = (k) => { bars.forEach((b, i) => { b.classList.toggle('done', i < k); b.classList.remove('on'); }); void bars[k].offsetWidth; bars[k].classList.add('on'); place.textContent = slides[k][1]; placeMy.textContent = slides[k][2]; };
+  const show = (k) => { u.uA.value = tex[cur]; u.uImgA.value = size(tex[cur]); u.uB.value = tex[k]; u.uImgB.value = size(tex[k]); u.uP.value = 1; cur = k; setUI(k);
+    const t0 = performance.now(); (function step(){ const p = Math.min((performance.now() - t0) / 1600, 1); u.uP.value = 1 - p * p * (3 - 2 * p); if (p < 1) requestAnimationFrame(step); })(); };
+  u.uA.value = tex[0]; u.uB.value = tex[0]; u.uImgA.value = size(tex[0]); u.uImgB.value = size(tex[0]); setUI(0);
+  setInterval(() => { if (hero.getBoundingClientRect().bottom > 0 && !document.hidden) show((cur + 1) % tex.length); }, 5500);
+
+  let hover = 0, target = 0;
+  hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); u.uMouse.value.set((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height); target = 1; });
+  hero.addEventListener('pointerleave', () => target = 0);
+  const fit = () => { const w = hero.clientWidth, h = hero.clientHeight; renderer.setSize(w, h, false); u.uRes.value.set(w, h); };
+  new ResizeObserver(fit).observe(hero); fit();
+  const clock = new THREE.Clock();
+  (function frame(){ requestAnimationFrame(frame); if (hero.getBoundingClientRect().bottom < 0) return;
+    hover += (target - hover) * .05; u.uHover.value = hover; u.uT.value = clock.getElapsedTime(); renderer.render(scene, camera); })();
+}
+</script>
+</body>
+</html>
