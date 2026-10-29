@@ -29,6 +29,15 @@ window.I18N_MY = {
   "problem.p4": "Content ဝန်ထမ်းစရိတ် ကြီး",
   "problem.callout": "ဒါတွေအားလုံးကို AI လုပ်ပေးနိုင်ပါပြီ — <b>ကျွန်တော်တို့ တည်ဆောက်ပေးမယ်။</b>",
 
+  "about.eyebrow": "ကျွန်တော်တို့အကြောင်း",
+  "about.title": "Content, AI နဲ့ Software အတွက် အဖွဲ့တစ်ဖွဲ့တည်း",
+  "about.h1": "သင့်အစား လုပ်ပေးမယ်",
+  "about.p1": "လစဉ် Content, Ads, Chatbot စောင့်ရှောက်မှု။",
+  "about.h2": "သင်နဲ့အတူ လုပ်မယ်",
+  "about.p2": "Website, Branding, Automation စီမံကိန်းများ။",
+  "about.h3": "သင့်အဖွဲ့ကို သင်ပေးမယ်",
+  "about.p3": "AI Diploma နဲ့ Corporate Workshop။",
+
   "svc.eyebrow": "ဝန်ဆောင်မှုများ",
   "svc.title": "AI နဲ့ ကြီးထွားဖို့ နည်းလမ်း ၇ မျိုး",
   "svc.p1": "သင့် Brand လေသံနဲ့ Post, Reels, Ads — မြန်မာလို AI Clone Video ပါ။",
@@ -76,6 +85,7 @@ window.I18N_MY = {
   "price.r2": "Messenger Chatbot",
   "price.r3": "Website, Branding, Automation နဲ့ သင်တန်း",
   "price.from": "မှ စတင်",
+  "price.banner": "ရောင်းချခြင်း မဟုတ်ပါ — ရှင်းလင်းတဲ့ အစီအစဉ်နဲ့ သင့်တော်တဲ့ ဈေးနှုန်း။",
   "price.custom": "လုပ်ငန်းအလိုက် ဈေးနှုန်း",
 
   "team.eyebrow": "အဖွဲ့",

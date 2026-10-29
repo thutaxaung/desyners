@@ -122,11 +122,18 @@
   /* ---------- Scroll progress bar + timeline fill ---------- */
   var timeline = document.querySelector('.timeline');
   var steps = timeline ? timeline.querySelectorAll('li') : [];
+  var photos = document.querySelectorAll('.photo img');
   var ticking = false;
   function onScroll() {
     ticking = false;
     var max = document.documentElement.scrollHeight - innerHeight;
     root.style.setProperty('--sp', max > 0 ? (scrollY / max).toFixed(4) : 0);
+    // Gentle parallax on photos (uses the separate `translate` property so it never fights the reveal transition).
+    if (!reduce) photos.forEach(function (img) {
+      var r = img.parentNode.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      img.style.translate = '0 ' + ((r.top + r.height / 2 - innerHeight / 2) * -0.06).toFixed(1) + 'px';
+    });
     if (timeline) {
       var r = timeline.getBoundingClientRect();
       var k = Math.min(Math.max((innerHeight * 0.85 - r.top) / (innerHeight * 0.6), 0), 1);
@@ -150,7 +157,7 @@
       io.unobserve(en.target);
     });
   }, { threshold: 0.15 });
-  document.querySelectorAll('.section h2, .pain, .tile, .why, .stats > div, .timeline li, .price, .person, .callout').forEach(function (el) {
+  document.querySelectorAll('.section h2, .pain, .tile, .why, .stats > div, .timeline li, .price, .person, .callout, .photo, .ways li').forEach(function (el) {
     if (!io) return;
     var sibs = Array.prototype.indexOf.call(el.parentNode.children, el);
     el.style.setProperty('--d', (el.tagName === 'H2' ? 0 : Math.min(sibs, 6) * 90) + 'ms');

@@ -71,7 +71,7 @@ function start() {
     geo.scale(s, -s, s);             // SVG y points down
     geo.computeVertexNormals();
     const mat = new THREE.MeshPhysicalMaterial({
-      color: 0x0c0d12, metalness: .55, roughness: .16, clearcoat: 1, clearcoatRoughness: .05,
+      color: 0x565e70, metalness: .7, roughness: .27, clearcoat: .8, clearcoatRoughness: .12, envMapIntensity: 2.2,
       side: THREE.DoubleSide
     });
     const mesh = new THREE.Mesh(geo, mat);
