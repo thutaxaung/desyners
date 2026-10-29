@@ -80,6 +80,27 @@
       .then(function () { submit.disabled = false; });
   });
 
+  /* ---------- 3D tilt on cards (mouse only) ---------- */
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.card, .person, .stats > div').forEach(function (el) {
+      el.classList.add('tilt');
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        el.classList.add('tilting');
+        el.style.setProperty('--ry', (x * 10).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', (y * -10).toFixed(2) + 'deg');
+      });
+      el.addEventListener('pointerleave', function () {
+        el.classList.remove('tilting');
+        el.style.setProperty('--ry', '0deg');
+        el.style.setProperty('--rx', '0deg');
+      });
+    });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   var io = 'IntersectionObserver' in window && new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {

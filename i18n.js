@@ -18,6 +18,7 @@ window.I18N_MY = {
   "hero.cta1": "အခမဲ့ ၃၀ မိနစ် AI Audit ရယူပါ",
   "hero.cta2": "ဝန်ဆောင်မှုများ ကြည့်ရန်",
   "hero.chat1": "<b>ဖောက်သည်</b>မန္တလေးကို ပို့ပေးလား?",
+  "hero.caption": "လုပ်ငန်းအတွက် <span class=\"accent\">AI အားလုံး</span>ကို တစ်နေရာတည်းမှာ။",
   "hero.chat2": "<b>Desyners Bot · 24/7</b>ပို့ပေးပါတယ်။ ၂–၃ ရက် ကြာပါမယ်။ Order တင်ပေးရမလား?",
 
   "problem.eyebrow": "ပြဿနာ",

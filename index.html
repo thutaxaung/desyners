@@ -66,29 +66,34 @@
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow" data-i18n="hero.eyebrow">AI Marketing Agency · Yangon</p>
-        <h1 data-i18n="hero.title">Grow smarter<br>with <span class="accent">AI</span>.</h1>
-        <p class="my lead-my en-only">မြန်မာလုပ်ငန်းများအတွက် AI Marketing Agency</p>
-        <p class="lead" data-i18n="hero.lead">Content, chatbots, automation, websites, branding, training and software — built for Myanmar businesses, all in one place.</p>
-        <div class="hero-cta">
-          <a href="#contact" class="btn" data-i18n="hero.cta1">Get a free 30-min AI Audit</a>
-          <a href="#services" class="btn btn-ghost" data-i18n="hero.cta2">See our services</a>
+  <!-- HERO (pinned while the 3D logo animates on scroll) -->
+  <div class="hero-pin">
+    <section class="hero">
+      <canvas id="hero-3d" aria-hidden="true"></canvas>
+      <div class="hero-fallback" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="hero.eyebrow">AI Marketing Agency · Yangon</p>
+          <h1 data-i18n="hero.title">Grow smarter<br>with <span class="accent">AI</span>.</h1>
+          <p class="my lead-my en-only">မြန်မာလုပ်ငန်းများအတွက် AI Marketing Agency</p>
+          <p class="lead" data-i18n="hero.lead">Content, chatbots, automation, websites, branding, training and software — built for Myanmar businesses, all in one place.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn" data-i18n="hero.cta1">Get a free 30-min AI Audit</a>
+            <a href="#services" class="btn btn-ghost" data-i18n="hero.cta2">See our services</a>
+          </div>
+          <ul class="tags" aria-label="What we do">
+            <li>Content</li><li>Chatbot</li><li>Automation</li><li>Website</li><li>Branding</li><li>Training</li><li>Software</li>
+          </ul>
         </div>
-        <ul class="tags" aria-label="What we do">
-          <li>Content</li><li>Chatbot</li><li>Automation</li><li>Website</li><li>Branding</li><li>Training</li><li>Software</li>
-        </ul>
+        <div class="hero-art" aria-hidden="true">
+          <div class="chat chat-1" data-i18n="hero.chat1"><b>Customer</b>Do you deliver to Mandalay?</div>
+          <div class="chat chat-2" data-i18n="hero.chat2"><b>Desyners Bot · 24/7</b>Yes! Delivery takes 2–3 days. Shall I take your order?</div>
+        </div>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="hero-mark"></div>
-        <div class="chat chat-1" data-i18n="hero.chat1"><b>Customer</b>Do you deliver to Mandalay?</div>
-        <div class="chat chat-2" data-i18n="hero.chat2"><b>Desyners Bot · 24/7</b>Yes! Delivery takes 2–3 days. Shall I take your order?</div>
-      </div>
-    </div>
-  </section>
+      <p class="hero-caption" data-i18n="hero.caption">One partner for <span class="accent">everything AI</span> in your business.</p>
+      <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+  </div>
 
   <!-- PROBLEM -->
   <section class="section problem">
@@ -449,7 +454,14 @@
   </div>
 </footer>
 
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
 <script src="i18n.js"></script>
 <script src="main.js"></script>
+<script type="module" src="scene.js"></script>
 </body>
 </html>
