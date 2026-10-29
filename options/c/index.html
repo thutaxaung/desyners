@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desyners — Option C · Glass Float</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+  :root { --bg: #f6f8ff; --radius: 28px; }
+  .h2, .hero h1 { font-family: "Plus Jakarta Sans", var(--font); }
+
+  /* Hero */
+  .hero { position: relative; height: 100vh; height: 100svh; min-height: 680px; overflow: hidden; }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-fallback { position: absolute; inset: 0; background: radial-gradient(600px 400px at 20% 20%, #cfe0ff, transparent), radial-gradient(700px 500px at 80% 80%, #bfe0ff, transparent), #eef3ff; }
+  .hero-copy { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; }
+  .hero-copy > * { pointer-events: auto; }
+  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 8px 16px; border-radius: 999px; background: rgba(255,255,255,.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; font-weight: 600; box-shadow: var(--shadow); margin-bottom: 22px; }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+  .hero h1 { font-size: clamp(50px, 9vw, 130px); font-weight: 800; letter-spacing: -0.05em; line-height: .95; text-shadow: 0 10px 40px rgba(246,248,255,.9); }
+  .hero h1 .w { display: inline-block; }
+  .hero .lead { margin: 24px auto 32px; font-size: clamp(17px, 1.7vw, 21px); color: var(--muted); max-width: 42ch; }
+  .hero .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-ghost { background: rgba(255,255,255,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+
+  /* Parallax photo mosaic */
+  .mosaic { position: relative; height: 150vh; overflow: hidden; }
+  .cols { position: absolute; inset: -20% 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 0 18px; }
+  .col { display: grid; gap: 18px; align-content: start; will-change: transform; }
+  .col img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 24px; }
+  .col:nth-child(even) img { aspect-ratio: 4 / 5; }
+  .mosaic::after { content: ""; position: absolute; inset: 0; background: radial-gradient(closest-side, rgba(246,248,255,.92), rgba(246,248,255,.35) 70%, transparent); pointer-events: none; }
+  .mosaic-card { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(720px, 90vw); text-align: center; }
+  .mosaic-card p { font-family: "Plus Jakarta Sans", var(--font); font-size: clamp(30px, 4.6vw, 62px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.1; }
+
+  /* Bento */
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 300px; gap: 18px; }
+  .tile { position: relative; overflow: hidden; border-radius: var(--radius); color: #fff; box-shadow: var(--shadow); isolation: isolate; }
+  .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+  .tile:hover img { transform: scale(1.08); }
+  .tile .glass { position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 16px 18px; border-radius: 20px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); }
+  .tile h3 { font-size: 20px; letter-spacing: -0.01em; text-shadow: 0 1px 10px rgba(0,0,0,.25); }
+  .tile p { font-size: 14px; opacity: .92; margin-top: 4px; text-shadow: 0 1px 8px rgba(0,0,0,.3); }
+  .t-a { grid-column: span 2; grid-row: span 2; } .t-b { grid-column: span 2; } .t-g { grid-column: span 2; }
+  .tile.solid { background: linear-gradient(140deg, var(--blue-2), var(--blue) 55%, #0638b8); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; }
+  .tile.solid h3 { font-size: 30px; } .tile.solid .btn { align-self: flex-start; margin-top: 16px; background: #fff; color: var(--blue); }
+
+  /* Yangon + sticker */
+  .yangon { position: relative; border-radius: 40px; overflow: hidden; height: min(80vh, 720px); }
+  .yangon img { width: 100%; height: 120%; object-fit: cover; }
+  .yangon h2 { position: absolute; left: 6%; bottom: 10%; color: #fff; font-family: "Plus Jakarta Sans"; font-size: clamp(36px, 6vw, 84px); letter-spacing: -0.04em; text-shadow: 0 6px 30px rgba(0,0,0,.35); }
+  .sticker { position: absolute; right: 6%; top: 8%; width: clamp(120px, 14vw, 180px); aspect-ratio: 1; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 20px 40px rgba(0,0,0,.2); }
+  .sticker svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 14s linear infinite; }
+  .sticker text { font: 800 10px "Plus Jakarta Sans", sans-serif; letter-spacing: 1px; fill: var(--text); }
+  .sticker .mk { width: 46%; height: 34%; background: var(--blue); -webkit-mask: url(../../assets/logo-mark.png) center / contain no-repeat; mask: url(../../assets/logo-mark.png) center / contain no-repeat; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Flip cards */
+  .flips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .flip { perspective: 1000px; height: 360px; cursor: pointer; }
+  .flip-in { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .flip:hover .flip-in, .flip.on .flip-in { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; border-radius: var(--radius); overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: var(--shadow); }
+  .front img { width: 100%; height: 100%; object-fit: cover; }
+  .front h3 { position: absolute; left: 20px; right: 20px; bottom: 18px; color: #fff; font-size: 22px; text-shadow: 0 2px 16px rgba(0,0,0,.4); }
+  .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(6,22,56,.65)); }
+  .front h3 { z-index: 1; }
+  .back { transform: rotateY(180deg); background: linear-gradient(150deg, #fff, #e6efff); padding: 28px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  .back h3 { font-size: 24px; } .back p { color: var(--muted); font-size: 17px; }
+  .flip-hint { color: var(--muted); font-size: 14px; margin-top: -30px; margin-bottom: 26px; }
+
+  /* Stats bubbles */
+  .bubbles { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 60px; }
+  .bubble { padding: 22px 30px; border-radius: 999px; background: #fff; box-shadow: var(--shadow); display: flex; align-items: baseline; gap: 12px; animation: bob 5s ease-in-out infinite; }
+  .bubble:nth-child(2) { animation-delay: -1.2s; } .bubble:nth-child(3) { animation-delay: -2.4s; } .bubble:nth-child(4) { animation-delay: -3.6s; }
+  .bubble strong { font-family: "Plus Jakarta Sans"; font-size: 40px; letter-spacing: -0.03em; color: var(--blue); }
+  .bubble span { color: var(--muted); font-weight: 600; }
+  @keyframes bob { 50% { transform: translateY(-10px); } }
+
+  /* Process path */
+  .path-wrap { position: relative; }
+  .path-wrap svg { position: absolute; left: 0; top: 30px; width: 100%; height: 120px; overflow: visible; }
+  .path-wrap path { fill: none; stroke: url(#pg); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 6 10; }
+  .path-wrap .solid-path { stroke-dasharray: none; }
+  .psteps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .pstep { text-align: center; }
+  .pstep .num { width: 76px; height: 76px; margin: 0 auto 18px; border-radius: 26px; display: grid; place-items: center; font: 800 28px "Plus Jakarta Sans"; color: #fff; background: linear-gradient(140deg, var(--blue-2), #0638b8); box-shadow: 0 16px 30px rgba(10,92,240,.3); transform: rotate(-6deg); }
+  .pstep:nth-child(even) .num { transform: rotate(6deg); margin-top: 40px; }
+  .pstep h3 { font-size: 20px; margin-bottom: 4px; } .pstep p { color: var(--muted); font-size: 15px; }
+  .pstep b { display: block; color: var(--blue); font-size: 13px; letter-spacing: .1em; margin-bottom: 6px; }
+
+  .contact { background: linear-gradient(150deg, #0a5cf0, #0638b8 60%, #051d73); color: #fff; border-radius: 48px; margin: 0 12px 12px; }
+  .contact .eyebrow { color: #cfe0ff; } .contact .muted { color: rgba(255,255,255,.8); }
+  .contact .grad { background: linear-gradient(90deg, #fff, #9cc8ff); -webkit-background-clip: text; background-clip: text; }
+
+  @media (max-width: 900px) {
+    .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 240px; }
+    .t-a { grid-column: span 2; grid-row: span 1; }
+    .flips { grid-template-columns: repeat(2, 1fr); }
+    .cols { grid-template-columns: repeat(3, 1fr); } .col:nth-child(4) { display: none; }
+    .psteps { grid-template-columns: repeat(2, 1fr); row-gap: 30px; } .path-wrap svg { display: none; }
+    .pstep:nth-child(even) .num { margin-top: 0; }
+  }
+  @media (max-width: 560px) {
+    .bento { grid-template-columns: 1fr; } .t-a, .t-b, .t-g { grid-column: auto; }
+    .flips { grid-template-columns: 1fr; } .flip { height: 300px; }
+    .mosaic { height: 110vh; }
+  }
+</style>
+</head>
+<body data-opt="c" id="top">
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
+    <nav class="nav-links"><a href="#services">Services</a><a href="#why">Why us</a><a href="#process">Process</a><a href="#pricing">Pricing</a><a href="#team">Team</a></nav>
+    <a href="#contact" class="btn">Free AI Audit</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-fallback"></div>
+    <canvas id="stage" aria-hidden="true"></canvas>
+    <div class="wrap hero-copy">
+      <span class="pill"><i></i>AI Marketing Agency · Yangon</span>
+      <h1><span class="w">Grow</span> <span class="w">smarter</span><br><span class="w">with</span> <span class="w grad">AI.</span></h1>
+      <p class="lead">Content, chatbots, automation, websites and training — made simple for Myanmar businesses.</p>
+      <div class="ctas"><a href="#contact" class="btn">Book a free AI Audit</a><a href="#services" class="btn btn-ghost">See services</a></div>
+    </div>
+  </section>
+
+  <section class="mosaic" aria-label="Our work">
+    <div class="cols">
+      <div class="col" data-speed="-18"><img src="../../assets/hq/social-woman.jpg" alt="" loading="lazy"><img src="../../assets/hq/website-laptop.jpg" alt="" loading="lazy"><img src="../../assets/hq/training.jpg" alt="" loading="lazy"></div>
+      <div class="col" data-speed="14"><img src="../../assets/hq/team-lead.jpg" alt="" loading="lazy"><img src="../../assets/hq/chat-phone.jpg" alt="" loading="lazy"><img src="../../assets/hq/branding-cards.jpg" alt="" loading="lazy"></div>
+      <div class="col" data-speed="-26"><img src="../../assets/hq/shop-owner.jpg" alt="" loading="lazy"><img src="../../assets/hq/dashboard.jpg" alt="" loading="lazy"><img src="../../assets/hq/creator-tripod.jpg" alt="" loading="lazy"></div>
+      <div class="col" data-speed="10"><img src="../../assets/hq/happy-laptop.jpg" alt="" loading="lazy"><img src="../../assets/hq/coders.jpg" alt="" loading="lazy"><img src="../../assets/hq/social-cafe.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="mosaic-card"><p>We make AI <span class="grad">simple</span> for Myanmar businesses.</p></div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2 class="h2 reveal-text">Seven ways to <span class="grad">grow</span></h2>
+      <div class="bento stagger">
+        <article class="tile t-a"><img src="../../assets/hq/creator-tripod.jpg" alt="" loading="lazy"><div class="glass"><h3>AI Content &amp; Social Media</h3><p>Posts, reels and ads in your brand voice — even AI clone videos in Burmese.</p></div></article>
+        <article class="tile t-b"><img src="../../assets/hq/chat-phone.jpg" alt="" loading="lazy"><div class="glass"><h3>AI Chatbots</h3><p>Reply and take orders 24/7 on Messenger, Viber &amp; Telegram.</p></div></article>
+        <article class="tile"><img src="../../assets/hq/automation-desk.jpg" alt="" loading="lazy"><div class="glass"><h3>Automation</h3><p>Workflows that do the busywork.</p></div></article>
+        <article class="tile"><img src="../../assets/hq/website-laptop.jpg" alt="" loading="lazy"><div class="glass"><h3>Websites</h3><p>Sites that sell.</p></div></article>
+        <article class="tile"><img src="../../assets/hq/branding-cards.jpg" alt="" loading="lazy"><div class="glass"><h3>Branding</h3><p>A look people remember.</p></div></article>
+        <article class="tile"><img src="../../assets/hq/training.jpg" alt="" loading="lazy"><div class="glass"><h3>AI Training</h3><p>Diploma, workshops, coaching.</p></div></article>
+        <article class="tile t-g"><img src="../../assets/hq/dashboard.jpg" alt="" loading="lazy"><div class="glass"><h3>Software &amp; ERP</h3><p>AI tool subscriptions, our own SaaS, and Odoo / ERP setup.</p></div></article>
+        <article class="tile solid t-g"><h3>All in one place.</h3><p style="opacity:.85">One team, one plan, one monthly report.</p><a href="#contact" class="btn">Start free →</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="yangon">
+        <img src="../../assets/hq/yangon-day.jpg" alt="Sule Pagoda, downtown Yangon" loading="lazy">
+        <h2>Built in Yangon.<br>For Myanmar.</h2>
+        <div class="sticker" aria-hidden="true">
+          <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text><textPath href="#circ" textLength="236" lengthAdjust="spacingAndGlyphs">MADE IN YANGON • AI FOR MYANMAR •</textPath></text></svg>
+          <span class="mk"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="why">
+    <div class="wrap">
+      <p class="eyebrow">Why Desyners</p>
+      <h2 class="h2 reveal-text">Made for how Myanmar <span class="grad">does business</span></h2>
+      <p class="flip-hint">Hover or tap a card to flip it.</p>
+      <div class="flips stagger">
+        <div class="flip"><div class="flip-in"><div class="face front"><img src="../../assets/hq/social-cafe.jpg" alt="" loading="lazy"><h3>Natural Burmese</h3></div><div class="face back"><h3>Natural Burmese</h3><p>AI content that reads like a person wrote it — no translated tone.</p></div></div></div>
+        <div class="flip"><div class="flip-in"><div class="face front"><img src="../../assets/hq/social-woman.jpg" alt="" loading="lazy" style="object-position:50% 25%"><h3>AI clone video</h3></div><div class="face back"><h3>AI clone video</h3><p>Your face, your voice, in Burmese — a month of video without filming.</p></div></div></div>
+        <div class="flip"><div class="flip-in"><div class="face front"><img src="../../assets/hq/happy-laptop.jpg" alt="" loading="lazy"><h3>Facebook-first</h3></div><div class="face back"><h3>Facebook-first</h3><p>Myanmar customers live on Facebook. Our systems are built for it.</p></div></div></div>
+        <div class="flip"><div class="flip-in"><div class="face front"><img src="../../assets/hq/team-lead.jpg" alt="" loading="lazy"><h3>Results, not tools</h3></div><div class="face back"><h3>Results, not tools</h3><p>We build it, make it work and report the numbers every month.</p></div></div></div>
+      </div>
+      <div class="bubbles">
+        <div class="bubble"><strong data-count="5">5</strong><span>companies on our AI Designer Agent</span></div>
+        <div class="bubble"><strong>CLC</strong><span>school trained in AI</span></div>
+        <div class="bubble"><strong>1:1</strong><span>owner coaching</span></div>
+        <div class="bubble"><strong>24/7</strong><span>chatbot replies</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h2 class="h2 reveal-text">Four simple <span class="grad">steps</span></h2>
+      <div class="path-wrap">
+        <svg viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="pg" x1="0" x2="1"><stop offset="0" stop-color="#0a5cf0"/><stop offset="1" stop-color="#6aaef5"/></linearGradient></defs>
+          <path class="solid-path" d="M125,40 C250,40 250,80 375,80 S500,40 625,40 S750,80 875,80"/>
+        </svg>
+        <div class="psteps">
+          <div class="pstep"><div class="num">1</div><b>30 MIN</b><h3>Free AI Audit</h3><p>We find what eats your time.</p></div>
+          <div class="pstep"><div class="num">2</div><b>3 DAYS</b><h3>Clear plan &amp; price</h3><p>What first, and what it costs.</p></div>
+          <div class="pstep"><div class="num">3</div><b>2–4 WEEKS</b><h3>Build &amp; train</h3><p>We set it up with your team.</p></div>
+          <div class="pstep"><div class="num">4</div><b>MONTHLY</b><h3>Measure &amp; improve</h3><p>Real numbers, every month.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="h2 reveal-text">Simple, honest <span class="grad">pricing</span></h2>
+      <div class="prices stagger">
+        <div class="price"><span class="tag">Monthly</span><h3>Content package</h3><p class="amt"><small>from</small> 300,000 <small>MMK</small></p></div>
+        <div class="price hot"><span class="tag">One-time setup</span><h3>Messenger chatbot</h3><p class="amt"><small>from</small> 350,000 <small>MMK</small></p></div>
+        <div class="price"><span class="tag">Project</span><h3>Websites, branding, automation &amp; training</h3><p class="amt">Custom quote</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="team">
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h2 class="h2 reveal-text">The people behind <span class="grad">Desyners</span></h2>
+      <div class="team stagger">
+        <div class="member"><img src="../../assets/zwe-htet-zaw.jpg" alt="Zwe Htet Zaw" loading="lazy"><div><h3>Zwe Htet Zaw</h3><p class="role">Founder</p><p>Also runs an engineering company — 6 years hands-on.</p></div></div>
+        <div class="member"><img src="../../assets/min-khant-soe.jpg" alt="Min Khant Soe" loading="lazy"><div><h3>Min Khant Soe</h3><p class="role">Senior AI Developer · SoeMindAI</p><p>AIT Master's in Data Science &amp; AI · AI lead at Brooker Group PLC.</p></div></div>
+        <div class="member"><img src="../../assets/ye-htet-zaw.jpg" alt="Ye Htet Zaw" loading="lazy"><div><h3>Ye Htet Zaw</h3><p class="role">Co-founder</p><p>IT background · leads systems and implementation.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Free · 30 minutes · No sales pitch</p>
+        <h2 class="h2">Get your free <span class="grad">AI Audit</span></h2>
+        <p class="muted">We'll show you what AI can take off your plate first.</p>
+        <div class="contact-lines">
+          <a href="tel:+959795757666"><span>Call</span>09 795 757 666</a>
+          <a href="tel:+959782405066"><span>Call</span>09 782 405 066</a>
+          <a href="https://m.me/desynersdotcom" target="_blank" rel="noopener"><span>Messenger</span>Message us →</a>
+        </div>
+      </div>
+      <form class="form" action="https://formsubmit.co/ajax/desyners.mm@gmail.com" method="post" novalidate>
+        <input type="hidden" name="_subject" value="New AI Audit request from desyners.io">
+        <input type="hidden" name="_template" value="table">
+        <h3>Leave your details — we'll call you back</h3>
+        <label>Your name *<input name="name" required maxlength="100" autocomplete="name"></label>
+        <label>Phone / Viber *<input name="phone" type="tel" required maxlength="30" autocomplete="tel"></label>
+        <label>Business name<input name="business" maxlength="120" autocomplete="organization"></label>
+        <label>Interested in<select name="service"><option>Free 30-min AI Audit</option><option>AI Content &amp; Social Media</option><option>AI Chatbots</option><option>Automation &amp; AI Agents</option><option>Websites</option><option>Branding &amp; Design</option><option>AI Training</option><option>Software &amp; ERP</option></select></label>
+        <label class="full">What would you like help with?<textarea name="message" rows="3" maxlength="2000"></textarea></label>
+        <label class="hp" aria-hidden="true">Website<input name="_honey" tabindex="-1" autocomplete="off"></label>
+        <div class="form-foot"><button class="btn" type="submit">Send</button><p class="form-status" role="status" aria-live="polite"></p></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
+    <span>AI Marketing Agency · Yangon, Myanmar</span>
+    <div class="links"><a href="https://www.facebook.com/desynersdotcom" target="_blank" rel="noopener">Facebook</a><a href="tel:+959795757666">09 795 757 666</a></div>
+  </div>
+</footer>
+
+<nav class="switcher" aria-label="Design options">
+  <a href="../a/" data-opt="a">A · Chrome Studio</a><a href="../b/" data-opt="b">B · Neural Blue</a><a href="../c/" data-opt="c">C · Glass Float</a>
+</nav>
+<script>document.querySelector('.switcher [data-opt="' + document.body.dataset.opt + '"]').classList.add('on');</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>gsap.registerPlugin(ScrollTrigger);</script>
+<script src="../shared/common.js"></script>
+<script>
+(function () {
+  document.querySelectorAll('.flip').forEach(function (f) { f.addEventListener('click', function () { f.classList.toggle('on'); }); });
+  if (DESY.reduce) return;
+
+  gsap.from('.hero h1 .w', { y: 80, rotate: 6, opacity: 0, duration: 1.1, ease: 'back.out(1.6)', stagger: .08, delay: .2 });
+  gsap.from('.hero .pill, .hero .lead, .hero .ctas', { y: 24, opacity: 0, duration: .9, ease: 'power3.out', stagger: .1, delay: .6 });
+
+  document.querySelectorAll('.col').forEach(function (c) {
+    gsap.fromTo(c, { yPercent: 0 }, { yPercent: +c.dataset.speed, ease: 'none', scrollTrigger: { trigger: '.mosaic', start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  gsap.from('.mosaic-card p', { scale: .85, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.mosaic', start: 'top 70%', end: 'center center', scrub: true } });
+
+  document.querySelectorAll('.reveal-text').forEach(function (h) {
+    gsap.from(h, { y: 50, opacity: 0, duration: 1, ease: 'back.out(1.4)', scrollTrigger: { trigger: h, start: 'top 85%' } });
+  });
+  document.querySelectorAll('.stagger').forEach(function (g) {
+    gsap.from(g.children, { y: 70, scale: .94, opacity: 0, duration: 1, ease: 'back.out(1.3)', stagger: .08, scrollTrigger: { trigger: g, start: 'top 85%' } });
+  });
+
+  gsap.fromTo('.yangon img', { yPercent: -10 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.yangon', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.to('.sticker', { rotate: 120, ease: 'none', scrollTrigger: { trigger: '.yangon', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+  var path = document.querySelector('.solid-path');
+  if (path) {
+    var L = path.getTotalLength(); path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+    gsap.to(path, { strokeDashoffset: 0, ease: 'none', scrollTrigger: { trigger: '.path-wrap', start: 'top 80%', end: 'top 30%', scrub: true } });
+  }
+  gsap.from('.pstep .num', { scale: 0, rotate: -40, duration: .9, ease: 'back.out(2)', stagger: .15, scrollTrigger: { trigger: '.psteps', start: 'top 80%' } });
+})();
+</script>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+</script>
+<script type="module">
+// Floating glass shapes around the headline, refracting a soft blue background, with the chrome logo among them.
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { loadLogo } from '../shared/logo3d.js';
+
+const canvas = document.getElementById('stage'), hero = document.querySelector('.hero');
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) { canvas.remove(); }
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, .1, 100); camera.position.set(0, 0, 12);
+  scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
+
+  // Soft blue background painted on a canvas so the glass has colour to bend.
+  const bg = document.createElement('canvas'); bg.width = bg.height = 512;
+  const g = bg.getContext('2d'); g.fillStyle = '#f2f6ff'; g.fillRect(0, 0, 512, 512);
+  [[110, 120, 260, '#bcd3ff'], [420, 380, 300, '#c5e2ff'], [380, 90, 180, '#dfe9ff'], [120, 420, 200, '#d3e3ff']].forEach(([x, y, r, c]) => {
+    const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, 'rgba(242,246,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 512, 512);
+  });
+  const tex = new THREE.CanvasTexture(bg); tex.colorSpace = THREE.SRGBColorSpace; scene.background = tex;
+
+  const glass = (tint) => new THREE.MeshPhysicalMaterial({ color: tint, metalness: 0, roughness: .06, transmission: 1, thickness: 1.2, ior: 1.5, iridescence: .5, iridescenceIOR: 1.3, clearcoat: 1, envMapIntensity: 1.3 });
+  const solid = (c) => new THREE.MeshPhysicalMaterial({ color: c, metalness: .1, roughness: .25, clearcoat: 1, clearcoatRoughness: .1 });
+  const items = [
+    [new THREE.SphereGeometry(1, 64, 64), glass(0xffffff), [-4.4, 2.0, -1], 1.1],
+    [new THREE.TorusGeometry(.9, .36, 48, 120), solid(0x0a5cf0), [3.2, 3.3, -1.5], 1],
+    [new RoundedBoxGeometry(1.5, 1.5, 1.5, 6, .3), glass(0xdbe8ff), [4.2, -2.3, 0], 1],
+    [new THREE.CapsuleGeometry(.45, 1.2, 12, 32), solid(0x6aaef5), [-4.6, -2.4, .5], 1],
+    [new THREE.TorusKnotGeometry(.55, .2, 160, 24), glass(0xffffff), [-1.6, -3.3, -2], 1],
+    [new THREE.SphereGeometry(.45, 48, 48), solid(0x0a5cf0), [1.6, 3.4, -2], 1],
+    [new THREE.IcosahedronGeometry(.8, 0), glass(0xcfe2ff), [0.6, -3.6, -1], 1]
+  ].map(([geo, m, pos, s], i) => { const mesh = new THREE.Mesh(geo, m); mesh.position.set(...pos); mesh.scale.setScalar(s); mesh.userData = { base: new THREE.Vector3(...pos), ph: i * 1.3, sp: .6 + (i % 3) * .2 }; scene.add(mesh); return mesh; });
+
+  let logo; loadLogo('../../assets/logo.svg', 'chrome', 1.8).then(({ mesh }) => { logo = mesh; logo.position.set(4.2, -.1, .6); scene.add(logo); });
+
+  let mx = 0, my = 0, sx = 0, sy = 0;
+  addEventListener('pointermove', (e) => { mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1; });
+  const fit = () => { const w = hero.clientWidth, h = hero.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.position.z = w < h ? 20 : 12; camera.updateProjectionMatrix(); };
+  new ResizeObserver(fit).observe(hero); fit();
+  let visible = true; new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(hero);
+  const clock = new THREE.Clock();
+  (function frame() {
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    const t = clock.getElapsedTime();
+    const p = Math.min(Math.max(-hero.getBoundingClientRect().top / hero.offsetHeight, 0), 1);
+    sx += (mx - sx) * .05; sy += (my - sy) * .05;
+    const intro = Math.min(t / 1.6, 1), k = 1 - Math.pow(1 - intro, 3);
+    items.forEach((m, i) => {
+      const u = m.userData, depth = 1 + u.base.z * -.15;
+      m.position.set(u.base.x * (1 + p * .6) + sx * .5 * depth, u.base.y + Math.sin(t * u.sp + u.ph) * .25 - sy * .4 * depth + p * 2 * (i % 2 ? 1 : -1), u.base.z);
+      m.rotation.x = t * .2 * u.sp + u.ph; m.rotation.y = t * .3 * u.sp;
+      m.scale.setScalar(k * (i === 0 ? 1.1 : 1));
+    });
+    if (logo) { logo.rotation.set(.2 + sy * .3, -.6 + t * .35 + sx * .6, Math.sin(t * .5) * .08); logo.position.y = -.1 + Math.sin(t) * .15 + p * 2; logo.scale.setScalar(k); }
+    renderer.render(scene, camera);
+  })();
+}
+</script>
+</body>
+</html>
