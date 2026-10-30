@@ -216,7 +216,7 @@ if (renderer) {
     const end = frameAndStatus(false);
     g.fillStyle = '#f5f8ff'; g.fillRect(0, 0, SW, SH);
     g.fillStyle = '#0b1b46'; g.font = `800 42px ${FONT}`; g.fillText('Dashboard', 50, 170);
-    g.fillStyle = '#8a97b5'; g.font = `500 24px ${FONT}`; g.fillText('This month · Odoo ERP', 50, 210);
+    g.fillStyle = '#8a97b5'; g.font = `500 24px ${FONT}`; g.fillText('This month · Your ERP', 50, 210);
     const k = ease(t / 2.4);
     [['Sales (MMK)', fmt(18400000 * k), '+18%'], ['Orders', fmt(642 * k), '+12%']].forEach(([l, v, d], i) => {
       const x = 40 + i * ((SW - 100) / 2 + 20), w = (SW - 100) / 2;

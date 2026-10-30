@@ -46,7 +46,7 @@ window.I18N_MY = {
   "svc.p4": "ဝင်ကြည့်သူကို ဖောက်သည်ဖြစ်စေမယ့် Website နဲ့ Online Store။",
   "svc.p5": "မှတ်မိစေမယ့် Logo, Template နဲ့ Packaging။",
   "svc.p6": "AI Diploma, Corporate Workshop နဲ့ သီးသန့် Coaching။",
-  "svc.p7": "ChatGPT, Claude, Canva Subscription၊ ကိုယ်ပိုင် SaaS နဲ့ Odoo / ERP တပ်ဆင်ပေးခြင်း။",
+  "svc.p7": "ChatGPT, Claude, Canva Subscription၊ ကိုယ်ပိုင် SaaS နဲ့ ERP စနစ် တပ်ဆင်ပေးခြင်း။",
 
   "why.eyebrow": "ဘာကြောင့် Desyners လဲ",
   "why.title": "မြန်မာလုပ်ငန်းများအတွက် အထူးတည်ဆောက်ထား",
