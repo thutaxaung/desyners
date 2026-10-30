@@ -22,28 +22,29 @@
   .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
   .js .rv.in { opacity: 1; transform: none; }
   .btn, .member, .form, .form input, .form select, .form textarea { border-radius: 14px; }
-  .js .nav { opacity: var(--nb, 1); pointer-events: var(--np, auto); transition: opacity .3s; }
+  .js .nav { opacity: 0; pointer-events: none; transition: opacity .3s; }
 
   /* ---------- Intro ---------- */
   .intro { height: 280vh; position: relative; }
   .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--bg); }
-  .zoom { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+  .zoom { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; transform-origin: 0 0; }
+  .moving .zoom { will-change: transform; }
   .zoom path { fill: var(--ink); }
   .js .zoom.draw path { fill-opacity: 0; stroke: var(--ink); stroke-width: 50; stroke-dasharray: 1; stroke-dashoffset: 1; animation: trace 1.8s cubic-bezier(.6,0,.3,1) forwards, fill .6s ease 1.5s forwards; }
   @keyframes trace { to { stroke-dashoffset: 0; } }
   @keyframes fill { to { fill-opacity: 1; stroke-width: 0; } }
-  .word { position: absolute; left: 50%; top: calc(50% + var(--lh, 200px) / 2 + 34px); translate: -50% 0; z-index: 3; text-align: center; pointer-events: none; opacity: calc(1 - var(--p, 0) * 6); }
+  .word { position: absolute; left: 50%; top: calc(50% + var(--lh, 200px) / 2 + 34px); translate: -50% 0; z-index: 3; text-align: center; pointer-events: none; }
   .word b { display: block; font-size: clamp(22px, 3.2vw, 38px); font-weight: 900; letter-spacing: .5em; padding-left: .5em; color: var(--ink); white-space: nowrap; }
   @media (max-width: 560px) { .word b { letter-spacing: .32em; padding-left: .32em; } }
   .word b span { display: inline-block; opacity: 0; transform: translateY(14px); animation: up .6s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(1.5s + var(--i) * 60ms); }
   @keyframes up { to { opacity: 1; transform: none; } }
   .word small { display: block; margin-top: 12px; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--blue); opacity: 0; animation: up .6s ease 2.1s forwards; }
-  .hint { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; z-index: 3; display: grid; justify-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--muted); opacity: calc(1 - var(--p, 0) * 8); }
+  .hint { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; z-index: 3; display: grid; justify-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--muted);  }
   .hint i { width: 2px; height: 38px; background: linear-gradient(var(--blue), transparent); animation: drip 1.6s ease-in-out infinite; transform-origin: top; }
   @keyframes drip { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 
   /* The page inside the notch: a full-size hero, scaled down and placed on the notch by the script */
-  .inside { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1; transform-origin: 0 0; will-change: transform; }
+  .inside { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1; transform-origin: 0 0; contain: layout paint style; }
   .inside .wrap { height: 100%; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-top: 40px; }
   .inside h1 { font-size: clamp(46px, 6.6vw, 96px); font-weight: 900; letter-spacing: -0.05em; line-height: .93; margin: 14px 0 22px; }
   .inside .lead { color: var(--muted); font-size: clamp(17px, 1.5vw, 19px); max-width: 42ch; margin-bottom: 28px; }
@@ -188,7 +189,7 @@
           <div class="li"><b>↺</b><div><strong>Measure &amp; improve</strong><span>Every month, then build the next thing.</span></div></div></div>
       </div>
       <div class="nums rv">
-        <div class="num"><b data-count="5">5</b><p>companies on our AI Designer Agent</p></div>
+        <div class="num"><b data-count="10">10</b><p>companies on our AI Designer Agent</p></div>
         <div class="num"><b>24<small>/7</small></b><p>chatbots answering customers</p></div>
         <div class="num"><b data-count="7">7</b><p>services under one roof</p></div>
         <div class="num"><b><span data-count="30">30</span><small>min</small></b><p>free AI audit to start</p></div>
@@ -277,18 +278,35 @@
     kIn = NOTCH.r / (Math.hypot(W, H) / 2 * 1.02);  // the notch just covers the screen: the page is full size here
     kEnd = kIn / 2.2;                               // keep going a little so the navy edges leave the screen
     pin.style.setProperty('--lh', (896 / k0) + 'px');   // drawn height of the mark
-    update();
+    base = null; update();
   }
 
+  // Zooming by rewriting the viewBox redraws the whole logo every frame, which phones can't keep up with.
+  // So while scrolling, the last sharp drawing is just scaled on the GPU, and it's redrawn sharp only
+  // when it has grown (or shrunk) a lot, or once scrolling stops.
+  var nav = document.querySelector('.nav'), word = document.querySelector('.word'), hint = document.querySelector('.hint');
+  var base = null, idle;
+  function redraw(v) {
+    base = v;
+    zoom.setAttribute('viewBox', (v.x - W * v.k / 2) + ' ' + (v.y - H * v.k / 2) + ' ' + (W * v.k) + ' ' + (H * v.k));
+    zoom.style.transform = '';
+  }
   function update() {
     var r = intro.getBoundingClientRect(), p = clamp(-r.top / (r.height - H));
-    pin.style.setProperty('--p', p);
     if (p > .005 && zoom.classList.contains('draw')) zoom.classList.remove('draw');   // scrolling skips the draw-in
+    word.style.opacity = 1 - p * 6; hint.style.opacity = 1 - p * 8;
     var z = smooth(clamp(p / .9));
     var k = k0 * Math.pow(kEnd / k0, z);          // zoom at a steady rate, so it feels like flying in
     var m = smooth(clamp(z * 2.2));               // the camera slides from the logo centre to the notch early on
     var cx = LOGO.x + (NOTCH.x - LOGO.x) * m, cy = LOGO.y + (NOTCH.y - LOGO.y) * m;
-    zoom.setAttribute('viewBox', (cx - W * k / 2) + ' ' + (cy - H * k / 2) + ' ' + (W * k) + ' ' + (H * k));
+    var want = { x: cx, y: cy, k: k };
+    if (!base || base.k / k > 2.2 || base.k / k < .45) redraw(want);
+    else {
+      var sc = base.k / k;
+      zoom.style.transform = 'translate(' + ((base.x - W * base.k / 2) - (cx - W * k / 2)) / k + 'px,' + ((base.y - H * base.k / 2) - (cy - H * k / 2)) / k + 'px) scale(' + sc + ')';
+    }
+    clearTimeout(idle); pin.classList.add('moving');
+    idle = setTimeout(function () { pin.classList.remove('moving'); redraw(want); }, 140);
     zoom.style.opacity = 1 - clamp((z - .92) / .08);
     // The hero lives in the notch: same zoom, pinned to the notch's screen position, capped at full size
     var s = Math.min(1, kIn / k);
@@ -296,15 +314,14 @@
     var tx = s < 1 ? nx - W * s / 2 : 0, ty = s < 1 ? ny - H * s / 2 : 0;
     inside.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
     inside.style.opacity = clamp((p - .04) / .12);
-    var landed = s >= 1 && z > .97;
-    inside.style.pointerEvents = landed ? 'auto' : 'none';
-    root.style.setProperty('--nb', clamp((z - .85) / .12));
-    root.style.setProperty('--np', z > .9 ? 'auto' : 'none');
+    inside.style.pointerEvents = s >= 1 && z > .97 ? 'auto' : 'none';
+    nav.style.opacity = clamp((z - .85) / .12);
+    nav.style.pointerEvents = z > .9 ? 'auto' : 'none';
   }
 
   var ticking = false;
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); } }, { passive: true });
-  addEventListener('resize', measure);
+  var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 150); });   // phones fire this as the address bar slides
   measure();
   if (reduce) zoom.classList.remove('draw');
 })();

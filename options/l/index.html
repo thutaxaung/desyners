@@ -21,13 +21,18 @@
   .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
   .js .rv.in { opacity: 1; transform: none; }
   .btn, .member, .form, .form input, .form select, .form textarea { border-radius: 14px; }
-  .js .nav .brand { opacity: var(--nb, 1); transition: opacity .3s; }
+  .js .nav .brand { opacity: 0; transition: opacity .3s; }
 
   /* ---------- The layered logo ---------- */
+  /* The logo's depth is drawn once into one canvas (1px steps, so no spikes); only that single bitmap moves.
+     .sway is a CSS animation the GPU runs on its own; .spin is turned by scroll and the mouse. */
   .logo3d { position: relative; aspect-ratio: 1458 / 1008; perspective: 1400px; }
-  .logo3d .spin { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
-  .logo3d .ly { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: translateZ(calc((var(--i) - var(--n) / 2) * var(--gap, .8px))); }
-  
+  .logo3d .tilt { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .logo3d .sway { position: absolute; inset: 0; transform-style: preserve-3d; animation: sway 8s ease-in-out infinite alternate; }
+  .logo3d.still .sway { animation: none; }
+  @keyframes sway { from { transform: rotateY(-12deg) rotateX(4deg); } to { transform: rotateY(12deg) rotateX(-3deg); } }
+  .logo3d .spin { position: absolute; inset: 0; }
+  .logo3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   .logo3d .floor { position: absolute; left: 12%; right: 12%; bottom: -14%; height: 16%; border-radius: 50%; background: radial-gradient(closest-side, rgba(11,27,70,.3), transparent); filter: blur(6px); }
 
   /* ---------- Intro: pinned while the logo travels ---------- */
@@ -35,18 +40,18 @@
   .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
   .pin::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 46%, #ffffff, transparent 70%), radial-gradient(40% 50% at 80% 20%, rgba(106,174,245,.25), transparent 70%); }
   .hero-grid { position: relative; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-  .copy > * { opacity: calc(var(--c, 0) * 1.6 - var(--k) * .2); transform: translateY(calc((1 - min(1, var(--c, 0) * 1.6 - var(--k) * .2)) * 30px)); }
+  .js .copy > * { opacity: 0; }
   .copy h1 { font-size: clamp(46px, 6.6vw, 96px); font-weight: 900; letter-spacing: -0.05em; line-height: .93; margin: 14px 0 22px; }
   .copy .lead { color: var(--muted); font-size: clamp(17px, 1.5vw, 19px); max-width: 40ch; margin-bottom: 28px; }
   .copy .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
   .slot { position: relative; width: min(400px, 80%); aspect-ratio: 1458 / 1008; margin: 0 auto; }
   .fly { position: absolute; left: 50%; top: 50%; width: min(620px, 74vw); translate: -50% -50%; z-index: 3; will-change: transform; }
-  .wordmark { position: absolute; left: 50%; top: calc(50% + min(250px, 30vw)); translate: -50% 0; font-weight: 900; font-size: clamp(22px, 3.4vw, 40px); letter-spacing: calc(.35em + var(--a, 0) * .8em); padding-left: calc(.35em + var(--a, 0) * .8em); white-space: nowrap; opacity: calc(1 - var(--a, 0) * 3); color: var(--ink); pointer-events: none; }
+  .wordmark { position: absolute; left: 50%; top: calc(50% + min(250px, 30vw)); translate: -50% 0; font-weight: 900; font-size: clamp(22px, 3.4vw, 40px); letter-spacing: .35em; padding-left: .35em; white-space: nowrap; color: var(--ink); pointer-events: none; }
   .tagline { display: block; margin-top: 12px; text-align: center; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--blue); }
-  .hint { position: absolute; left: 50%; bottom: 28px; translate: -50% 0; display: grid; justify-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--muted); opacity: calc(1 - var(--a, 0) * 4); }
+  .hint { position: absolute; left: 50%; bottom: 28px; translate: -50% 0; display: grid; justify-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--muted); }
   .hint i { width: 2px; height: 38px; background: linear-gradient(var(--blue), transparent); animation: drip 1.6s ease-in-out infinite; transform-origin: top; }
   @keyframes drip { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
-  .chip { position: absolute; left: 0; top: 0; z-index: 4; display: flex; align-items: center; gap: 8px; padding: 9px 13px 9px 9px; border-radius: 14px; background: #fff; font-size: 14px; font-weight: 700; white-space: nowrap; box-shadow: 0 12px 28px rgba(10,50,140,.16); opacity: var(--b, 0); will-change: transform; }
+  .chip { position: absolute; left: 0; top: 0; z-index: 4; display: flex; align-items: center; gap: 8px; padding: 9px 13px 9px 9px; border-radius: 14px; background: #fff; font-size: 14px; font-weight: 700; white-space: nowrap; box-shadow: 0 12px 28px rgba(10,50,140,.16); opacity: 0; }
   .chip b { width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(140deg, #4d92ff, #0a5cf0); color: #fff; font: 700 11px/1 var(--mono); }
 
   /* ---------- Services bento ---------- */
@@ -105,12 +110,7 @@
 </style>
 </head>
 <body data-opt="l">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a3d74"/><stop offset=".42" stop-color="#0f2258"/><stop offset="1" stop-color="#0b1b46"/></linearGradient>
-    <symbol id="mk" viewBox="0 0 1458 1008"><g transform="translate(0.000000,1008.000000) scale(0.100000,-0.100000)"><path d="M5111 9881 c-20 -13 -16 -1109 4 -1202 45 -199 129 -416 205 -529 9 -14 34 -52 55 -85 21 -33 44 -64 50 -70 7 -5 34 -35 61 -66 73 -83 274 -249 301 -249 6 0 27 -13 48 -30 21 -16 43 -30 50 -30 7 0 28 -11 47 -24 20 -13 53 -29 74 -36 22 -7 55 -21 74 -31 51 -26 183 -69 268 -85 62 -12 462 -14 2580 -14 l2507 0 90 -26 c93 -27 122 -37 240 -84 39 -15 95 -38 125 -50 30 -12 64 -30 75 -40 11 -10 34 -25 51 -33 36 -19 255 -232 340 -332 75 -88 102 -124 190 -256 61 -92 97 -159 205 -384 10 -22 25 -58 33 -80 8 -22 23 -65 34 -95 42 -117 72 -228 82 -302 5 -43 19 -112 30 -155 81 -316 78 -1152 -5 -1468 -13 -49 -26 -112 -29 -140 -4 -27 -24 -99 -45 -160 -22 -60 -47 -132 -57 -160 -18 -53 -147 -318 -192 -396 -15 -26 -40 -69 -55 -95 -15 -27 -41 -67 -58 -89 -16 -22 -47 -65 -68 -95 -46 -66 -123 -153 -171 -194 -19 -17 -70 -65 -112 -107 -77 -77 -200 -159 -318 -215 -108 -50 -147 -65 -222 -84 -205 -52 39 -50 -4268 -49 -3822 1 -4562 6 -4765 28 -257 28 -445 61 -612 107 -29 7 -79 21 -110 30 -133 36 -283 87 -315 108 -13 8 -43 20 -68 26 -25 7 -58 20 -75 30 -16 10 -48 23 -70 30 -22 7 -52 21 -66 31 -14 10 -38 21 -55 25 -70 16 -246 114 -361 201 -37 29 -85 65 -106 80 -112 82 -307 268 -377 360 -142 185 -141 184 -167 181 l-25 -3 1 -590 c1 -324 4 -619 7 -655 11 -140 27 -238 50 -313 13 -43 24 -86 24 -96 0 -9 11 -39 25 -67 13 -27 31 -68 39 -92 9 -24 25 -55 36 -69 11 -14 20 -30 20 -36 0 -18 83 -141 148 -220 72 -86 216 -214 332 -294 14 -9 34 -25 45 -34 27 -24 276 -149 296 -149 9 0 59 -15 110 -33 l94 -32 5395 0 5395 0 60 23 c33 13 85 30 115 38 30 9 69 24 85 34 17 10 48 23 70 30 22 7 56 24 75 36 19 13 39 24 43 24 17 0 157 88 284 178 261 186 594 538 738 782 17 28 44 73 60 100 95 154 130 217 203 365 38 77 73 151 77 165 4 14 18 45 30 70 80 157 144 349 248 735 60 221 88 373 107 580 5 50 14 137 21 195 17 138 17 1093 0 1270 -43 462 -88 699 -192 1005 -11 33 -28 91 -39 128 -10 37 -23 73 -28 80 -6 7 -18 39 -27 72 -10 33 -28 81 -41 107 -13 26 -24 53 -24 59 0 22 -92 220 -164 354 -54 102 -113 209 -136 248 -14 24 -45 79 -70 122 -119 206 -429 554 -680 764 -41 34 -85 71 -97 83 -12 11 -53 39 -90 63 -38 24 -80 53 -95 65 -15 11 -42 26 -60 32 -18 6 -45 19 -59 29 -14 10 -47 23 -73 29 -26 6 -64 19 -85 29 -20 11 -65 27 -100 36 -34 9 -76 22 -94 30 -63 27 -323 76 -457 85 -185 13 -1021 13 -1260 0 -107 -6 -319 -17 -470 -26 -185 -10 -456 -14 -825 -14 -528 1 -683 6 -990 29 -335 26 -402 32 -435 41 -19 5 -105 16 -190 25 -85 9 -198 25 -250 35 -52 10 -133 24 -180 30 -47 6 -116 20 -155 30 -38 10 -99 24 -135 30 -36 7 -92 20 -125 30 -33 10 -96 27 -140 38 -89 23 -219 61 -310 91 -33 11 -80 27 -105 35 -25 8 -83 29 -130 46 -47 18 -112 42 -145 54 -33 12 -71 28 -85 36 -26 16 -65 31 -190 75 -41 15 -82 33 -90 40 -8 7 -34 22 -57 34 -71 36 -285 195 -342 255 -38 39 -39 40 -60 27z"/><path d="M6682 7102 c-11 -29 17 -60 71 -80 56 -21 118 -58 152 -91 11 -10 31 -24 45 -31 35 -19 86 -59 235 -187 225 -193 387 -364 444 -469 12 -21 35 -59 51 -84 162 -248 270 -491 344 -775 50 -188 78 -559 57 -739 -28 -239 -44 -337 -70 -426 -58 -194 -91 -292 -126 -365 -13 -27 -30 -66 -39 -85 -33 -72 -99 -188 -155 -270 -31 -47 -62 -97 -68 -111 -35 -83 -300 -370 -459 -499 -81 -66 -173 -130 -186 -130 -6 0 -41 -24 -80 -52 -39 -29 -89 -62 -111 -73 -86 -42 -104 -114 -24 -100 23 4 62 8 87 8 91 -1 1088 0 2735 1 l1690 1 95 26 c151 43 291 104 377 167 17 12 34 22 38 22 45 0 272 210 342 317 16 23 58 86 94 140 81 122 134 211 144 242 4 12 18 39 31 58 13 20 24 41 24 47 0 6 9 29 21 51 27 51 64 155 98 280 15 55 30 105 34 111 3 6 13 55 22 110 10 54 25 132 36 172 45 178 46 841 0 1048 -10 49 -24 123 -31 164 -26 169 -146 525 -216 640 -12 19 -25 45 -29 58 -10 34 -110 195 -174 282 -31 41 -65 88 -75 105 -48 74 -270 272 -378 336 -24 14 -70 41 -103 61 -33 20 -76 39 -95 43 -19 4 -45 13 -57 21 -13 8 -64 26 -115 41 l-93 27 -2289 1 c-1901 0 -2289 -2 -2294 -13z"/></g></symbol>
-  </defs>
-</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="mk" viewBox="0 0 1458 1008"><g transform="translate(0.000000,1008.000000) scale(0.100000,-0.100000)"><path d="M5111 9881 c-20 -13 -16 -1109 4 -1202 45 -199 129 -416 205 -529 9 -14 34 -52 55 -85 21 -33 44 -64 50 -70 7 -5 34 -35 61 -66 73 -83 274 -249 301 -249 6 0 27 -13 48 -30 21 -16 43 -30 50 -30 7 0 28 -11 47 -24 20 -13 53 -29 74 -36 22 -7 55 -21 74 -31 51 -26 183 -69 268 -85 62 -12 462 -14 2580 -14 l2507 0 90 -26 c93 -27 122 -37 240 -84 39 -15 95 -38 125 -50 30 -12 64 -30 75 -40 11 -10 34 -25 51 -33 36 -19 255 -232 340 -332 75 -88 102 -124 190 -256 61 -92 97 -159 205 -384 10 -22 25 -58 33 -80 8 -22 23 -65 34 -95 42 -117 72 -228 82 -302 5 -43 19 -112 30 -155 81 -316 78 -1152 -5 -1468 -13 -49 -26 -112 -29 -140 -4 -27 -24 -99 -45 -160 -22 -60 -47 -132 -57 -160 -18 -53 -147 -318 -192 -396 -15 -26 -40 -69 -55 -95 -15 -27 -41 -67 -58 -89 -16 -22 -47 -65 -68 -95 -46 -66 -123 -153 -171 -194 -19 -17 -70 -65 -112 -107 -77 -77 -200 -159 -318 -215 -108 -50 -147 -65 -222 -84 -205 -52 39 -50 -4268 -49 -3822 1 -4562 6 -4765 28 -257 28 -445 61 -612 107 -29 7 -79 21 -110 30 -133 36 -283 87 -315 108 -13 8 -43 20 -68 26 -25 7 -58 20 -75 30 -16 10 -48 23 -70 30 -22 7 -52 21 -66 31 -14 10 -38 21 -55 25 -70 16 -246 114 -361 201 -37 29 -85 65 -106 80 -112 82 -307 268 -377 360 -142 185 -141 184 -167 181 l-25 -3 1 -590 c1 -324 4 -619 7 -655 11 -140 27 -238 50 -313 13 -43 24 -86 24 -96 0 -9 11 -39 25 -67 13 -27 31 -68 39 -92 9 -24 25 -55 36 -69 11 -14 20 -30 20 -36 0 -18 83 -141 148 -220 72 -86 216 -214 332 -294 14 -9 34 -25 45 -34 27 -24 276 -149 296 -149 9 0 59 -15 110 -33 l94 -32 5395 0 5395 0 60 23 c33 13 85 30 115 38 30 9 69 24 85 34 17 10 48 23 70 30 22 7 56 24 75 36 19 13 39 24 43 24 17 0 157 88 284 178 261 186 594 538 738 782 17 28 44 73 60 100 95 154 130 217 203 365 38 77 73 151 77 165 4 14 18 45 30 70 80 157 144 349 248 735 60 221 88 373 107 580 5 50 14 137 21 195 17 138 17 1093 0 1270 -43 462 -88 699 -192 1005 -11 33 -28 91 -39 128 -10 37 -23 73 -28 80 -6 7 -18 39 -27 72 -10 33 -28 81 -41 107 -13 26 -24 53 -24 59 0 22 -92 220 -164 354 -54 102 -113 209 -136 248 -14 24 -45 79 -70 122 -119 206 -429 554 -680 764 -41 34 -85 71 -97 83 -12 11 -53 39 -90 63 -38 24 -80 53 -95 65 -15 11 -42 26 -60 32 -18 6 -45 19 -59 29 -14 10 -47 23 -73 29 -26 6 -64 19 -85 29 -20 11 -65 27 -100 36 -34 9 -76 22 -94 30 -63 27 -323 76 -457 85 -185 13 -1021 13 -1260 0 -107 -6 -319 -17 -470 -26 -185 -10 -456 -14 -825 -14 -528 1 -683 6 -990 29 -335 26 -402 32 -435 41 -19 5 -105 16 -190 25 -85 9 -198 25 -250 35 -52 10 -133 24 -180 30 -47 6 -116 20 -155 30 -38 10 -99 24 -135 30 -36 7 -92 20 -125 30 -33 10 -96 27 -140 38 -89 23 -219 61 -310 91 -33 11 -80 27 -105 35 -25 8 -83 29 -130 46 -47 18 -112 42 -145 54 -33 12 -71 28 -85 36 -26 16 -65 31 -190 75 -41 15 -82 33 -90 40 -8 7 -34 22 -57 34 -71 36 -285 195 -342 255 -38 39 -39 40 -60 27z"/><path d="M6682 7102 c-11 -29 17 -60 71 -80 56 -21 118 -58 152 -91 11 -10 31 -24 45 -31 35 -19 86 -59 235 -187 225 -193 387 -364 444 -469 12 -21 35 -59 51 -84 162 -248 270 -491 344 -775 50 -188 78 -559 57 -739 -28 -239 -44 -337 -70 -426 -58 -194 -91 -292 -126 -365 -13 -27 -30 -66 -39 -85 -33 -72 -99 -188 -155 -270 -31 -47 -62 -97 -68 -111 -35 -83 -300 -370 -459 -499 -81 -66 -173 -130 -186 -130 -6 0 -41 -24 -80 -52 -39 -29 -89 -62 -111 -73 -86 -42 -104 -114 -24 -100 23 4 62 8 87 8 91 -1 1088 0 2735 1 l1690 1 95 26 c151 43 291 104 377 167 17 12 34 22 38 22 45 0 272 210 342 317 16 23 58 86 94 140 81 122 134 211 144 242 4 12 18 39 31 58 13 20 24 41 24 47 0 6 9 29 21 51 27 51 64 155 98 280 15 55 30 105 34 111 3 6 13 55 22 110 10 54 25 132 36 172 45 178 46 841 0 1048 -10 49 -24 123 -31 164 -26 169 -146 525 -216 640 -12 19 -25 45 -29 58 -10 34 -110 195 -174 282 -31 41 -65 88 -75 105 -48 74 -270 272 -378 336 -24 14 -70 41 -103 61 -33 20 -76 39 -95 43 -19 4 -45 13 -57 21 -13 8 -64 26 -115 41 l-93 27 -2289 1 c-1901 0 -2289 -2 -2294 -13z"/></g></symbol></defs></svg>
 <header class="nav">
   <div class="wrap nav-inner">
     <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
@@ -210,7 +210,7 @@
         <article class="step rv" style="--d:240ms"><span class="label">04 · Monthly</span><h3>Measure &amp; improve</h3><p>Check the numbers, then build the next thing.</p></article>
       </div>
       <div class="nums rv">
-        <div class="num"><b data-count="5">5</b><p>companies on our AI Designer Agent</p></div>
+        <div class="num"><b data-count="10">10</b><p>companies on our AI Designer Agent</p></div>
         <div class="num"><b>24<small>/7</small></b><p>chatbots answering customers</p></div>
         <div class="num"><b data-count="7">7</b><p>services under one roof</p></div>
         <div class="num"><b><span data-count="30">30</span><small>min</small></b><p>free AI audit to start</p></div>
@@ -284,26 +284,42 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   var hasIO = 'IntersectionObserver' in window;
-  var root = document.documentElement;
   function clamp(v) { return Math.max(0, Math.min(1, v)); }
   function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
   function back(t) { var c = 1.4; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }
 
-  // Build a layered logo: n copies of the mark along Z, packed under a pixel apart so the side reads as one smooth
-  // surface (wider gaps or big angles show the layers as spikes); the back ones are darker so the edge reads as depth
-  function layered(el, n) {
-    var html = '<div class="spin">';
-    for (var i = 0; i < n; i++) {
-      var front = i === n - 1, k = i / (n - 1);
-      var fill = front ? 'url(#face)' : 'rgb(' + Math.round(3 + 4 * k) + ',' + Math.round(8 + 12 * k) + ',' + Math.round(24 + 30 * k) + ')';
-      html += '<svg class="ly' + (front ? ' front' : '') + '" style="--i:' + i + '" viewBox="0 0 1458 1008" fill="' + fill + '"><use href="#mk"/></svg>';
-    }
-    el.innerHTML = html + '</div><span class="floor"></span>';
-    el.style.setProperty('--n', n);
-    return el.querySelector('.spin');
+  // The logo is drawn once into a canvas: a dark silhouette stamped 1px at a time for the depth, then the navy face.
+  // One bitmap is all the phone has to move, instead of dozens of full-size layers.
+  var mark = document.getElementById('mk').innerHTML;
+  function svgImage(fill, defs) {
+    var img = new Image();
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1458 1008" width="1458" height="1008">' + (defs || '') + '<g fill="' + fill + '">' + mark + '</g></svg>');
+    return (img.decode ? img.decode() : new Promise(function (r) { img.onload = r; })).then(function () { return img; });
   }
-  var spinA = layered(document.getElementById('logoA'), 30);
-  var logoB = document.getElementById('logoB'), spinB = layered(logoB, 30);
+  var images = Promise.all([
+    svgImage('url(#f)', '<defs><linearGradient id="f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a3d74"/><stop offset=".42" stop-color="#0f2258"/><stop offset="1" stop-color="#0b1b46"/></linearGradient></defs>'),
+    svgImage('#050d26'), svgImage('#1d3170')
+  ]);
+  function layer(img, w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(img, 0, 0, w, h); return c; }
+  function logo(el) {
+    el.innerHTML = '<div class="tilt"><div class="sway"><div class="spin"><canvas></canvas></div></div></div><span class="floor"></span>';
+    if (reduce) el.classList.add('still');
+    return { el: el, tilt: el.querySelector('.tilt'), spin: el.querySelector('.spin'), cv: el.querySelector('canvas') };
+  }
+  function paint(L) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W = Math.round(L.el.offsetWidth * dpr), H = Math.round(L.el.offsetHeight * dpr);
+    if (!W || L.cv.width === W) return;
+    images.then(function (im) {
+      var depth = Math.round(W * .03), fw = Math.round(W * .955), fh = Math.round(fw * 1008 / 1458);
+      var x0 = (W - fw - depth * .35) / 2, y0 = (H - fh - depth) / 2;
+      var side = layer(im[1], fw, fh), rim = layer(im[2], fw, fh);
+      L.cv.width = W; L.cv.height = H;
+      var g = L.cv.getContext('2d');
+      for (var i = depth; i >= 1; i--) g.drawImage(i === 1 ? rim : side, x0 + i * .35, y0 + i);
+      g.drawImage(im[0], x0, y0, fw, fh);
+    });
+  }
+  var A = logo(document.getElementById('logoA')), B = logo(document.getElementById('logoB'));
 
   // Reveal on scroll
   document.querySelectorAll('.stagger > *, .reveal-text').forEach(function (el) { el.classList.add('rv'); });
@@ -315,62 +331,60 @@
 
   // Intro geometry: where the logo starts (screen centre) and where it lands (the slot in the hero)
   var intro = document.getElementById('intro'), pin = document.getElementById('pin'), fly = document.getElementById('fly');
-  var slot = document.getElementById('slot'), chips = document.querySelectorAll('.chip'), logoA = document.getElementById('logoA');
+  var slot = document.getElementById('slot'), chips = document.querySelectorAll('.chip'), outro = document.getElementById('outro');
+  var brand = document.querySelector('.nav .brand'), word = document.querySelector('.wordmark'), hint = document.querySelector('.hint');
+  var copy = document.querySelectorAll('.copy > *');
   var geo = {};
   function measure() {
-    var pr = pin.getBoundingClientRect(), sr = slot.getBoundingClientRect(), fr = logoA.getBoundingClientRect();
-    var sx = sr.left + sr.width / 2 - pr.left, sy = sr.top + sr.height / 2 - pr.top;
-    geo = { cx: pr.width / 2, cy: pr.height / 2, sx: sx, sy: sy, sc: sr.width / logoA.offsetWidth,
-            rx: sr.width * .78, ry: sr.height * .95, half: pr.width / 2,
+    var pr = pin.getBoundingClientRect(), sr = slot.getBoundingClientRect();
+    geo = { cx: pr.width / 2, cy: pr.height / 2, sx: sr.left + sr.width / 2 - pr.left, sy: sr.top + sr.height / 2 - pr.top,
+            sc: sr.width / A.el.offsetWidth, rx: sr.width * .78, ry: sr.height * .95, half: pr.width / 2,
             cw: [].map.call(chips, function (c) { return [c.offsetWidth, c.offsetHeight]; }) };
+    paint(A); paint(B);
+    update();
   }
 
-  var pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-  if (fine) addEventListener('pointermove', function (e) { pointer.tx = e.clientX / innerWidth - .5; pointer.ty = e.clientY / innerHeight - .5; }, { passive: true });
-
-  var visA = true, visB = false, t0 = performance.now();
-  function frame(now) {
-    var t = (now - t0) / 1000;
-    pointer.x += (pointer.tx - pointer.x) * .06; pointer.y += (pointer.ty - pointer.y) * .06;
-
-    if (visA) {
-      var r = intro.getBoundingClientRect(), p = reduce ? 1 : clamp(-r.top / (r.height - innerHeight));
+  // Everything below only runs when the page scrolls or the mouse moves; idle motion is the CSS .sway animation
+  var mx = 0, my = 0;
+  function update() {
+    ticking = false;
+    var vh = innerHeight, r = intro.getBoundingClientRect();
+    if (r.bottom > 0) {
+      var p = reduce ? 1 : clamp(-r.top / (r.height - vh));
       var a = ease(clamp(p / .45)), b = clamp((p - .3) / .35), c = clamp((p - .42) / .35);
-      root.style.setProperty('--nb', clamp((a - .85) * 7));
-      pin.style.setProperty('--a', a); pin.style.setProperty('--b', b); pin.style.setProperty('--c', c);
-      var x = (geo.sx - geo.cx) * a, y = (geo.sy - geo.cy) * a, s = 1 + (geo.sc - 1) * a;
-      fly.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')';
-      var ry = (1 - a) * Math.sin(t * .7) * 18 + a * (-10 + pointer.x * 14) + Math.sin(a * Math.PI) * 14;
-      var rx = (1 - a) * Math.sin(t * .5) * 6 + a * (5 - pointer.y * 10);
-            spinA.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      brand.style.opacity = clamp((a - .85) * 7);
+      fly.style.transform = 'translate(' + (geo.sx - geo.cx) * a + 'px,' + (geo.sy - geo.cy) * a + 'px) scale(' + (1 + (geo.sc - 1) * a) + ')';
+      A.spin.style.transform = 'rotateY(' + (Math.sin(a * Math.PI) * 16 - a * 6) + 'deg)';
+      word.style.opacity = 1 - a * 3; word.style.transform = 'scale(' + (1 + a * .25) + ')';
+      hint.style.opacity = 1 - a * 4;
+      copy.forEach(function (el, k) { var o = clamp(c * 1.6 - k * .2); el.style.opacity = o; el.style.transform = 'translateY(' + (1 - o) * 30 + 'px)'; });
       var eb = back(b);
       chips.forEach(function (ch, i) {
         var ang = (i / chips.length) * Math.PI * 2 - Math.PI / 2 + (1 - b) * 1.2;
-        var bob = Math.sin(t * 1.4 + i) * 5 * b;
         var rxi = Math.min(geo.rx, geo.half - geo.cw[i][0] / 2 - 12);  // keep every chip on screen
-        var px = geo.sx + Math.cos(ang) * rxi * eb - geo.cw[i][0] / 2;
-        var py = geo.sy + Math.sin(ang) * geo.ry * eb - geo.cw[i][1] / 2 + bob;
-        ch.style.transform = 'translate(' + px + 'px,' + py + 'px) scale(' + (.4 + .6 * b) + ')';
+        ch.style.opacity = b;
+        ch.style.transform = 'translate(' + (geo.sx + Math.cos(ang) * rxi * eb - geo.cw[i][0] / 2) + 'px,' + (geo.sy + Math.sin(ang) * geo.ry * eb - geo.cw[i][1] / 2) + 'px) scale(' + (.4 + .6 * b) + ')';
       });
     }
-    if (visB) {
-      var rb = logoB.getBoundingClientRect(), q = reduce ? 1 : clamp((innerHeight - rb.top) / (innerHeight * .75));
-      spinB.style.transform = 'rotateX(' + ((1 - q) * 10 + 5) + 'deg) rotateY(' + ((1 - q) * -18 + Math.sin(t * .7) * 8 + pointer.x * 12) + 'deg)';
+    var rb = outro.getBoundingClientRect();
+    if (rb.top < vh && rb.bottom > 0) {
+      var q = reduce ? 1 : clamp((vh - rb.top) / (vh * .75));
+      B.spin.style.transform = 'rotateX(' + (1 - q) * 14 + 'deg) rotateY(' + (1 - q) * -28 + 'deg)';
     }
-    if (visA || visB) requestAnimationFrame(frame); else running = false;
   }
-  var running = false;
-  function kick() { if (!running && (visA || visB)) { running = true; requestAnimationFrame(frame); } }
-  measure(); addEventListener('resize', measure);
+  var ticking = false;
+  function request() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  addEventListener('scroll', request, { passive: true });
+  var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 150); });
+  measure();
   if (document.fonts) document.fonts.ready.then(measure);
-  if (hasIO) {
-    new IntersectionObserver(function (es) { es.forEach(function (e) {
-      if (e.target === intro) visA = e.isIntersecting; else visB = e.isIntersecting;
-    }); kick(); }).observe(intro);
-    var ob = new IntersectionObserver(function (es) { visB = es[0].isIntersecting; kick(); });
-    ob.observe(document.getElementById('outro'));
-  }
-  kick();
+
+  // Mouse tilt (desktop only): eased by a CSS transition, so no animation loop is needed
+  if (fine && !reduce) addEventListener('pointermove', function (e) {
+    mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5;
+    var t = 'rotateY(' + mx * 14 + 'deg) rotateX(' + -my * 10 + 'deg)';
+    A.tilt.style.transform = t; B.tilt.style.transform = t;
+  }, { passive: true });
 
   // Service tiles tilt a little toward the cursor
   if (fine && !reduce) document.querySelectorAll('.tile').forEach(function (tile) {
