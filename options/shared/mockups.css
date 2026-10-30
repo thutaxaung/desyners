@@ -3,7 +3,7 @@
 .mock {
   --m-bg: linear-gradient(140deg, #e7efff, #f7faff 60%, #e9f3ff);
   --m-card: #fff; --m-ink: #0b1b46; --m-mute: #8a97b5; --m-line: #e3eaf7; --m-blue: #0a5cf0; --m-sky: #6aaef5;
-  position: relative; width: 100%; height: 100%; min-height: 100%; aspect-ratio: 16 / 10;
+  position: relative; width: 100%; height: auto; aspect-ratio: 16 / 10;  /* never stretch: every part is laid out in cqw for 16:10 */
   container-type: inline-size; overflow: hidden; background: var(--m-bg); color: var(--m-ink);
   font-family: Inter, system-ui, sans-serif;
 }
@@ -15,7 +15,7 @@
 .mock:not(.play) * { animation-play-state: paused !important; }
 
 /* 1 · Content: phone with a post, likes popping, reach bubbles */
-.m-content .phone { left: 30cqw; top: 6cqw; width: 30cqw; height: 58cqw; border-radius: 4.4cqw; padding: 2.4cqw 2cqw; background: #0b1b46; transform: rotate(-4deg); }
+.m-content .phone { left: 31cqw; top: 4.5cqw; width: 27.5cqw; height: 53cqw; border-radius: 4.4cqw; padding: 2.4cqw 2cqw; background: #0b1b46; transform: rotate(-4deg); }
 .m-content .screen { width: 100%; height: 100%; border-radius: 3cqw; background: #fff; padding: 2cqw; overflow: hidden; }
 .m-content .who { display: flex; align-items: center; gap: 1.4cqw; margin-bottom: 1.6cqw; }
 .m-content .av { width: 4.4cqw; height: 4.4cqw; border-radius: 50%; background: linear-gradient(135deg, var(--m-blue), var(--m-sky)); }
@@ -27,7 +27,7 @@
 .m-content .bub { position: absolute; padding: 1.4cqw 2cqw; border-radius: 99cqw; background: #fff; font-size: 2.2cqw; font-weight: 800; box-shadow: 0 1.2cqw 3cqw rgba(11,27,70,.16); animation: m-rise 3.2s ease-out infinite; }
 .m-content .b1 { left: 64cqw; top: 22cqw; color: var(--m-blue); }
 .m-content .b2 { left: 12cqw; top: 36cqw; color: #ef4466; animation-delay: -1.6s; }
-.m-content .reel { left: 66cqw; top: 36cqw; width: 18cqw; height: 24cqw; transform: rotate(8deg); background: linear-gradient(160deg, #6aaef5, #0a5cf0); display: grid; place-items: center; }
+.m-content .reel { left: 66cqw; top: 33cqw; width: 18cqw; height: 24cqw; transform: rotate(8deg); background: linear-gradient(160deg, #6aaef5, #0a5cf0); display: grid; place-items: center; }
 .m-content .reel i { width: 0; height: 0; border-left: 4cqw solid #fff; border-top: 2.4cqw solid transparent; border-bottom: 2.4cqw solid transparent; margin-left: 1cqw; }
 @keyframes m-shine { 0%, 40% { transform: translateX(-100%); } 70%, 100% { transform: translateX(100%); } }
 @keyframes m-heart { 0%, 55% { transform: scale(1); } 62% { transform: scale(1.45); } 70% { transform: scale(.9); } 78%, 100% { transform: scale(1); } }
@@ -66,12 +66,12 @@
 
 /* 4 · Website: browser, product grid, cursor clicks Buy, cart pops */
 .m-web .br { left: 10cqw; right: 10cqw; top: 5cqw; bottom: 4cqw; overflow: hidden; }
-.m-web .wbar { display: flex; align-items: center; gap: .9cqw; padding: 1.6cqw 2cqw; border-bottom: .15cqw solid var(--m-line); }
+.m-web .wbar { display: flex; align-items: center; gap: .9cqw; padding: 1.8cqw 3cqw 1.6cqw 2cqw; border-bottom: .15cqw solid var(--m-line); }
 .m-web .wbar i { width: 1.4cqw; height: 1.4cqw; border-radius: 50%; background: #f87171; } .m-web .wbar i:nth-child(2) { background: #fbbf24; } .m-web .wbar i:nth-child(3) { background: #34d399; }
 .m-web .url { flex: 1; margin-left: 1.6cqw; padding: .8cqw 1.6cqw; border-radius: 99cqw; background: #f1f5fd; font-size: 1.7cqw; color: var(--m-mute); }
 .m-web .cart { position: relative; width: 3.4cqw; height: 3.4cqw; color: var(--m-ink); }
 .m-web .cart svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; }
-.m-web .cart em { position: absolute; right: -1cqw; top: -1cqw; min-width: 2.4cqw; height: 2.4cqw; border-radius: 99cqw; background: var(--m-blue); color: #fff; font: 800 1.5cqw/2.4cqw Inter, sans-serif; text-align: center; font-style: normal; animation: m-badge 4.5s infinite; }
+.m-web .cart em { position: absolute; right: -1.2cqw; top: -.9cqw; min-width: 2.4cqw; height: 2.4cqw; border-radius: 99cqw; background: var(--m-blue); color: #fff; font: 800 1.5cqw/2.4cqw Inter, sans-serif; text-align: center; font-style: normal; animation: m-badge 4.5s infinite; }
 .m-web .whero { margin: 2.4cqw; height: 13cqw; border-radius: 1.8cqw; background: linear-gradient(120deg, #0a5cf0, #6aaef5); padding: 2.6cqw; color: #fff; }
 .m-web .whero b { display: block; font-size: 3cqw; letter-spacing: -.02em; } .m-web .whero span { font-size: 1.8cqw; opacity: .85; }
 .m-web .wgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8cqw; margin: 0 2.4cqw; }

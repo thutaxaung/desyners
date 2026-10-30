@@ -71,7 +71,7 @@
   .roi .out p { opacity: .9; font-size: 18px; } .roi .out .yr { font-size: 22px; font-weight: 800; }
 
   /* Lens: before / after AI */
-  .lens { position: relative; aspect-ratio: 16 / 9; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 70px rgba(10,60,160,.18); cursor: none; --x: -400px; --y: -400px; }
+  .lens { position: relative; aspect-ratio: 16 / 10; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 70px rgba(10,60,160,.18); cursor: none; --x: -400px; --y: -400px; }
   .lens .layer { position: absolute; inset: 0; }
   .before { background: #fffdf6; padding: 4%; font-family: "Comic Sans MS", "Marker Felt", cursive; color: #44403c; }
   .before .sheet { position: absolute; left: 4%; top: 8%; width: 56%; height: 78%; background: #fff; border: 1px solid #e5e1d8; box-shadow: 0 6px 16px rgba(0,0,0,.08); transform: rotate(-2deg); display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; }
@@ -119,7 +119,7 @@
     .rope-wrap { height: auto; } .rope-wrap svg { display: none; }
     .rope-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .hang { position: relative; width: auto; margin: 0; left: auto !important; top: auto !important; } .hang::before { display: none; }
-    .lens { aspect-ratio: 4 / 3; } .lens .ring { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
+    .lens .ring { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
     .after { -webkit-mask-image: radial-gradient(circle 110px at var(--x) var(--y), #000 97%, transparent 100%); mask-image: radial-gradient(circle 110px at var(--x) var(--y), #000 97%, transparent 100%); }
     .loops { height: 180px; }
     .svc-detail { display: none; }
@@ -338,7 +338,7 @@
   </div>
 </footer>
 
-<nav class="switcher" aria-label="Design options"><a href="../i/" data-opt="i"><b>I</b><span> · Services</span></a><a href="../h/" data-opt="h"><b>H</b><span> · Launch</span></a><a href="../a/" data-opt="a"><b>A</b><span> · Chrome</span></a><a href="../b/" data-opt="b"><b>B</b><span> · Neural</span></a><a href="../c/" data-opt="c"><b>C</b><span> · Glass</span></a><a href="../e/" data-opt="e"><b>E</b><span> · Nights</span></a><a href="../f/" data-opt="f"><b>F</b><span> · Assembly</span></a><a href="../g/" data-opt="g"><b>G</b><span> · Stickers</span></a></nav>
+<nav class="switcher" aria-label="Design options"><a href="../m/" data-opt="m"><b>M</b><span> · Into the Logo</span></a><a href="../l/" data-opt="l"><b>L</b><span> · Logo First</span></a><a href="../k/" data-opt="k"><b>K</b><span> · 24 Hours</span></a><a href="../j/" data-opt="j"><b>J</b><span> · Before/After</span></a><a href="../i/" data-opt="i"><b>I</b><span> · Services</span></a><a href="../h/" data-opt="h"><b>H</b><span> · Launch</span></a><a href="../a/" data-opt="a"><b>A</b><span> · Chrome</span></a><a href="../b/" data-opt="b"><b>B</b><span> · Neural</span></a><a href="../c/" data-opt="c"><b>C</b><span> · Glass</span></a><a href="../e/" data-opt="e"><b>E</b><span> · Nights</span></a><a href="../f/" data-opt="f"><b>F</b><span> · Assembly</span></a><a href="../g/" data-opt="g"><b>G</b><span> · Stickers</span></a></nav>
 <script>document.querySelector('.switcher [data-opt="' + document.body.dataset.opt + '"]').classList.add('on');</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

@@ -20,6 +20,10 @@
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .new { font-style: normal; font-size: 12px; vertical-align: middle; margin-left: 6px; padding: 3px 8px; border-radius: 99px; background: #c8962a; color: #fff; letter-spacing: .04em; }
   .e .shot { background: #10224f; }
+  .m .shot { background: radial-gradient(circle at 42% 52%, #f4f7fd 0 12%, #0b1b46 13% 40%, #f4f7fd 41%); } .m .shot span { color: #0a5cf0; text-shadow: none; }
+  .l .shot { background: radial-gradient(circle at 50% 50%, #0a5cf0 0 16%, #9cc8ff 17% 22%, #eef4ff 23%); } .l .shot span { color: #fff; text-shadow: none; }
+  .k .shot { background: linear-gradient(90deg, #0b1b46 0 45%, #dbe8ff 55%); } .k .shot span { color: #0a5cf0; text-shadow: none; }
+  .j .shot { background: linear-gradient(90deg, #6b7280 0 50%, #0a5cf0 50%); } .j .shot span { color: #fff; text-shadow: none; }
   .i .shot { background: radial-gradient(circle at 50% 50%, #2f7bff 0 18%, #e6efff 19% 60%, #f6f9ff 61%); } .i .shot span { color: #fff; text-shadow: none; }
   .h .shot { background: radial-gradient(circle at 50% 45%, #fff, #cfdcfb 70%); } .h .shot span { color: #0a5cf0; text-shadow: none; }
   .f .shot { background: radial-gradient(circle at 70% 40%, #2f7bff, #dfe9ff 70%); }
@@ -47,8 +51,32 @@
   <div class="wrap">
     <p class="eyebrow">Desyners · Redesign</p>
     <h1>Pick a design direction</h1>
-    <p class="lead">Eight complete versions of the site, each with its own 3D centrepiece and animation style. Services are shown as animated product mockups (always sharp), and every design now uses high-resolution Myanmar photos — pagodas, Bagan, Yangon streets, tea shops, markets and thanaka. Open each one and scroll all the way down — the switcher at the bottom of every page jumps between them.</p>
+    <p class="lead">Complete versions of the site, each with its own look and animation style. Services are shown as animated product mockups (always sharp) and the photos come from the Desyners company profile. Open each one and scroll all the way down — the switcher at the bottom of every page jumps between them.</p>
     <div class="grid">
+      <a class="opt m" href="m/">
+        <div class="shot"><span>M</span></div>
+        <div class="body"><h2>Into the Logo <em class="new">New · Fast</em></h2><p>The navy logo draws itself, then you scroll straight through it into the site.</p>
+          <ul><li>The logo outline traces itself, fills in navy, and DESYNERS appears letter by letter</li><li>Scrolling zooms into the notch of the "D", where a tiny version of the site is already waiting, then grows to full size</li><li>The logo stays a sharp vector at every size</li><li>Services as cards that stack on top of each other as you scroll</li></ul>
+          <span class="go">Open option M →</span></div>
+      </a>
+      <a class="opt l" href="l/">
+        <div class="shot"><span>L</span></div>
+        <div class="body"><h2>Logo First <em class="new">New · Fast</em></h2><p>The Desyners logo comes first and scroll carries it into the page.</p>
+          <ul><li>A solid navy 3D logo turns slowly on an almost empty screen (pure CSS, no 3D engine)</li><li>As you scroll it turns and flies into the hero</li><li>The 7 services shoot out from behind it; the headline arrives; the small nav logo appears as it lands</li><li>Services in a bento grid with animated previews; the logo reassembles before the contact form</li></ul>
+          <span class="go">Open option L →</span></div>
+      </a>
+      <a class="opt k" href="k/">
+        <div class="shot"><span>K</span></div>
+        <div class="body"><h2>24 Hours <em class="new">New · Fast</em></h2><p>Follows one customer message through a full day: each hour shows one of the 7 services at work.</p>
+          <ul><li>11:47 PM: a customer asks on Messenger and the chatbot answers and takes the order</li><li>A frame stays on screen while you scroll: the clock decodes to each new time and night turns to day</li><li>All 7 services with every sub-item, each on its own hour</li><li>Who we serve: the company photos slide sideways as you scroll down</li><li>The 4 steps as a route that draws itself across a dot grid</li></ul>
+          <span class="go">Open option K →</span></div>
+      </a>
+      <a class="opt j" href="j/">
+        <div class="shot"><span>J</span></div>
+        <div class="body"><h2>Before &amp; After <em class="new">New · Fast</em></h2><p>Tells the story in the order a buyer thinks: the problem, proof, services, how it works, then the ask.</p>
+          <ul><li>Hero: drag to compare the late-night paperwork photo with the team photo</li><li>Every photo turned into a blue duotone so they read as one brand</li><li>Owners' real complaints with the painful words blacked out until you read them</li><li>The 7 services on a wheel you spin; "I want this one" fills in the contact form</li><li>The 4 steps drawn as loops that light up as you scroll; a chapter label follows you</li></ul>
+          <span class="go">Open option J →</span></div>
+      </a>
       <a class="opt i" href="i/">
         <div class="shot"><span>I</span></div>
         <div class="body"><h2>Services First <em class="new">New · Fast</em></h2><p>Light and quick to load, built around your services sheet.</p>

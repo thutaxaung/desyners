@@ -35,10 +35,10 @@
   .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
   .slide-ui { position: absolute; z-index: 2; right: max(16px, (100vw - 1200px) / 2); top: 110px; text-align: right; color: #fff; }
   .slide-ui b { display: block; font-family: "Syne"; font-size: 20px; } .slide-ui .my { color: var(--sky); font-size: 15px; }
-  .bars { display: flex; gap: 6px; justify-content: flex-end; margin-top: 12px; }
-  .bars i { width: 34px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.25); overflow: hidden; position: relative; }
-  .bars i::after { content: ""; position: absolute; inset: 0; background: #fff; transform: scaleX(0); transform-origin: 0 50%; }
-  .bars i.done::after { transform: scaleX(1); } .bars i.on::after { animation: barfill 5.5s linear forwards; }
+  .pbars { display: flex; gap: 6px; justify-content: flex-end; margin-top: 12px; }
+  .pbars i { width: 34px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.25); overflow: hidden; position: relative; }
+  .pbars i::after { content: ""; position: absolute; inset: 0; background: #fff; transform: scaleX(0); transform-origin: 0 50%; }
+  .pbars i.done::after { transform: scaleX(1); } .pbars i.on::after { animation: barfill 5.5s linear forwards; }
   @keyframes barfill { to { transform: scaleX(1); } }
 
   /* Zoom portal */
@@ -59,7 +59,7 @@
   .sv-item h3 { font-family: "Syne"; font-size: clamp(28px, 3.4vw, 48px); letter-spacing: -0.03em; margin: 4px 0 6px; }
   .sv-item p { color: var(--muted); max-width: 36ch; }
   .sv-item .mob { display: none; margin-top: 16px; border-radius: 20px; overflow: hidden; }
-  .sv-stage { position: sticky; top: 18vh; height: min(64vh, 520px); perspective: 1200px; }
+  .sv-stage { position: sticky; top: 18vh; align-self: start; aspect-ratio: 16 / 10; perspective: 1200px; }
   .sv-stage .mock { position: absolute; inset: 0; height: 100%; border-radius: 28px; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5); opacity: 0; transform: rotateY(-18deg) translateZ(-80px) scale(.94); transition: opacity .6s, transform .8s cubic-bezier(.2,.7,.2,1); }
   .sv-stage .mock.on { opacity: 1; transform: none; }
 
@@ -112,7 +112,7 @@
   <section class="hero">
     <div class="fallback"></div>
     <canvas id="stage" aria-hidden="true"></canvas>
-    <div class="slide-ui" aria-hidden="true"><b id="place">Yangon skyline</b><span class="my" id="place-my">ရန်ကုန်မြို့</span><div class="bars"><i></i><i></i><i></i><i></i></div></div>
+    <div class="slide-ui" aria-hidden="true"><b id="place">Yangon skyline</b><span class="my" id="place-my">ရန်ကုန်မြို့</span><div class="pbars"><i></i><i></i><i></i><i></i></div></div>
     <div class="wrap hero-copy">
       <p class="my my-tag">မြန်မာလုပ်ငန်းများအတွက် AI Marketing</p>
       <h1><span class="ln"><span>AI for</span></span><span class="ln"><span>Myanmar</span></span><span class="ln"><span>business.</span></span></h1>
@@ -286,7 +286,7 @@
   </div>
 </footer>
 
-<nav class="switcher" aria-label="Design options"><a href="../i/" data-opt="i"><b>I</b><span> · Services</span></a><a href="../h/" data-opt="h"><b>H</b><span> · Launch</span></a><a href="../a/" data-opt="a"><b>A</b><span> · Chrome</span></a><a href="../b/" data-opt="b"><b>B</b><span> · Neural</span></a><a href="../c/" data-opt="c"><b>C</b><span> · Glass</span></a><a href="../e/" data-opt="e"><b>E</b><span> · Nights</span></a><a href="../f/" data-opt="f"><b>F</b><span> · Assembly</span></a><a href="../g/" data-opt="g"><b>G</b><span> · Stickers</span></a></nav>
+<nav class="switcher" aria-label="Design options"><a href="../m/" data-opt="m"><b>M</b><span> · Into the Logo</span></a><a href="../l/" data-opt="l"><b>L</b><span> · Logo First</span></a><a href="../k/" data-opt="k"><b>K</b><span> · 24 Hours</span></a><a href="../j/" data-opt="j"><b>J</b><span> · Before/After</span></a><a href="../i/" data-opt="i"><b>I</b><span> · Services</span></a><a href="../h/" data-opt="h"><b>H</b><span> · Launch</span></a><a href="../a/" data-opt="a"><b>A</b><span> · Chrome</span></a><a href="../b/" data-opt="b"><b>B</b><span> · Neural</span></a><a href="../c/" data-opt="c"><b>C</b><span> · Glass</span></a><a href="../e/" data-opt="e"><b>E</b><span> · Nights</span></a><a href="../f/" data-opt="f"><b>F</b><span> · Assembly</span></a><a href="../g/" data-opt="g"><b>G</b><span> · Stickers</span></a></nav>
 <script>document.querySelector('.switcher [data-opt="' + document.body.dataset.opt + '"]').classList.add('on');</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -409,7 +409,7 @@ if (renderer) {
   scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
   const size = (t) => new THREE.Vector2(t.image.width, t.image.height);
   let cur = 0;
-  const bars = document.querySelectorAll('.bars i'), place = document.getElementById('place'), placeMy = document.getElementById('place-my');
+  const bars = document.querySelectorAll('.pbars i'), place = document.getElementById('place'), placeMy = document.getElementById('place-my');
   const setUI = (k) => { bars.forEach((b, i) => { b.classList.toggle('done', i < k); b.classList.remove('on'); }); void bars[k].offsetWidth; bars[k].classList.add('on'); place.textContent = slides[k][1]; placeMy.textContent = slides[k][2]; };
   const show = (k) => { u.uA.value = tex[cur]; u.uImgA.value = size(tex[cur]); u.uB.value = tex[k]; u.uImgB.value = size(tex[k]); u.uP.value = 1; cur = k; setUI(k);
     const t0 = performance.now(); (function step(){ const p = Math.min((performance.now() - t0) / 1600, 1); u.uP.value = 1 - p * p * (3 - 2 * p); if (p < 1) requestAnimationFrame(step); })(); };

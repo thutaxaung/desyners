@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desyners — Option M · Through the Logo</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/mockups.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  /* The navy logo draws itself, then scroll flies you into the notch of the "D". The site is already sitting inside
+     that notch, small, and grows to full size as you arrive. The zoom changes the SVG's viewBox, so the logo is
+     re-drawn as a vector every frame and stays razor sharp at any size. No 3D, no libraries. */
+  :root { --bg: #f4f7fd; --ink: #0b1b46; --r: 22px; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  .label { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); }
+  .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+  .js .rv.in { opacity: 1; transform: none; }
+  .btn, .member, .form, .form input, .form select, .form textarea { border-radius: 14px; }
+  .js .nav { opacity: var(--nb, 1); pointer-events: var(--np, auto); transition: opacity .3s; }
+
+  /* ---------- Intro ---------- */
+  .intro { height: 280vh; position: relative; }
+  .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--bg); }
+  .zoom { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+  .zoom path { fill: var(--ink); }
+  .js .zoom.draw path { fill-opacity: 0; stroke: var(--ink); stroke-width: 50; stroke-dasharray: 1; stroke-dashoffset: 1; animation: trace 1.8s cubic-bezier(.6,0,.3,1) forwards, fill .6s ease 1.5s forwards; }
+  @keyframes trace { to { stroke-dashoffset: 0; } }
+  @keyframes fill { to { fill-opacity: 1; stroke-width: 0; } }
+  .word { position: absolute; left: 50%; top: calc(50% + var(--lh, 200px) / 2 + 34px); translate: -50% 0; z-index: 3; text-align: center; pointer-events: none; opacity: calc(1 - var(--p, 0) * 6); }
+  .word b { display: block; font-size: clamp(22px, 3.2vw, 38px); font-weight: 900; letter-spacing: .5em; padding-left: .5em; color: var(--ink); white-space: nowrap; }
+  @media (max-width: 560px) { .word b { letter-spacing: .32em; padding-left: .32em; } }
+  .word b span { display: inline-block; opacity: 0; transform: translateY(14px); animation: up .6s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(1.5s + var(--i) * 60ms); }
+  @keyframes up { to { opacity: 1; transform: none; } }
+  .word small { display: block; margin-top: 12px; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--blue); opacity: 0; animation: up .6s ease 2.1s forwards; }
+  .hint { position: absolute; left: 50%; bottom: 26px; translate: -50% 0; z-index: 3; display: grid; justify-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--muted); opacity: calc(1 - var(--p, 0) * 8); }
+  .hint i { width: 2px; height: 38px; background: linear-gradient(var(--blue), transparent); animation: drip 1.6s ease-in-out infinite; transform-origin: top; }
+  @keyframes drip { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+  /* The page inside the notch: a full-size hero, scaled down and placed on the notch by the script */
+  .inside { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1; transform-origin: 0 0; will-change: transform; }
+  .inside .wrap { height: 100%; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-top: 40px; }
+  .inside h1 { font-size: clamp(46px, 6.6vw, 96px); font-weight: 900; letter-spacing: -0.05em; line-height: .93; margin: 14px 0 22px; }
+  .inside .lead { color: var(--muted); font-size: clamp(17px, 1.5vw, 19px); max-width: 42ch; margin-bottom: 28px; }
+  .inside .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .svcs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .svcs a { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-weight: 700; font-size: 15px; transition: transform .3s, border-color .3s; }
+  .svcs a:hover { transform: translateY(-3px); border-color: var(--blue); }
+  .svcs a b { width: 30px; height: 30px; flex: none; border-radius: 9px; display: grid; place-items: center; background: var(--ink); color: #fff; font: 700 11px/1 var(--mono); }
+  .svcs a:last-child { grid-column: span 2; background: var(--ink); color: #fff; border-color: var(--ink); }
+  .svcs a:last-child b { background: var(--blue); }
+
+  /* ---------- Services: cards that stack as you scroll (.scard, because the mockups use .card inside) ---------- */
+  .stack { display: grid; gap: 24px; }
+  .scard { position: sticky; top: calc(96px + var(--i) * 14px); display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(20px, 4vw, 48px); align-items: center; padding: clamp(22px, 3vw, 36px); border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: 0 -10px 40px rgba(11,27,70,.06), 0 20px 40px rgba(11,27,70,.08); min-height: min(560px, 76svh); }
+  .scard:nth-child(even) { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .scard:nth-child(even) p, .scard:nth-child(even) li { color: #c5d3f2; }
+  .scard:nth-child(even) .label { color: #8fb6ff; }
+  .scard .label { display: block; margin-bottom: 14px; }
+  .scard h3 { font-size: clamp(26px, 3.2vw, 42px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 12px; }
+  .scard p { color: var(--muted); margin-bottom: 18px; }
+  .scard ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .scard li { padding-left: 24px; position: relative; font-weight: 600; font-size: 15.5px; }
+  .scard li::before { content: ""; position: absolute; left: 0; top: .62em; width: 12px; height: 2px; background: var(--blue); }
+  .scard .vis { border-radius: 18px; overflow: hidden; }
+
+  /* ---------- Ways + steps ---------- */
+  .duo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel { padding: clamp(24px, 3vw, 36px); border-radius: 28px; background: #fff; border: 1px solid var(--line); }
+  .panel h3 { font-size: 26px; margin: 10px 0 18px; letter-spacing: -0.02em; }
+  .li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .li b { font: 700 13px/1.6 var(--mono); color: var(--blue); }
+  .li strong { display: block; font-size: 17px; } .li span { color: var(--muted); font-size: 15px; }
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 16px; border-radius: 28px; background: var(--ink); color: #fff; }
+  .num { padding: 28px 24px; } .num + .num { border-left: 1px solid rgba(255,255,255,.12); }
+  .num b { display: block; font-size: clamp(40px, 4.6vw, 64px); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+  .num b small { font-size: .45em; color: #8fb6ff; margin-left: 3px; }
+  .num p { margin-top: 8px; color: #b9c8ea; font-size: 15px; }
+  .member img { border-radius: 14px; }
+
+  @media (max-width: 900px) {
+    .inside .wrap { grid-template-columns: 1fr; align-content: center; gap: 24px; padding-top: 70px; }
+    .inside h1 { margin: 8px 0 12px; } .inside .lead { margin-bottom: 18px; font-size: 16px; }
+    .svcs a { padding: 9px 10px; font-size: 13px; } .svcs a b { width: 24px; height: 24px; font-size: 10px; }
+    .scard { grid-template-columns: 1fr; top: calc(80px + var(--i) * 10px); min-height: 0; }
+    .duo-grid { grid-template-columns: 1fr; }
+    .nums { grid-template-columns: 1fr 1fr; } .num:nth-child(3) { border-left: 0; } .num:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); }
+  }
+  @media (max-width: 560px) { .inside .ctas .btn-ghost { display: none; } .scard ul { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .js .zoom.draw path { animation: none; fill-opacity: 1; stroke-width: 0; } .word b span, .word small { animation: none; opacity: 1; transform: none; } }
+</style>
+</head>
+<body data-opt="m">
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
+    <nav class="nav-links"><a href="#services">Services</a><a href="#how">How it works</a><a href="#team">Team</a></nav>
+    <a href="#contact" class="btn">Book free audit</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="intro" id="intro">
+    <div class="pin" id="pin">
+      <div class="inside" id="inside">
+        <div class="wrap">
+          <div>
+            <p class="label">AI marketing agency · Yangon</p>
+            <h1>Grow smarter <span class="grad">with AI.</span></h1>
+            <p class="lead">Content, chatbots, automation, websites, design, training &amp; software — one team, in one place.</p>
+            <div class="ctas"><a href="#contact" class="btn">Book my free AI audit</a><a href="#services" class="btn btn-ghost">See all 7 services</a></div>
+          </div>
+          <nav class="svcs" aria-label="Services">
+            <a href="#s1"><b>01</b>AI Content</a><a href="#s2"><b>02</b>Chatbots</a><a href="#s3"><b>03</b>Automation</a><a href="#s4"><b>04</b>Websites</a><a href="#s5"><b>05</b>Branding</a><a href="#s6"><b>06</b>AI Training</a><a href="#s7"><b>07</b>Software &amp; ERP</a>
+          </nav>
+        </div>
+      </div>
+      <svg class="zoom draw" id="zoom" viewBox="0 0 1458 1008" preserveAspectRatio="none" aria-label="Desyners logo" role="img"><g transform="translate(0.000000,1008.000000) scale(0.100000,-0.100000)"><path pathLength="1" d="M5111 9881 c-20 -13 -16 -1109 4 -1202 45 -199 129 -416 205 -529 9 -14 34 -52 55 -85 21 -33 44 -64 50 -70 7 -5 34 -35 61 -66 73 -83 274 -249 301 -249 6 0 27 -13 48 -30 21 -16 43 -30 50 -30 7 0 28 -11 47 -24 20 -13 53 -29 74 -36 22 -7 55 -21 74 -31 51 -26 183 -69 268 -85 62 -12 462 -14 2580 -14 l2507 0 90 -26 c93 -27 122 -37 240 -84 39 -15 95 -38 125 -50 30 -12 64 -30 75 -40 11 -10 34 -25 51 -33 36 -19 255 -232 340 -332 75 -88 102 -124 190 -256 61 -92 97 -159 205 -384 10 -22 25 -58 33 -80 8 -22 23 -65 34 -95 42 -117 72 -228 82 -302 5 -43 19 -112 30 -155 81 -316 78 -1152 -5 -1468 -13 -49 -26 -112 -29 -140 -4 -27 -24 -99 -45 -160 -22 -60 -47 -132 -57 -160 -18 -53 -147 -318 -192 -396 -15 -26 -40 -69 -55 -95 -15 -27 -41 -67 -58 -89 -16 -22 -47 -65 -68 -95 -46 -66 -123 -153 -171 -194 -19 -17 -70 -65 -112 -107 -77 -77 -200 -159 -318 -215 -108 -50 -147 -65 -222 -84 -205 -52 39 -50 -4268 -49 -3822 1 -4562 6 -4765 28 -257 28 -445 61 -612 107 -29 7 -79 21 -110 30 -133 36 -283 87 -315 108 -13 8 -43 20 -68 26 -25 7 -58 20 -75 30 -16 10 -48 23 -70 30 -22 7 -52 21 -66 31 -14 10 -38 21 -55 25 -70 16 -246 114 -361 201 -37 29 -85 65 -106 80 -112 82 -307 268 -377 360 -142 185 -141 184 -167 181 l-25 -3 1 -590 c1 -324 4 -619 7 -655 11 -140 27 -238 50 -313 13 -43 24 -86 24 -96 0 -9 11 -39 25 -67 13 -27 31 -68 39 -92 9 -24 25 -55 36 -69 11 -14 20 -30 20 -36 0 -18 83 -141 148 -220 72 -86 216 -214 332 -294 14 -9 34 -25 45 -34 27 -24 276 -149 296 -149 9 0 59 -15 110 -33 l94 -32 5395 0 5395 0 60 23 c33 13 85 30 115 38 30 9 69 24 85 34 17 10 48 23 70 30 22 7 56 24 75 36 19 13 39 24 43 24 17 0 157 88 284 178 261 186 594 538 738 782 17 28 44 73 60 100 95 154 130 217 203 365 38 77 73 151 77 165 4 14 18 45 30 70 80 157 144 349 248 735 60 221 88 373 107 580 5 50 14 137 21 195 17 138 17 1093 0 1270 -43 462 -88 699 -192 1005 -11 33 -28 91 -39 128 -10 37 -23 73 -28 80 -6 7 -18 39 -27 72 -10 33 -28 81 -41 107 -13 26 -24 53 -24 59 0 22 -92 220 -164 354 -54 102 -113 209 -136 248 -14 24 -45 79 -70 122 -119 206 -429 554 -680 764 -41 34 -85 71 -97 83 -12 11 -53 39 -90 63 -38 24 -80 53 -95 65 -15 11 -42 26 -60 32 -18 6 -45 19 -59 29 -14 10 -47 23 -73 29 -26 6 -64 19 -85 29 -20 11 -65 27 -100 36 -34 9 -76 22 -94 30 -63 27 -323 76 -457 85 -185 13 -1021 13 -1260 0 -107 -6 -319 -17 -470 -26 -185 -10 -456 -14 -825 -14 -528 1 -683 6 -990 29 -335 26 -402 32 -435 41 -19 5 -105 16 -190 25 -85 9 -198 25 -250 35 -52 10 -133 24 -180 30 -47 6 -116 20 -155 30 -38 10 -99 24 -135 30 -36 7 -92 20 -125 30 -33 10 -96 27 -140 38 -89 23 -219 61 -310 91 -33 11 -80 27 -105 35 -25 8 -83 29 -130 46 -47 18 -112 42 -145 54 -33 12 -71 28 -85 36 -26 16 -65 31 -190 75 -41 15 -82 33 -90 40 -8 7 -34 22 -57 34 -71 36 -285 195 -342 255 -38 39 -39 40 -60 27z"/><path pathLength="1" d="M6682 7102 c-11 -29 17 -60 71 -80 56 -21 118 -58 152 -91 11 -10 31 -24 45 -31 35 -19 86 -59 235 -187 225 -193 387 -364 444 -469 12 -21 35 -59 51 -84 162 -248 270 -491 344 -775 50 -188 78 -559 57 -739 -28 -239 -44 -337 -70 -426 -58 -194 -91 -292 -126 -365 -13 -27 -30 -66 -39 -85 -33 -72 -99 -188 -155 -270 -31 -47 -62 -97 -68 -111 -35 -83 -300 -370 -459 -499 -81 -66 -173 -130 -186 -130 -6 0 -41 -24 -80 -52 -39 -29 -89 -62 -111 -73 -86 -42 -104 -114 -24 -100 23 4 62 8 87 8 91 -1 1088 0 2735 1 l1690 1 95 26 c151 43 291 104 377 167 17 12 34 22 38 22 45 0 272 210 342 317 16 23 58 86 94 140 81 122 134 211 144 242 4 12 18 39 31 58 13 20 24 41 24 47 0 6 9 29 21 51 27 51 64 155 98 280 15 55 30 105 34 111 3 6 13 55 22 110 10 54 25 132 36 172 45 178 46 841 0 1048 -10 49 -24 123 -31 164 -26 169 -146 525 -216 640 -12 19 -25 45 -29 58 -10 34 -110 195 -174 282 -31 41 -65 88 -75 105 -48 74 -270 272 -378 336 -24 14 -70 41 -103 61 -33 20 -76 39 -95 43 -19 4 -45 13 -57 21 -13 8 -64 26 -115 41 l-93 27 -2289 1 c-1901 0 -2289 -2 -2294 -13z"/></g></svg>
+      <div class="word" aria-hidden="true"><b><span style="--i:0">D</span><span style="--i:1">E</span><span style="--i:2">S</span><span style="--i:3">Y</span><span style="--i:4">N</span><span style="--i:5">E</span><span style="--i:6">R</span><span style="--i:7">S</span></b><small>GROW SMARTER WITH AI</small></div>
+      <div class="hint" aria-hidden="true">SCROLL<i></i></div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <p class="label rv">Services</p>
+      <h2 class="h2 rv">Seven ways we <span class="grad">grow your business.</span></h2>
+      <div class="stack">
+        <article class="scard" id="s1" style="--i:0"><div><span class="label">01 · Content</span><h3>AI Content &amp; Social Media Marketing</h3><p>Stay visible and consistent online — content made with AI, in your brand's voice.</p><ul><li>Monthly content packages — posts, captions &amp; creatives</li><li>Facebook ad campaign management</li><li>Video &amp; reels creation</li><li>Content strategy &amp; planning</li><li>AI clone videos with accurate Burmese voice &amp; tone</li></ul></div><div class="vis"><div class="mock m-content" aria-hidden="true">
+  <div class="card reel"><i></i></div>
+  <div class="card phone"><div class="screen"><div class="who"><span class="av"></span><div style="flex:1"><div class="sk" style="width:60%;margin-bottom:.8cqw"></div><div class="sk" style="width:35%;height:1cqw"></div></div></div><div class="post">New arrivals ✨</div><div class="acts"><span class="heart"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.2 4.4 2.6l1.2 1.8 1.2-1.8C14 6.2 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg></span>248 <span style="color:#8a97b5;font-weight:600">· 36 shares</span></div><div class="sk" style="width:90%;margin-bottom:.8cqw"></div><div class="sk" style="width:70%"></div></div></div>
+  <div class="bub b1">+1.2K reach</div><div class="bub b2">♥ 248</div>
+</div></div></article>
+        <article class="scard" id="s2" style="--i:1"><div><span class="label">02 · Chatbots</span><h3>AI Chatbots &amp; Customer Service Automation</h3><p>Answer, take orders and follow up 24/7, automatically.</p><ul><li>Facebook Messenger chatbots</li><li>Viber &amp; Telegram bots</li><li>Website chat widgets</li><li>Automated order-taking &amp; customer follow-up</li></ul></div><div class="vis"><div class="mock m-chat dark" aria-hidden="true">
+  <div class="card win"><div class="top"><span class="av"></span><div>Desyners Bot<small>● Online · replies instantly</small></div></div>
+  <div class="msgs"><div class="msg u">Do you deliver to Mandalay?</div><div class="msg b typing"><i></i><i></i><i></i></div><div class="msg b">Yes! 2–3 days. Shall I take your order?</div><div class="msg u">2 boxes please 🙏</div><div class="msg b typing"><i></i><i></i><i></i></div><div class="msg b"><span class="ok">✓ Order #1042 confirmed.</span> We'll message you when it ships.</div></div></div>
+</div></div></article>
+        <article class="scard" id="s3" style="--i:2"><div><span class="label">03 · Automation</span><h3>AI Workflows &amp; Agentic Automation</h3><p>Put repetitive work on autopilot with workflows and AI agents.</p><ul><li>Business process automation (n8n, Make, Zapier)</li><li>Autonomous AI agents for sales, support &amp; operations</li><li>Custom workflow design &amp; consulting</li><li>Integration with your existing tools (CRM, sheets, ERP)</li></ul></div><div class="vis"><div class="mock m-flow" aria-hidden="true">
+  <div class="wire"></div><div class="fpulse"></div>
+  <div class="frow"><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><b>New message</b><span>Messenger</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div><b>AI replies</b><span>in Burmese</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div><b>Order saved</b><span>Google Sheets</span></div><div class="node"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div><b>Team notified</b><span>Viber</span></div></div>
+  <div class="card count">Tasks automated this month: <b data-to="1284" data-tick="1">0</b></div>
+</div></div></article>
+        <article class="scard" id="s4" style="--i:3"><div><span class="label">04 · Websites</span><h3>Website Development</h3><p>Websites built to win trust and turn visitors into customers.</p><ul><li>Business websites</li><li>Portfolio websites</li><li>E-commerce &amp; online store websites</li><li>Landing pages for campaigns</li><li>Website maintenance &amp; hosting support</li></ul></div><div class="vis"><div class="mock m-web dark" aria-hidden="true">
+  <div class="card br"><div class="wbar"><i></i><i></i><i></i><span class="url">yourshop.com</span><span class="cart"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><em>2</em></span></div>
+  <div class="whero"><b>Shop the new collection</b><span>Free delivery in Yangon</span></div>
+  <div class="wgrid"><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div><div class="prod"><div class="img"></div><div class="sk"></div><div class="buy">Buy</div></div></div></div>
+  <div class="wcursor"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#0b1b46" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+</div></div></article>
+        <article class="scard" id="s5" style="--i:4"><div><span class="label">05 · Branding</span><h3>Branding &amp; Design</h3><p>Look professional and memorable everywhere customers see you.</p><ul><li>Logo &amp; brand identity packages</li><li>Social media graphics &amp; templates</li><li>Company profiles &amp; brochures</li><li>Product packaging design</li></ul></div><div class="vis"><div class="mock m-brand" aria-hidden="true">
+  <div class="card bc"><div class="flip"><div class="face front"><span class="mk"></span></div><div class="face back"><b>Your Brand</b><span>hello@yourbrand.com</span><span>09 000 000 000</span></div></div></div>
+  <div class="sw"><i></i><i></i><i></i><i></i></div>
+  <div class="card type"><b>Aa</b><div><div class="sk" style="margin-bottom:1cqw"></div><span>Primary typeface · Bold</span></div></div>
+</div></div></article>
+        <article class="scard" id="s6" style="--i:5"><div><span class="label">06 · Training</span><h3>AI Training &amp; Workshops</h3><p>Practical AI skills for Myanmar business owners and teams.</p><ul><li>AI Diploma program for business owners</li><li>Corporate team workshops</li><li>1-on-1 coaching for owners</li><li>Online courses</li></ul></div><div class="vis"><div class="mock m-train dark" aria-hidden="true">
+  <div class="card slide"><small>LESSON 3 OF 8</small><b>AI for your business</b><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="prog"><i></i></div></div>
+  <div class="people"><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span></div>
+  <div class="card cert"><span class="medal">★</span><b>AI Diploma</b><span>Certificate of completion</span></div>
+</div></div></article>
+        <article class="scard" id="s7" style="--i:6"><div><span class="label">07 · Software</span><h3>SaaS &amp; Digital Solutions</h3><p>The right software for your business, with full setup support.</p><ul><li>ChatGPT, Claude &amp; leading AI tool subscriptions</li><li>Design tools (Canva Pro &amp; more)</li><li>Our own custom-built SaaS products</li><li>Custom ERP implementation</li><li>Other digital products — setup &amp; onboarding included</li></ul></div><div class="vis"><div class="mock m-dash" aria-hidden="true">
+  <div class="card app"><div class="side"><i></i><i></i><i></i><i></i></div><div class="main">
+    <div class="kpis"><div class="kpi"><span>Sales (MMK)</span><b data-to="18400000">0</b></div><div class="kpi"><span>Orders</span><b data-to="642">0</b><em>+18%</em></div><div class="kpi"><span>Stock items</span><b data-to="1290">0</b></div></div>
+    <div class="charts"><div class="bars"><i style="height:45%"></i><i style="height:62%"></i><i style="height:38%"></i><i style="height:74%"></i><i style="height:58%"></i><i style="height:86%"></i><i style="height:95%"></i></div>
+    <div class="lchart"><svg viewBox="0 0 120 70" preserveAspectRatio="none"><defs><linearGradient id="m-area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0a5cf0" stop-opacity=".25"/><stop offset="1" stop-color="#0a5cf0" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0,58 C15,52 22,40 36,44 S58,22 72,28 S98,10 120,6 L120,70 L0,70Z"/><path d="M0,58 C15,52 22,40 36,44 S58,22 72,28 S98,10 120,6"/></svg></div></div>
+  </div></div>
+</div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how" style="padding-top:0">
+    <div class="wrap">
+      <p class="label rv">How we work</p>
+      <h2 class="h2 rv">Simple to start. <span class="grad">Easy to grow.</span></h2>
+      <div class="duo-grid">
+        <div class="panel rv"><span class="label">Three ways</span><h3>As hands-on as you want</h3>
+          <div class="li"><b>01</b><div><strong>Done for you</strong><span>We build it, run it and report every month.</span></div></div>
+          <div class="li"><b>02</b><div><strong>Done with you</strong><span>We build it together so your team owns it.</span></div></div>
+          <div class="li"><b>03</b><div><strong>Training</strong><span>Workshops, the AI Diploma and 1:1 coaching.</span></div></div></div>
+        <div class="panel rv" style="--d:80ms"><span class="label">Four steps</span><h3>From first call to results</h3>
+          <div class="li"><b>30m</b><div><strong>Free AI audit</strong><span>What AI can take off your plate first.</span></div></div>
+          <div class="li"><b>3d</b><div><strong>Clear plan</strong><span>What we build and how we'll measure it.</span></div></div>
+          <div class="li"><b>2–4w</b><div><strong>Build &amp; train</strong><span>We set it up and teach your team.</span></div></div>
+          <div class="li"><b>↺</b><div><strong>Measure &amp; improve</strong><span>Every month, then build the next thing.</span></div></div></div>
+      </div>
+      <div class="nums rv">
+        <div class="num"><b data-count="5">5</b><p>companies on our AI Designer Agent</p></div>
+        <div class="num"><b>24<small>/7</small></b><p>chatbots answering customers</p></div>
+        <div class="num"><b data-count="7">7</b><p>services under one roof</p></div>
+        <div class="num"><b><span data-count="30">30</span><small>min</small></b><p>free AI audit to start</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="team">
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h2 class="h2 reveal-text">The people behind <span class="grad">Desyners</span></h2>
+      <div class="team stagger">
+        <div class="member"><img src="../../assets/zwe-htet-zaw.jpg" alt="Zwe Htet Zaw" loading="lazy"><div><h3>Zwe Htet Zaw</h3><p class="role">Founder</p><p>Also runs an engineering company — 6 years hands-on.</p></div></div>
+        <div class="member"><img src="../../assets/min-khant-soe.jpg" alt="Min Khant Soe" loading="lazy"><div><h3>Min Khant Soe</h3><p class="role">Senior AI Developer · SoeMindAI</p><p>AIT Master's in Data Science &amp; AI · AI lead at Brooker Group PLC.</p></div></div>
+        <div class="member"><img src="../../assets/ye-htet-zaw.jpg" alt="Ye Htet Zaw" loading="lazy"><div><h3>Ye Htet Zaw</h3><p class="role">Co-founder</p><p>IT background · leads systems and implementation.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Free · 30 minutes · No sales pitch</p>
+        <h2 class="h2">Get your free <span class="grad">AI Audit</span></h2>
+        <p class="muted">We'll show you what AI can take off your plate first.</p>
+        <div class="contact-lines">
+          <a href="tel:+959795757666"><span>Call</span>09 795 757 666</a>
+          <a href="tel:+959782405066"><span>Call</span>09 782 405 066</a>
+          <a href="https://m.me/desynersdotcom" target="_blank" rel="noopener"><span>Messenger</span>Message us →</a>
+        </div>
+      </div>
+      <form class="form" action="https://formsubmit.co/ajax/desyners.mm@gmail.com" method="post" novalidate>
+        <input type="hidden" name="_subject" value="New AI Audit request from desyners.io">
+        <input type="hidden" name="_template" value="table">
+        <h3>Leave your details — we'll call you back</h3>
+        <label>Your name *<input name="name" required maxlength="100" autocomplete="name"></label>
+        <label>Phone / Viber *<input name="phone" type="tel" required maxlength="30" autocomplete="tel"></label>
+        <label>Business name<input name="business" maxlength="120" autocomplete="organization"></label>
+        <label>Interested in<select name="service"><option>Free 30-min AI Audit</option><option>AI Content &amp; Social Media</option><option>AI Chatbots</option><option>Automation &amp; AI Agents</option><option>Websites</option><option>Branding &amp; Design</option><option>AI Training</option><option>Software &amp; ERP</option></select></label>
+        <label class="full">What would you like help with?<textarea name="message" rows="3" maxlength="2000"></textarea></label>
+        <label class="hp" aria-hidden="true">Website<input name="_honey" tabindex="-1" autocomplete="off"></label>
+        <div class="form-foot"><button class="btn" type="submit">Call me back</button><p class="form-status" role="status" aria-live="polite"></p></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="mark"></span>DESYNERS</a>
+    <span>AI Marketing Agency · Yangon, Myanmar</span>
+    <div class="links"><a href="https://www.facebook.com/desynersdotcom" target="_blank" rel="noopener">Facebook</a><a href="tel:+959795757666">09 795 757 666</a></div>
+  </div>
+</footer>
+
+<nav class="switcher" aria-label="Design options"><a href="../m/" data-opt="m"><b>M</b><span> · Into the Logo</span></a><a href="../l/" data-opt="l"><b>L</b><span> · Logo First</span></a><a href="../k/" data-opt="k"><b>K</b><span> · 24 Hours</span></a><a href="../j/" data-opt="j"><b>J</b><span> · Before/After</span></a><a href="../i/" data-opt="i"><b>I</b><span> · Services</span></a><a href="../h/" data-opt="h"><b>H</b><span> · Launch</span></a><a href="../f/" data-opt="f"><b>F</b><span> · Assembly</span></a><a href="../g/" data-opt="g"><b>G</b><span> · Stickers</span></a><a href="../a/" data-opt="a"><b>A</b><span> · Chrome</span></a><a href="../b/" data-opt="b"><b>B</b><span> · Neural</span></a><a href="../c/" data-opt="c"><b>C</b><span> · Glass</span></a><a href="../e/" data-opt="e"><b>E</b><span> · Nights</span></a></nav>
+<script>document.querySelector('.switcher [data-opt="' + document.body.dataset.opt + '"]').classList.add('on');</script>
+
+
+<script src="../shared/common.js"></script>
+<script src="../shared/mockups.js"></script>
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+  var root = document.documentElement;
+  function clamp(v) { return Math.max(0, Math.min(1, v)); }
+  function smooth(t) { return t * t * (3 - 2 * t); }
+
+  document.querySelectorAll('.stagger > *, .reveal-text').forEach(function (el) { el.classList.add('rv'); });
+  var rvs = document.querySelectorAll('.rv');
+  if (hasIO) {
+    var rio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } }); }, { threshold: .12 });
+    rvs.forEach(function (el) { rio.observe(el); });
+  } else rvs.forEach(function (el) { el.classList.add('in'); });
+
+  // Zoom geometry, in logo units (the logo's viewBox is 1458 x 1008)
+  var LOGO = { x: 727, y: 468, w: 1422 };       // centre and width of the drawn mark
+  var NOTCH = { x: 514, y: 482, r: 290 };       // clear space inside the D's notch
+  var intro = document.getElementById('intro'), pin = document.getElementById('pin');
+  var zoom = document.getElementById('zoom'), inside = document.getElementById('inside');
+  var W, H, k0, kIn, kEnd;
+  function measure() {
+    W = pin.clientWidth; H = pin.clientHeight;
+    var startW = Math.min(560, W * .72);
+    k0 = LOGO.w / startW;                           // logo units per screen pixel at the start
+    kIn = NOTCH.r / (Math.hypot(W, H) / 2 * 1.02);  // the notch just covers the screen: the page is full size here
+    kEnd = kIn / 2.2;                               // keep going a little so the navy edges leave the screen
+    pin.style.setProperty('--lh', (896 / k0) + 'px');   // drawn height of the mark
+    update();
+  }
+
+  function update() {
+    var r = intro.getBoundingClientRect(), p = clamp(-r.top / (r.height - H));
+    pin.style.setProperty('--p', p);
+    if (p > .005 && zoom.classList.contains('draw')) zoom.classList.remove('draw');   // scrolling skips the draw-in
+    var z = smooth(clamp(p / .9));
+    var k = k0 * Math.pow(kEnd / k0, z);          // zoom at a steady rate, so it feels like flying in
+    var m = smooth(clamp(z * 2.2));               // the camera slides from the logo centre to the notch early on
+    var cx = LOGO.x + (NOTCH.x - LOGO.x) * m, cy = LOGO.y + (NOTCH.y - LOGO.y) * m;
+    zoom.setAttribute('viewBox', (cx - W * k / 2) + ' ' + (cy - H * k / 2) + ' ' + (W * k) + ' ' + (H * k));
+    zoom.style.opacity = 1 - clamp((z - .92) / .08);
+    // The hero lives in the notch: same zoom, pinned to the notch's screen position, capped at full size
+    var s = Math.min(1, kIn / k);
+    var nx = (NOTCH.x - cx) / k + W / 2, ny = (NOTCH.y - cy) / k + H / 2;
+    var tx = s < 1 ? nx - W * s / 2 : 0, ty = s < 1 ? ny - H * s / 2 : 0;
+    inside.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+    inside.style.opacity = clamp((p - .04) / .12);
+    var landed = s >= 1 && z > .97;
+    inside.style.pointerEvents = landed ? 'auto' : 'none';
+    root.style.setProperty('--nb', clamp((z - .85) / .12));
+    root.style.setProperty('--np', z > .9 ? 'auto' : 'none');
+  }
+
+  var ticking = false;
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); } }, { passive: true });
+  addEventListener('resize', measure);
+  measure();
+  if (reduce) zoom.classList.remove('draw');
+})();
+</script>
+</body>
+</html>
