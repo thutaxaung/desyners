@@ -58,7 +58,7 @@
   var steps = document.getElementById('steps');
   watch([steps], function (el, on, io) { if (on) { el.classList.add('in'); io && io.unobserve(el); } }, { threshold: .4 });
 
-  // Enquiry form -> FormSubmit (email to desyners.mm@gmail.com). If the service is down or slow, nothing typed is
+  // Enquiry form -> Web3Forms (email to desyners.mm@gmail.com). If the service is down or slow, nothing typed is
   // lost: the visitor gets a ready-to-send email with their details, plus call and Messenger options.
   var form = document.getElementById('form'), status = document.getElementById('status'), btn = form.querySelector('button');
   var fallback = document.getElementById('fallback'), mailto = document.getElementById('mailto');
@@ -78,7 +78,7 @@
     var ctl = window.AbortController ? new AbortController() : null;
     var timeout = ctl && setTimeout(function () { ctl.abort(); }, 15000);   // don't leave people waiting on a stuck service
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && String(j.success) === 'true'; }); })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.success === true; }); })
       .then(function (ok) {
         if (ok) { form.reset(); status.textContent = "Thanks! We'll be in touch soon."; status.className = 'status ok'; }
         else offerFallback();

@@ -232,16 +232,18 @@
           <a href="viber://chat?number=%2B959795757666"><svg viewBox="0 0 24 24"><path d="M12 3c5 0 8 2.5 8 7.5S17 18 12 18l-4 3v-3.5C5.5 16.5 4 14 4 10.5 4 5.5 7 3 12 3z"/></svg>Chat on Viber<span>Viber</span></a>
         </div>
       </div>
-      <form class="rv" id="form" action="https://formsubmit.co/ajax/desyners.mm@gmail.com" method="post" novalidate>
-        <input type="hidden" name="_subject" value="New project idea from desyners.io">
-        <input type="hidden" name="_template" value="table">
+      <form class="rv" id="form" action="https://api.web3forms.com/submit" method="post" novalidate>
+        <!-- Web3Forms delivers to desyners.mm@gmail.com. The access key is public by design: it can only send to that inbox. -->
+        <input type="hidden" name="access_key" value="8d9f47e5-592f-4a92-81c9-5ecb85472324">
+        <input type="hidden" name="subject" value="New project idea from desyners.io">
+        <input type="hidden" name="from_name" value="desyners.io">
         <h3>Your project</h3>
         <p class="sub">Takes a minute. We'll reply with next steps.</p>
         <label>Your name *<input name="name" required maxlength="100" autocomplete="name"></label>
         <label>Phone / Viber *<input name="phone" type="tel" required maxlength="30" autocomplete="tel"></label>
         <label class="full">What do you want to build?<select name="type"><option>Not sure yet</option><option>Mobile app (Android / iOS)</option><option>Website or web app</option><option>ERP system</option><option>School project</option><option>Office tool</option><option>Management tool</option><option>Something else</option></select></label>
         <label class="full">Your idea<textarea name="idea" rows="4" maxlength="3000" placeholder="e.g. An app where parents can see their child's exam results"></textarea></label>
-        <label class="hp" aria-hidden="true">Website<input name="_honey" tabindex="-1" autocomplete="off"></label>
+        <label class="hp" aria-hidden="true">Leave this empty<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label>
         <div class="form-foot"><button class="btn" type="submit">Send my idea</button><p class="status" id="status" role="status" aria-live="polite"></p></div>
         <div class="fallback" id="fallback" hidden>
           <p>Our form service isn't responding right now. Your idea is still here — send it another way:</p>
@@ -261,6 +263,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=3" defer></script>
+<script src="app.js?v=4" defer></script>
 </body>
 </html>
