@@ -292,6 +292,18 @@ textarea { resize: vertical; }
 .fallback .alts { display: flex; flex-wrap: wrap; gap: 8px; }
 .fallback .btn { padding: 11px 16px; font-size: 14px; }
 
+/* Messenger choice sheet (phones only) */
+.sheet { position: fixed; inset: 0; z-index: 100; display: flex; align-items: flex-end; justify-content: center; }
+.sheet[hidden] { display: none; }
+.sheet-bg { position: absolute; inset: 0; background: rgba(10, 25, 64, .45); animation: fadein .25s ease both; }
+.sheet-card { position: relative; width: min(480px, 100%); margin: 0 8px max(8px, env(safe-area-inset-bottom)); padding: 22px 18px 14px; border-radius: 26px; background: #fff; display: grid; gap: 10px; box-shadow: 0 -10px 40px rgba(10, 25, 64, .25); animation: sheetup .35s cubic-bezier(.2, .8, .2, 1) both; }
+.sheet-card h3 { font-size: 22px; }
+.sheet-card p { color: var(--muted); font-size: 15px; margin-bottom: 6px; }
+.sheet-card .btn { justify-content: center; }
+.sheet-card .close { all: unset; text-align: center; padding: 12px; font-weight: 600; color: var(--muted); cursor: pointer; }
+@keyframes fadein { from { opacity: 0; } }
+@keyframes sheetup { from { transform: translateY(40px); opacity: 0; } }
+
 /* Footer */
 footer { padding: 40px 0 48px; }
 footer .wrap { display: flex; align-items: center; gap: 18px 24px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
