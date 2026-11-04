@@ -68,6 +68,14 @@
     document.querySelectorAll('a[href^="https://m.me/"]').forEach(function (a) { a.href = app; a.removeAttribute('target'); });
   }
 
+  // Viber on iPhone: Viber's iOS app refuses chat links for a phone number ("request unavailable"), so iPhones
+  // get the add-contact link instead (tested by the owner), with a label that says what will happen.
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
+    document.querySelectorAll('a[href^="viber://chat"]').forEach(function (a) {
+      a.href = 'viber://add?number=959795757666';
+      a.childNodes.forEach(function (n) { if (n.nodeType === 3 && n.textContent.trim() === 'Chat on Viber') n.textContent = 'Add us on Viber'; });
+    });
+
   // Enquiry form -> Web3Forms (email to desyners.mm@gmail.com). If the service is down or slow, nothing typed is
   // lost: the visitor gets a ready-to-send email with their details, plus call and Messenger options.
   var form = document.getElementById('form'), status = document.getElementById('status'), btn = form.querySelector('button');
