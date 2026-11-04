@@ -201,6 +201,55 @@ section { position: relative; }
 .a-web .chatdot { position: absolute; right: 13%; bottom: 14px; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; box-shadow: 0 8px 18px rgba(31, 94, 255, .4); animation: lift 3s ease-in-out infinite; }
 .a-web .chatdot svg { width: 18px; height: 18px; fill: #fff; }
 
+/* art: ERP — one hub, every department wired in, lighting up in turn */
+.a-erp .wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+.a-erp .wires path { fill: none; stroke: var(--sky); stroke-width: 1.5; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.a-erp .hub { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center; background: linear-gradient(140deg, var(--blue-2), var(--blue-d)); color: #fff; font: 800 15px/1 var(--head); box-shadow: 0 10px 24px rgba(31, 94, 255, .35); }
+.a-erp .mod { position: absolute; left: var(--x); top: var(--y); translate: -50% -50%; padding: 7px 11px; border-radius: 10px; background: #fff; box-shadow: var(--shadow); font-size: 12.5px; font-weight: 700; animation: ping 4s ease-in-out infinite; animation-delay: calc(var(--n) * 1s); }
+@keyframes ping { 0%, 20%, 100% { transform: none; box-shadow: var(--shadow); } 8% { transform: scale(1.08); box-shadow: 0 0 0 4px rgba(31, 94, 255, .25), var(--shadow); } }
+
+/* art: school — a results card filling in */
+.a-school { display: grid; place-items: center; }
+.a-school .report { position: relative; width: min(230px, 82%); padding: 14px 16px; border-radius: 14px; background: #fff; box-shadow: var(--shadow); display: grid; gap: 8px; }
+.a-school .rhead { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: var(--muted); }
+.a-school .rhead b { font: 800 14px/1 var(--head); color: var(--ink); }
+.a-school .rrow { display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; }
+.a-school .rrow i { height: 7px; border-radius: 4px; background: var(--ice); position: relative; overflow: hidden; }
+.a-school .rrow i::after { content: ""; position: absolute; inset: 0; border-radius: 4px; background: linear-gradient(90deg, var(--blue-2), var(--blue)); transform-origin: left; transform: scaleX(var(--w)); animation: fillup 4.5s ease-in-out infinite; animation-delay: calc(var(--n) * .15s); }
+@keyframes fillup { 0% { transform: scaleX(0); } 35%, 100% { transform: scaleX(var(--w)); } }
+.a-school .grade { position: absolute; right: -12px; bottom: -12px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: #fff; font: 800 16px/1 var(--head); box-shadow: 0 6px 14px rgba(18, 161, 80, .35); animation: popin 4.5s ease-in-out infinite; }
+@keyframes popin { 0%, 30% { transform: scale(0); } 40% { transform: scale(1.15); } 46%, 100% { transform: scale(1); } }
+
+/* art: office — a form filled in, then stamped */
+.a-office { display: grid; place-items: center; }
+.a-office .doc { position: relative; width: min(190px, 70%); padding: 14px 16px 18px; border-radius: 12px; background: #fff; box-shadow: var(--shadow); display: grid; gap: 9px; }
+.a-office .doc b { font: 800 13px/1.2 var(--head); }
+.a-office .doc i { height: 7px; border-radius: 4px; background: var(--ice); transform-origin: left; animation: write 5s ease-in-out infinite; animation-delay: calc(var(--n) * .3s); }
+.a-office .doc i.short { width: 60%; }
+@keyframes write { 0% { transform: scaleX(0); } 25%, 100% { transform: scaleX(1); } }
+.a-office .stamp { position: absolute; right: -14px; bottom: 6px; padding: 5px 9px; border: 2.5px solid var(--green); border-radius: 8px; color: var(--green); font: 800 12px/1 var(--head); letter-spacing: .08em; background: rgba(255, 255, 255, .9); rotate: -12deg; animation: stamp 5s ease-in-out infinite; }
+@keyframes stamp { 0%, 42% { transform: scale(1.8); opacity: 0; } 50% { transform: scale(.94); opacity: 1; } 56%, 100% { transform: scale(1); opacity: 1; } }
+
+/* art: management — stock levels, and an alert before it runs out */
+.a-manage .stock { position: absolute; left: 10%; right: 10%; bottom: 22px; height: 96px; display: flex; align-items: flex-end; gap: 12px; }
+.a-manage .stock i { flex: 1; height: var(--h); border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, var(--blue-2), var(--blue)); }
+.a-manage .stock i.low { background: linear-gradient(180deg, #f87171, #dc2626); }
+.a-manage .toast { position: absolute; right: 7%; top: 18px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 12px; background: #fff; color: var(--ink); font-size: 12.5px; font-weight: 700; box-shadow: 0 12px 28px rgba(0, 0, 0, .3); animation: toast 5s ease-in-out infinite; }
+.a-manage .toast b { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: #dc2626; color: #fff; font-size: 12px; }
+@keyframes toast { 0%, 20% { transform: translateX(30px); opacity: 0; } 30%, 85% { transform: none; opacity: 1; } 100% { transform: translateX(30px); opacity: 0; } }
+
+/* art: your idea — a sketch becomes an app */
+.a-idea { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.a-idea .note { width: 104px; padding: 12px; border-radius: 6px; background: #fff7d6; box-shadow: 0 8px 18px rgba(10, 25, 64, .12); rotate: -4deg; display: grid; gap: 7px; }
+.a-idea .note b { font-size: 20px; line-height: 1; }
+.a-idea .note i { height: 6px; border-radius: 3px; background: #e9d48a; }
+.a-idea .note i.short { width: 60%; }
+.a-idea .arrow { width: 52px; flex: none; }
+.a-idea .arrow path { fill: none; stroke: var(--blue); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 5 5; }
+.a-idea .wire { width: 74px; height: 128px; padding: 18px 8px 8px; border-radius: 16px; background: var(--navy); display: grid; gap: 6px; align-content: start; }
+.a-idea .wire b { height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--blue-2), var(--blue-d)); transform-origin: top; animation: build 4.5s ease infinite; }
+.a-idea .wire i { height: 16px; border-radius: 5px; background: rgba(255, 255, 255, .9); transform-origin: top; animation: build 4.5s ease infinite; animation-delay: calc(var(--n) * .15s + .3s); }
+
 /* ---------- AI section ---------- */
 .ai { background: var(--navy); color: #fff; border-radius: 40px; margin: 0 clamp(0px, 2vw, 24px); overflow: hidden; }
 .ai::before { content: ""; position: absolute; width: 720px; height: 720px; left: -260px; bottom: -340px; border-radius: 50%; background: radial-gradient(closest-side, rgba(79, 134, 255, .35), transparent); pointer-events: none; }
