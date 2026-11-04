@@ -58,14 +58,15 @@
   var steps = document.getElementById('steps');
   watch([steps], function (el, on, io) { if (on) { el.classList.add('in'); io && io.unobserve(el); } }, { threshold: .4 });
 
-  // Messenger on phones: iOS keeps m.me links in Safari (messenger.com) even with the app installed, so on phones
-  // "Message us" opens the Messenger app directly. Android falls back to m.me if the app isn't installed.
+  // Messenger: computers use facebook.com/messages/t/<page id> (m.me ends on "content isn't available" there).
+  // iOS keeps web links in Safari even with the app installed, so on phones "Message us" opens the Messenger app
+  // directly. Android falls back to m.me if the app isn't installed.
   if (matchMedia('(hover: none) and (pointer: coarse)').matches) {
     var id = '100063980744226';
     var app = /Android/i.test(navigator.userAgent)
       ? 'intent://user-thread/' + id + '#Intent;scheme=fb-messenger;package=com.facebook.orca;S.browser_fallback_url=' + encodeURIComponent('https://m.me/' + id) + ';end'
       : 'fb-messenger://user-thread/' + id;
-    document.querySelectorAll('a[href^="https://m.me/"]').forEach(function (a) { a.href = app; a.removeAttribute('target'); });
+    document.querySelectorAll('a[data-messenger]').forEach(function (a) { a.href = app; a.removeAttribute('target'); });
   }
 
   // Viber on iPhone: Viber's iOS app refuses chat links for a phone number ("request unavailable"), so iPhones
