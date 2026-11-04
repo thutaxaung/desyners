@@ -58,6 +58,11 @@
   var steps = document.getElementById('steps');
   watch([steps], function (el, on, io) { if (on) { el.classList.add('in'); io && io.unobserve(el); } }, { threshold: .4 });
 
+  // Messenger: on phones, m.me links must open in the same tab. iPhone Safari skips the hand-off to the
+  // Messenger app for links opened in a new tab, and shows messenger.com instead.
+  if (matchMedia('(hover: none) and (pointer: coarse)').matches)
+    document.querySelectorAll('a[href^="https://m.me/"]').forEach(function (a) { a.removeAttribute('target'); });
+
   // Enquiry form -> Web3Forms (email to desyners.mm@gmail.com). If the service is down or slow, nothing typed is
   // lost: the visitor gets a ready-to-send email with their details, plus call and Messenger options.
   var form = document.getElementById('form'), status = document.getElementById('status'), btn = form.querySelector('button');
