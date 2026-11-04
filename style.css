@@ -38,7 +38,7 @@ p { margin: 0; }
 
 /* Wordmark */
 .brand { display: inline-flex; align-items: center; gap: 10px; font: 800 21px/1 var(--head); letter-spacing: -0.03em; color: var(--navy); }
-.brand i { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(140deg, var(--blue-2), var(--blue-d)); display: grid; place-items: center; color: #fff; font: 800 17px/1 var(--head); font-style: normal; box-shadow: 0 6px 14px rgba(31, 94, 255, .3); }
+.brand svg { width: 44px; height: 28px; fill: var(--navy); flex: none; }
 
 /* Nav */
 .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s, box-shadow .3s; }
@@ -277,7 +277,7 @@ textarea { resize: vertical; }
 footer { padding: 40px 0 48px; }
 footer .wrap { display: flex; align-items: center; gap: 18px 24px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
 footer .brand { margin-right: auto; font-size: 18px; }
-footer .brand i { width: 26px; height: 26px; font-size: 15px; border-radius: 8px; }
+footer .brand svg { width: 38px; height: 24px; }
 footer a:hover { color: var(--ink); }
 
 /* ---------- Responsive ---------- */
