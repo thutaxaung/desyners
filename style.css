@@ -303,7 +303,8 @@ footer a:hover { color: var(--ink); }
 @media (max-width: 1000px) {
   .hero .wrap, .ai .wrap, .faq-grid, .cta .wrap { grid-template-columns: 1fr; }
   .board { max-width: 560px; width: 100%; margin: 0 auto; }
-  .faq-grid .head { position: static; }
+  .faq-grid .head { position: static; margin-bottom: 16px; }
+  .faq-grid { gap: 0; }   /* stacked: the column gap and the heading margin would add up to a big hole */
   .svc, .svc.big { grid-column: span 3; }
   .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
   .steps::before, .steps .fill { display: none; }
