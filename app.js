@@ -58,19 +58,14 @@
   var steps = document.getElementById('steps');
   watch([steps], function (el, on, io) { if (on) { el.classList.add('in'); io && io.unobserve(el); } }, { threshold: .4 });
 
-  // Messenger on phones: iOS often keeps m.me links in Safari (messenger.com) even with the app installed, so
-  // "Message us" offers the app directly (fb-messenger:// on iPhone, an intent link on Android) or the browser.
-  var sheet = document.getElementById('msgsheet');
+  // Messenger on phones: iOS keeps m.me links in Safari (messenger.com) even with the app installed, so on phones
+  // "Message us" opens the Messenger app directly. Android falls back to m.me if the app isn't installed.
   if (matchMedia('(hover: none) and (pointer: coarse)').matches) {
-    var id = '100063980744226', web = 'https://m.me/' + id;
-    if (/Android/i.test(navigator.userAgent))   // Chrome opens the app, or falls back to m.me if it isn't installed
-      document.getElementById('msg-app').href = 'intent://user-thread/' + id + '#Intent;scheme=fb-messenger;package=com.facebook.orca;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
-    document.querySelectorAll('a[href^="https://m.me/"]:not(#msg-web)').forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); sheet.hidden = false; document.getElementById('msg-app').focus(); });
-    });
-    sheet.addEventListener('click', function (e) { if (e.target.hasAttribute('data-close')) sheet.hidden = true; });
-    addEventListener('keydown', function (e) { if (e.key === 'Escape') sheet.hidden = true; });
-    document.getElementById('msg-app').addEventListener('click', function () { setTimeout(function () { sheet.hidden = true; }, 600); });
+    var id = '100063980744226';
+    var app = /Android/i.test(navigator.userAgent)
+      ? 'intent://user-thread/' + id + '#Intent;scheme=fb-messenger;package=com.facebook.orca;S.browser_fallback_url=' + encodeURIComponent('https://m.me/' + id) + ';end'
+      : 'fb-messenger://user-thread/' + id;
+    document.querySelectorAll('a[href^="https://m.me/"]').forEach(function (a) { a.href = app; a.removeAttribute('target'); });
   }
 
   // Enquiry form -> Web3Forms (email to desyners.mm@gmail.com). If the service is down or slow, nothing typed is
