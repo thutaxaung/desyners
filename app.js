@@ -58,22 +58,33 @@
   var steps = document.getElementById('steps');
   watch([steps], function (el, on, io) { if (on) { el.classList.add('in'); io && io.unobserve(el); } }, { threshold: .4 });
 
-  // Enquiry form -> FormSubmit (email to desyners.mm@gmail.com)
+  // Enquiry form -> FormSubmit (email to desyners.mm@gmail.com). If the service is down or slow, nothing typed is
+  // lost: the visitor gets a ready-to-send email with their details, plus call and Messenger options.
   var form = document.getElementById('form'), status = document.getElementById('status'), btn = form.querySelector('button');
+  var fallback = document.getElementById('fallback'), mailto = document.getElementById('mailto');
+  function offerFallback() {
+    var f = form.elements;
+    var body = 'Name: ' + f.name.value.trim() + '\nPhone / Viber: ' + f.phone.value.trim() + '\nWants to build: ' + f.type.value + '\n\nIdea:\n' + f.idea.value.trim();
+    mailto.href = 'mailto:desyners.mm@gmail.com?subject=' + encodeURIComponent('New project idea from desyners.io') + '&body=' + encodeURIComponent(body);
+    status.textContent = "Couldn't send through the form."; status.className = 'status err';
+    fallback.hidden = false;
+  }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.elements.name.value.trim() || !form.elements.phone.value.trim()) {
       status.textContent = 'Please add your name and phone number.'; status.className = 'status err'; return;
     }
-    btn.disabled = true; status.textContent = 'Sending…'; status.className = 'status';
-    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+    btn.disabled = true; status.textContent = 'Sending…'; status.className = 'status'; fallback.hidden = true;
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timeout = ctl && setTimeout(function () { ctl.abort(); }, 15000);   // don't leave people waiting on a stuck service
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && String(j.success) === 'true'; }); })
       .then(function (ok) {
         if (ok) { form.reset(); status.textContent = "Thanks! We'll be in touch soon."; status.className = 'status ok'; }
-        else { status.textContent = "Couldn't send. Please call 09 795 757 666 or message us on Messenger."; status.className = 'status err'; }
+        else offerFallback();
       })
-      .catch(function () { status.textContent = "Couldn't send. Please call 09 795 757 666."; status.className = 'status err'; })
-      .then(function () { btn.disabled = false; });
+      .catch(offerFallback)
+      .then(function () { clearTimeout(timeout); btn.disabled = false; });
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
